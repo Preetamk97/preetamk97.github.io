@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en" x-data="app()" :class="{'dark':dark}" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pritam Ranjan Kalita — Robotics Engineer specializing in control theory, trajectory optimization, and autonomous mobile robots. M.Tech Robotics Engineering, UPES Dehradun.">
+<meta name="keywords" content="Pritam Kalita, robotics, control theory, trajectory optimization, ROS 2, model predictive control, PhD applicant">
+<meta name="author" content="Pritam Ranjan Kalita">
+<meta property="og:title" content="Pritam Ranjan Kalita — Robotics Engineer">
+<meta property="og:description" content="Portfolio of Pritam Ranjan Kalita — robot control, trajectory optimization, and autonomous systems research.">
+<meta property="og:type" content="website">
+<title>Pritam Ranjan Kalita — Robotics Engineer</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { display: ['PT Sans','sans-serif'], body: ['DM Sans','sans-serif'] },
+      colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' }
+    }
+  }
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{font-family:'DM Sans',sans-serif}
+h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif}
+body{transition:background-color .3s,color .3s}
+
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#FF6B2B;border-radius:99px}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+.nl{position:relative}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .22s cubic-bezier(.4,0,.2,1)}
+.nl:hover::after,.nl.on::after{width:100%}
+.nl.on{font-weight:500}
+
+.shimmer,.btn-primary{position:relative;overflow:hidden}
+.shimmer::after,.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .4s cubic-bezier(.4,0,.2,1)}
+.shimmer:hover::after,.btn-primary:hover::after{left:160%}
+
+.pf{overflow:hidden;background:#d4d4d8}
+.pf img{width:100%;height:100%;object-fit:cover;display:block}
+
+.photo-frame{position:relative;overflow:hidden;background:#e4e4e7}
+.photo-frame img{width:100%;height:100%;object-fit:contain;display:block;background:#fff}
+.dark .photo-frame img{background:#18181b}
+
+.card-h{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .18s}
+.card-h:hover{transform:translateY(-4px)}
+
+.tl-line{position:absolute;left:19px;top:2.75rem;bottom:-2rem;width:2px;background:linear-gradient(to bottom,#FF6B2B,transparent)}
+.tl-dot{width:40px;height:40px;border-radius:9999px;background:#FF6B2B;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.skill-tile{transition:transform .25s cubic-bezier(.4,0,.2,1),border-color .2s}
+.skill-tile:hover{transform:translateY(-4px)}
+.skill-icon{width:2.75rem;height:2.75rem;display:flex;align-items:center;justify-content:center}
+.skill-icon img{width:100%;height:100%;object-fit:contain}
+.badge-icon{width:2.75rem;height:2.75rem;border-radius:.65rem;display:flex;align-items:center;justify-content:center;font-family:'PT Sans',sans-serif;font-weight:700;font-size:.9rem;color:#fff;letter-spacing:-0.02em}
+
+.media-tab{transition:background-color .18s,color .18s}
+.img-caption{font-size:.8rem;color:#a1a1aa;text-align:center;margin-top:.6rem}
+video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+
+.type-caret{display:inline-block;margin-left:2px;width:2px;background:#FF6B2B;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.social-icon{width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:rgba(255,255,255,.08);transition:background-color .2s,transform .2s}
+.social-icon:hover{background:#FF6B2B;transform:translateY(-3px)}
+
+[x-cloak]{display:none!important}
+</style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased">
+
+<!-- ═══ NAV ═══ -->
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  :class="sc?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':''">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+
+    <a href="cv.html" class="font-display font-bold text-xl tracking-tight relative z-10">
+      <span class="text-zinc-900 dark:text-white">View</span> <span class="text-accent">CV</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      <ul class="flex items-center gap-8 text-sm" role="list">
+        <li><a href="#about" class="nl transition-colors" :class="s==='about'?'on text-zinc-900 dark:text-white':'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'">About</a></li>
+        <li><a href="#education" class="nl transition-colors" :class="s==='education'?'on text-zinc-900 dark:text-white':'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'">Education</a></li>
+        <li><a href="#experience" class="nl transition-colors" :class="s==='experience'?'on text-zinc-900 dark:text-white':'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'">Experience</a></li>
+        <li><a href="#skills" class="nl transition-colors" :class="s==='skills'?'on text-zinc-900 dark:text-white':'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'">Skills</a></li>
+        <li><a href="#projects" class="nl transition-colors" :class="s==='projects'?'on text-zinc-900 dark:text-white':'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'">Works</a></li>
+        <li><a href="#contact" class="nl transition-colors" :class="s==='contact'?'on text-zinc-900 dark:text-white':'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'">Contact</a></li>
+      </ul>
+      <button @click="dark=!dark" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors" :aria-label="dark?'Light mode':'Dark mode'">
+        <svg x-show="!dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg x-show="dark"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3 md:hidden">
+      <button @click="dark=!dark" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors" :aria-label="dark?'Light mode':'Dark mode'">
+        <svg x-show="!dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg x-show="dark"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+      <button @click="mm=!mm" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800" :aria-expanded="mm" aria-label="Toggle menu">
+        <svg x-show="!mm" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg x-show="mm"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div x-show="mm" x-cloak
+    x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+    class="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900">
+    <ul class="flex flex-col px-6 py-5 gap-4 text-sm font-medium" role="list">
+      <li><a href="#about" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">About</a></li>
+      <li><a href="#education" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Education</a></li>
+      <li><a href="#experience" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Experience</a></li>
+      <li><a href="#skills" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Skills</a></li>
+      <li><a href="#projects" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Works</a></li>
+      <li><a href="#contact" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══ ABOUT (merged hero + intro) ═══ -->
+<section id="about" class="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden scroll-mt-24">
+  <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-200/50 dark:bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 w-full">
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+      <div>
+        <p class="reveal text-sm font-medium text-accent tracking-widest uppercase mb-4">Open to PhD Positions</p>
+        <h1 class="reveal d1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-white mb-4">
+          Hi, I am <span class="text-accent">Pritam </span>!
+        </h1>
+        <p class="reveal d2 text-xl md:text-2xl font-display font-medium text-zinc-700 dark:text-zinc-300 mb-8 min-h-[2em]">
+          I am a <span x-text="typed" class="text-accent font-bold"></span><span class="type-caret" aria-hidden="true">&nbsp;</span>.
+        </p>
+
+        <div class="reveal d3 space-y-4 text-base md:text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl">
+          <p>I'm a Robotics Engineer currently focusing on applications of control theory 
+            and learning algorithms for building autonomous robotic systems that stay safe 
+            and accurate under real-world uncertainty. I'm currently working as a Project 
+            Assistant at the Wearable Robotics &amp; Control Laboratory, 
+            Department of Electrical Engineering, IIT Jodhpur, under the 
+            supervision of <a href="https://sites.google.com/view/sauravkr/home" 
+            target="_blank" rel="noopener noreferrer" class="text-accent underline 
+            underline-offset-2 hover:text-accent-light transition-colors">Dr. Saurav Kumar</a>, 
+            where my research revolves around designing efficient controllers for prosthetic 
+            powered legs and lower-limb exoskeletons.</p>
+          <p>I hold a Master of Technology degree in Robotics Engineering from the University of Petroleum &amp; Energy Studies (UPES), Dehradun, India. My M.Tech thesis develops a Stochastic Nonlinear Model Predictive Control (SNMPC) framework that combines with the existing Regulated Pure Pursuit controller <span class="italic">(Macenski et al.)</span> to let mobile robots adapt their path-tracking behavior to their own localization uncertainty and tracking error relative to the reference path, in real time.</p>
+          <p>My <span class="text-accent">research interests</span> broadly spans across the study and applications 
+            of <span class="text-accent">control theory</span>, <span class="text-accent">sensor fusion</span>, <span class="text-accent">computer vision</span>, <span class="text-accent">localization</span>, and 
+            <span class="text-accent">machine learning</span> algorithms with a focus on <span class="text-accent">powered prostheses</span>, <span class="text-accent">exoskeletons</span>, 
+            and <span class="text-accent">medical robotics</span> — the direction I'd like to pursue in a PhD. 
+            I also love drones, and pretty much anything that flies !</p>
+        </div>
+
+        <div class="reveal d4 flex gap-8 mt-10 pt-8 border-t border-zinc-100 dark:border-zinc-900">
+          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">8.9</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">M.Tech CGPA</p></div>
+          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">2</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Major research projects</p></div>
+          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">3</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Research &amp; industry roles</p></div>
+        </div>
+      </div>
+
+      <div class="reveal d2 flex justify-center md:justify-end md:mt-10">
+        <div class="relative w-72 h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem]">
+          <div class="pf w-full h-full rounded-3xl">
+            <img src="assets/img/profile.jpg" alt="Pritam Ranjan Kalita" loading="eager">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education" class="py-20 md:py-24 bg-zinc-50 dark:bg-zinc-900/40 scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">What I have studied</p>
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white mb-4">Education</h2>
+      <p class="reveal d1 text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed">From mechanical engineering to robotics — the academic path that led to my current research in control theory and autonomous systems.</p>
+    </div>
+
+    <div class="max-w-4xl space-y-8">
+
+      <!-- M.Tech -->
+      <article class="reveal card-h bg-white dark:bg-zinc-900 rounded-2xl p-8 md:p-10 border border-zinc-100 dark:border-zinc-800 hover:border-accent relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Completed</span>
+              <h3 class="font-display font-bold text-2xl md:text-3xl text-zinc-900 dark:text-white mt-3">M.Tech, Robotics Engineering</h3>
+              <p class="text-zinc-500 dark:text-zinc-400 mt-1">University of Petroleum &amp; Energy Studies (UPES), Dehradun, India</p>
+            </div>
+            <span class="text-sm font-medium text-zinc-400 whitespace-nowrap">Aug 2024 - May 2026</span>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
+            <div>
+              <p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">Advisor</p>
+              <p class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Dr. Abhinav Sharma</p>
+            </div>
+            <div>
+              <p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">CGPA</p>
+              <p class="text-sm font-medium text-zinc-800 dark:text-zinc-200">8.9 / 10</p>
+            </div>
+            <div class="sm:col-span-2">
+              <p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">Dissertation</p>
+              <p class="text-sm font-medium text-zinc-800 dark:text-zinc-200">"Uncertainty-Aware Trajectory Optimization and Robust Control for Grid-Based Mobile Robots"</p>
+            </div>
+          </div>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mt-6">
+            My thesis develops a Stochastic Nonlinear Model Predictive Control (SNMPC) framework that adaptively tunes the lookahead distance of a Regulated Pure Pursuit controller, jointly accounting for path-tracking error and localization uncertainty. See <a href="#projects" class="text-accent underline underline-offset-2">Projects</a> below for full results.
+          </p>
+        </div>
+      </article>
+
+      <!-- B.Tech -->
+      <article class="reveal d1 card-h bg-white dark:bg-zinc-900 rounded-2xl p-8 md:p-10 border border-zinc-100 dark:border-zinc-800 hover:border-accent relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Completed</span>
+              <h3 class="font-display font-bold text-2xl md:text-3xl text-zinc-900 dark:text-white mt-3">B.Tech, Mechanical Engineering</h3>
+              <p class="text-zinc-500 dark:text-zinc-400 mt-1">Dibrugarh University Institute of Engineering &amp; Technology, Dibrugarh, India</p>
+            </div>
+            <span class="text-sm font-medium text-zinc-400 whitespace-nowrap">Aug 2016 – May 2020</span>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
+            <div>
+              <p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">CGPA</p>
+              <p class="text-sm font-medium text-zinc-800 dark:text-zinc-200">7.58 / 10</p>
+            </div>
+          </div>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mt-6">
+            My mechanical engineering foundation — mechanics, dynamics, and systems design — underpins how I approach robot modeling and control today, from deriving state-space equations to designing hardware-aware controllers.
+          </p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience" class="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Where I've worked</p>
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white mb-4">Experience</h2>
+      <p class="reveal d1 text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed">Research and industry roles spanning wearable robotics, warehouse automation, and software engineering.</p>
+    </div>
+
+    <div class="max-w-4xl space-y-10">
+
+      <!-- IIT Jodhpur -->
+      <div class="reveal relative pl-[4.5rem]">
+        <div class="tl-line" aria-hidden="true"></div>
+        <div class="absolute left-0 top-0 tl-dot">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <article class="card-h bg-white dark:bg-zinc-900 rounded-2xl p-7 md:p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-2">
+            <div>
+              <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Current</span>
+              <h3 class="font-display font-bold text-xl md:text-2xl text-zinc-900 dark:text-white mt-2">Project Assistant</h3>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Wearable Robotics &amp; Control Laboratory, IIT Jodhpur, India &middot; Supervisor: <a href="https://sites.google.com/view/sauravkr/home" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline underline-offset-2">Dr. Saurav Kumar</a></p>
+            </div>
+            <span class="text-sm font-medium text-zinc-400 whitespace-nowrap">Jul 2026 – Present</span>
+          </div>
+          <ul class="list-disc list-outside ml-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed space-y-1.5 mt-4">
+            <li>Developed technical training documentation on Raspberry Pi 5 and CubeMars AK80-9 V3.0 motor control for onboarding new researchers.</li>
+            <li>Supporting prosthetic-leg and exoskeleton development projects in the laboratory.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- PRD Robotech -->
+      <div class="reveal d1 relative pl-[4.5rem]">
+        <div class="tl-line" aria-hidden="true"></div>
+        <div class="absolute left-0 top-0 tl-dot">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/></svg>
+        </div>
+        <article class="card-h bg-white dark:bg-zinc-900 rounded-2xl p-7 md:p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-2">
+            <div>
+              <h3 class="font-display font-bold text-xl md:text-2xl text-zinc-900 dark:text-white">Robotics and Automation Intern</h3>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">PRD Robotech Solutions Pvt. Ltd., Noida, India &middot; Supervisor: Mr. Prashant Kumar Dwivedi</p>
+            </div>
+            <span class="text-sm font-medium text-zinc-400 whitespace-nowrap">Jan 2026 - Jun 2026</span>
+          </div>
+          <ul class="list-disc list-outside ml-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed space-y-1.5 mt-4">
+            <li>Assisted in developing an obstacle detection and safety feature for a Robot Fleet Management project, preventing collisions between differential-drive robots in a 3-way grid-map warehouse using fused data from two 270&deg; 2D LiDAR scans.</li>
+            <li>Authored a 3-part technical training manual on the ROS 2 Diagnostics package, covering its C++ implementation for monitoring topics, services &amp; actions.</li>
+            <li>Implemented the A* path planning algorithm from scratch as a custom Nav2 global planner plugin, replacing Nav2's default plugin, and tested it on TurtleBot3 with Gazebo Ignition &amp; Cartographer SLAM.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Infosys -->
+      <div class="reveal d2 relative pl-[4.5rem]">
+        <div class="absolute left-0 top-0 tl-dot" style="background:#3f3f46">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        </div>
+        <article class="card-h bg-white dark:bg-zinc-900 rounded-2xl p-7 md:p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-2">
+            <div>
+              <h3 class="font-display font-bold text-xl md:text-2xl text-zinc-900 dark:text-white">Systems Engineer</h3>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Infosys Limited, Bhubaneshwar, India</p>
+            </div>
+            <span class="text-sm font-medium text-zinc-400 whitespace-nowrap">Apr 2022 - Aug 2023</span>
+          </div>
+          <ul class="list-disc list-outside ml-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed space-y-1.5 mt-4">
+            <li>Worked on frontend development of customer websites using HTML, CSS, JavaScript, &amp; React.</li>
+          </ul>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills" class="py-20 md:py-24 bg-zinc-50 dark:bg-zinc-900/40 scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">My Toolbox</p>
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white mb-4">Technical Skills</h2>
+      <p class="reveal d1 text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed">Languages, robotics software, and hardware I use to design, simulate, and deploy control systems.</p>
+    </div>
+
+    <!-- Programming Languages -->
+    <div class="mb-14">
+      <h3 class="reveal font-display font-bold text-2xl text-zinc-900 dark:text-white mb-6">Programming Languages</h3>
+      <div class="reveal d1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/cplusplus.svg" alt="C++ logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">C++</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/python.svg" alt="Python logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Python</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#E16737">M</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">MATLAB</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Software & Frameworks -->
+    <div class="mb-14">
+      <h3 class="reveal font-display font-bold text-2xl text-zinc-900 dark:text-white mb-6">Software &amp; Frameworks</h3>
+      <div class="reveal d1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/ros.svg" alt="ROS logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">ROS 2</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#00587A">N2</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Nav2</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#FF6B2B">Gz</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Gazebo</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#0076A8">Sl</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Simulink</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#4B4B4B">Sc</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Simscape Multibody</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#D2151C">Sw</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">SolidWorks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Development & System Tools -->
+    <div class="mb-14">
+      <h3 class="reveal font-display font-bold text-2xl text-zinc-900 dark:text-white mb-6">Development &amp; System Tools</h3>
+      <div class="reveal d1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/linux.svg" alt="Linux logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Linux</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/git.svg" alt="Git logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Git</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/github.svg" alt="GitHub logo" loading="lazy" class="dark:invert"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">GitHub</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#007ACC">VS</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">VS Code</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Robotics Hardware -->
+    <div class="mb-14">
+      <h3 class="reveal font-display font-bold text-2xl text-zinc-900 dark:text-white mb-6">Robotics Hardware</h3>
+      <div class="reveal d1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/arduino.svg" alt="Arduino logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Arduino Uno</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/raspberrypi.svg" alt="Raspberry Pi logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Raspberry Pi 5</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="badge-icon" style="background:#1F2937">AK</span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">CubeMars AK80-9</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documentation -->
+    <div>
+      <h3 class="reveal font-display font-bold text-2xl text-zinc-900 dark:text-white mb-6">Documentation</h3>
+      <div class="reveal d1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/latex.svg" alt="LaTeX logo" loading="lazy"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">LaTeX</span>
+        </div>
+        <div class="skill-tile bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent rounded-2xl p-6 flex flex-col items-center text-center gap-3">
+          <span class="skill-icon"><img src="assets/icons/markdown.svg" alt="Markdown logo" loading="lazy" class="dark:invert"></span>
+          <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">Markdown</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects" class="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">My Works</p>
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white mb-4">Projects</h2>
+      <p class="reveal d1 text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">Two robotics control projects from my M.Tech: an uncertainty-aware trajectory optimization framework for mobile robots, and an optimal LQR controller for a self-balancing two-wheeled robot.</p>
+      <div class="reveal flex flex-wrap gap-2 mt-6">
+        <a href="#project-snmpc" class="text-sm px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-accent hover:text-accent transition-colors">Trajectory Optimization (Thesis) ↓</a>
+        <a href="#project-segway" class="text-sm px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-accent hover:text-accent transition-colors">Self-Balancing Robot ↓</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 1: SNMPC-RPP THESIS -->
+    <div id="project-snmpc" class="pb-10 scroll-mt-24">
+      <article class="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-100 dark:border-zinc-800 overflow-hidden">
+
+        <div class="p-8 md:p-12 pb-0">
+          <div class="flex flex-wrap items-center gap-3 mb-5">
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">M.Tech Thesis</span>
+            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">Control Theory</span>
+            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">ROS 2 / Gazebo</span>
+            <span class="text-xs text-zinc-400 ml-1">Jan – May 2026</span>
+          </div>
+          <h3 class="reveal font-display font-bold text-3xl md:text-4xl text-zinc-900 dark:text-white leading-tight mb-4">Uncertainty-Aware Trajectory Optimization and Robust Control for Grid-Based Mobile Robots</h3>
+          <p class="reveal d1 text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-3xl mb-6">
+            A Stochastic Nonlinear Model Predictive Control (SNMPC) framework built on top of the Regulated Pure Pursuit (RPP) controller — replacing its heuristic, velocity-based lookahead selection with an optimizer that jointly reasons about path-tracking error and localization uncertainty.
+          </p>
+        </div>
+
+        <div class="reveal d2 px-8 md:px-12" x-data="{ tab: 'traj15' }">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <button @click="tab='traj15'" :class="tab==='traj15' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Trajectory · 1.5 m/s</button>
+            <button @click="tab='ct15'" :class="tab==='ct15' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Cross-Track Error · 1.5 m/s</button>
+            <button @click="tab='traj05'" :class="tab==='traj05' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Trajectory · 0.5 m/s</button>
+            <button @click="tab='ct05'" :class="tab==='ct05' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Cross-Track Error · 0.5 m/s</button>
+            <button @click="tab='env'" :class="tab==='env' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Working Environment</button>
+          </div>
+
+          <div class="photo-frame w-full h-72 md:h-[440px] rounded-2xl border border-zinc-100 dark:border-zinc-800">
+            <img x-show="tab==='traj15'" x-cloak src="assets/img/thesis_trajectory_15ms.png" alt="Mean trajectory overlay for RPP vs SNMPC-RPP at 1.5 m/s" loading="lazy">
+            <img x-show="tab==='ct15'" x-cloak src="assets/img/thesis_crosstrack_15ms.png" alt="Cross-track error comparison at 1.5 m/s" loading="lazy">
+            <img x-show="tab==='traj05'" x-cloak src="assets/img/thesis_trajectory_05ms.png" alt="Mean trajectory overlay for RPP vs SNMPC-RPP at 0.5 m/s" loading="lazy">
+            <img x-show="tab==='ct05'" x-cloak src="assets/img/thesis_crosstrack_05ms.png" alt="Cross-track error comparison at 0.5 m/s" loading="lazy">
+            <img x-show="tab==='env'" x-cloak src="assets/img/thesis_environment.png" alt="Working environment map of the grid-based robot" loading="lazy">
+          </div>
+          <p class="img-caption" x-show="tab==='traj15'" x-cloak>Mean trajectory overlays for RPP (blue) and SNMPC-RPP (red) against the reference path at v = 1.5 m/s — the speed at which uncertainty-aware control matters most.</p>
+          <p class="img-caption" x-show="tab==='ct15'" x-cloak>Cross-track error along the path at 1.5 m/s: SNMPC-RPP (red) cuts peak error roughly in half versus baseline RPP (blue) at each turn.</p>
+          <p class="img-caption" x-show="tab==='traj05'" x-cloak>Mean trajectory overlays at v = 0.5 m/s — both controllers track closely at low speed, where uncertainty accumulates more slowly.</p>
+          <p class="img-caption" x-show="tab==='ct05'" x-cloak>Cross-track error at 0.5 m/s, shown with ±1σ bands across 5 runs per controller.</p>
+          <p class="img-caption" x-show="tab==='env'" x-cloak>The robot operates in a grid-type indoor map with QR-coded nodes for ground-truth position correction, tracking a rectangular reference circuit.</p>
+        </div>
+
+        <div class="reveal d3 px-8 md:px-12 mt-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl p-5 border-l-2 border-accent">
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-white">&minus;40%+</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">Cross-track MAE vs. baseline RPP at 1.5 m/s</p>
+            </div>
+            <div class="bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl p-5 border-l-2 border-accent">
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-white">&minus;50%+</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">RMSE reduction vs. baseline RPP at 1.5 m/s</p>
+            </div>
+            <div class="bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl p-5 border-l-2 border-accent">
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-white">5 Hz</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">Real-time optimization cycle (COBYLA solver)</p>
+            </div>
+            <div class="bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl p-5 border-l-2 border-accent">
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-white">3</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">Operating speeds validated in ROS 2 / Gazebo</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-8 md:p-12 pt-8">
+          <div class="grid md:grid-cols-3 gap-10">
+            <div class="md:col-span-2">
+              <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">About the project</h4>
+              <div class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed space-y-4">
+                <p>The Regulated Pure Pursuit (RPP) controller — a widely used trajectory-tracking algorithm in ROS 2's Nav2 stack — selects its lookahead distance using a simple velocity-based heuristic. This assumes the robot's pose is known perfectly, which breaks down as localization uncertainty (from noisy odometry, IMU drift, and sparse position corrections) grows over time.</p>
+                <p>I designed an SNMPC-RPP controller that replaces only the lookahead-selection module of RPP, leaving the rest of its architecture (velocity regulation, collision checking) untouched. At each 5 Hz control cycle, it predicts lateral and heading tracking error forward in time, propagates the robot's pose-error covariance through that prediction, and solves a constrained optimization (cost function + chance constraints + box constraints on lookahead) using the derivative-free COBYLA method to choose the optimal lookahead distance.</p>
+                <p>Validated in ROS 2 / Gazebo across three operating speeds (0.5, 1.0, and 1.5 m/s) on a rectangular reference circuit, the controller showed its biggest advantage exactly where it matters most: at higher speed, where uncertainty accumulates fastest, SNMPC-RPP reduced cross-track MAE by over 40% and RMSE by over 50% relative to baseline RPP, while keeping the rest of the robot's motion just as smooth.</p>
+              </div>
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">Tools &amp; methods</h4>
+              <div class="flex flex-wrap gap-2 mb-6" role="list" aria-label="Tools used">
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">ROS 2</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Gazebo</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Nav2</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Python</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">C++</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Stochastic MPC</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">COBYLA optimization</span>
+              </div>
+              <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">Advisor</h4>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">Dr. Abhinav Sharma, UPES Dehradun</p>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- PROJECT 2: SEGWAY ROBOT -->
+    <div id="project-segway" class="pt-10 scroll-mt-24">
+      <article class="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-100 dark:border-zinc-800 overflow-hidden">
+
+        <div class="p-8 md:p-12 pb-0">
+          <div class="flex flex-wrap items-center gap-3 mb-5">
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">3rd-Semester Major Project</span>
+            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">Optimal Control</span>
+            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">MATLAB / Simulink</span>
+            <span class="text-xs text-zinc-400 ml-1">Aug – Nov 2025</span>
+          </div>
+          <h3 class="reveal font-display font-bold text-3xl md:text-4xl text-zinc-900 dark:text-white leading-tight mb-4">Optimal Control of a Two-Wheeled Self-Balancing Robot Using LQR and Multi-Objective Genetic Algorithm</h3>
+          <p class="reveal d1 text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-3xl mb-6">
+            A linearized state-space model of an inverted-pendulum-style balancing robot, controlled with PID and LQR, and then automatically tuned with a multi-objective genetic algorithm to balance position tracking against tilt stability.
+          </p>
+        </div>
+
+        <div class="reveal d2 px-8 md:px-12" x-data="{ tab: 'lqr' }">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <button @click="tab='lqr'" :class="tab==='lqr' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">GA-Optimized LQR (video)</button>
+            <button @click="tab='pid'" :class="tab==='pid' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">PID Controller (video)</button>
+            <button @click="tab='pareto'" :class="tab==='pareto' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">GA Pareto Front</button>
+          </div>
+
+          <div class="photo-frame w-full h-72 md:h-[440px] rounded-2xl border border-zinc-100 dark:border-zinc-800 flex items-center justify-center">
+            <video x-show="tab==='lqr'" x-cloak class="proj-video" controls loop muted playsinline preload="metadata">
+              <source src="assets/video/segway_lqr_force.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <video x-show="tab==='pid'" x-cloak class="proj-video" controls loop muted playsinline preload="metadata">
+              <source src="assets/video/segway_pid_torque.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <img x-show="tab==='pareto'" x-cloak src="assets/img/segway_ga_pareto.png" alt="Pareto front of GA-optimized LQR weighting matrices" loading="lazy">
+          </div>
+          <p class="img-caption" x-show="tab==='lqr'" x-cloak>Simscape Multibody simulation of the robot balancing under an LQR controller with GA-optimized Q/R weighting matrices.</p>
+          <p class="img-caption" x-show="tab==='pid'" x-cloak>The same robot balancing under a manually tuned PID controller, for comparison against the LQR/GA approach.</p>
+          <p class="img-caption" x-show="tab==='pareto'" x-cloak>Pareto-optimal trade-off found by the multi-objective GA between position-tracking cost (Objective 1) and chassis-tilt stability cost (Objective 2).</p>
+        </div>
+
+        <div class="p-8 md:p-12 pt-10">
+          <div class="grid md:grid-cols-3 gap-10">
+            <div class="md:col-span-2">
+              <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">About the project</h4>
+              <div class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed space-y-4">
+                <p>This project tackles the classic inverted-pendulum balancing problem: keeping a two-wheeled robot upright while also controlling its position. I derived a linearized state-space model of the robot's position and chassis-tilt dynamics, then built and simulated it in MATLAB/Simulink with Simscape Multibody for realistic rigid-body physics.</p>
+                <p>I implemented both a PID controller and a Linear-Quadratic Regulator (LQR) for the balancing task, then went a step further: rather than hand-tuning the LQR's Q and R weighting matrices, I implemented a Multi-Objective Genetic Algorithm (MOGA) that searches for Pareto-optimal weightings by simultaneously minimizing the Integral Time Absolute Error (ITAE) for position and for chassis-tilt angle — two objectives that typically trade off against each other.</p>
+                <p>Comparing the GA-optimized LQR against manually tuned LQR and PID controllers in simulation, the GA-optimized controller reached faster position convergence while maintaining better chassis-tilt stability than either manual baseline — demonstrating that automated multi-objective tuning can outperform hand-tuning even on a well-understood classical control problem.</p>
+              </div>
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">Tools &amp; methods</h4>
+              <div class="flex flex-wrap gap-2 mb-6" role="list" aria-label="Tools used">
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">MATLAB</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Simulink</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Simscape Multibody</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">LQR</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">PID</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">Genetic Algorithm</span>
+                <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full">State-Space Modeling</span>
+              </div>
+              <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">Advisor</h4>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">Dr. Rahul Singhal, UPES Dehradun</p>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="pt-20 pb-24 md:pt-24 md:pb-28 scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="bg-zinc-900 dark:bg-zinc-800 rounded-3xl p-10 md:p-16 relative overflow-hidden text-center">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-4">Get in touch</p>
+        <h2 class="reveal d1 font-display font-bold text-3xl md:text-4xl text-white leading-tight mb-6">Let's connect!</h2>
+        <p class="reveal d2 text-zinc-400 leading-relaxed mb-10">
+          If you're just as in love with robots — and the art of building these beautiful beasts — as I am, I'd love to hear from you. Whether you want to collaborate on something, or just nerd out about science, movies, robotics, or space, let's connect!
+        </p>
+
+        <div class="reveal d3 flex items-center justify-center gap-4 mb-8">
+          <a href="https://www.linkedin.com/in/pritamrk/" rel="noopener noreferrer" target="_blank" aria-label="LinkedIn" class="social-icon">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://github.com/preetamk97" rel="noopener noreferrer" target="_blank" aria-label="GitHub" class="social-icon">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+
+        <a href="mailto:preetamk97@gmail.com" class="reveal d4 inline-block font-display font-bold text-2xl md:text-3xl text-white hover:text-accent transition-colors break-all">preetamk97@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t border-zinc-100 dark:border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+    <p class="text-sm text-zinc-400">&copy; <span id="yr"></span> Pritam Ranjan Kalita. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function app() {
+  return {
+    dark: false,
+    mm: false,
+    sc: false,
+    s: 'about',
+
+    typed: '',
+    typedWords: ['Roboticist', 'Film & TV Buff', 'Avid Traveler', 'Weekend Guitarist'],
+    wIndex: 0,
+    cIndex: 0,
+    deleting: false,
+
+    typeTick() {
+      const word = this.typedWords[this.wIndex];
+      if (!this.deleting) {
+        this.cIndex++;
+        this.typed = word.slice(0, this.cIndex);
+        if (this.cIndex === word.length) {
+          this.deleting = true;
+          setTimeout(() => this.typeTick(), 1500);
+          return;
+        }
+        setTimeout(() => this.typeTick(), 85);
+      } else {
+        this.cIndex--;
+        this.typed = word.slice(0, this.cIndex);
+        if (this.cIndex === 0) {
+          this.deleting = false;
+          this.wIndex = (this.wIndex + 1) % this.typedWords.length;
+          setTimeout(() => this.typeTick(), 400);
+          return;
+        }
+        setTimeout(() => this.typeTick(), 40);
+      }
+    },
+
+    init() {
+      this.dark = localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      this.$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
+
+      window.addEventListener('scroll', () => {
+        this.sc = window.scrollY > 20;
+        this.updateSection();
+      }, { passive: true });
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      document.getElementById('yr').textContent = new Date().getFullYear();
+
+      setTimeout(() => this.typeTick(), 700);
+    },
+
+    updateSection() {
+      const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 60;
+      if (atBottom) { this.s = 'contact'; return; }
+      const ids = ['contact','projects','skills','experience','education','about'];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 130) { this.s = id; return; }
+      }
+      this.s = 'about';
+    }
+  }
+}
+</script>
+
+</body>
+</html>
