@@ -87,11 +87,1108 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
 .social-icon{width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:rgba(255,255,255,.08);transition:background-color .2s,transform .2s}
 .social-icon:hover{background:#FF6B2B;transform:translateY(-3px)}
 
+.bg-decor{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-decor-item{position:absolute;will-change:transform}
+.bg-decor-item .fw{display:block;width:100%;height:100%;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
+.bg-decor-item svg{display:block;width:100%;height:100%}
+.bg-decor-item .ic-light{opacity:.4;filter:saturate(.7)}
+.dark .bg-decor-item .ic-light{display:none}
+.bg-decor-item .ic-dark{display:none;opacity:.42}
+.dark .bg-decor-item .ic-dark{display:block}
+.bg-decor-item .fw.fa{animation-name:floatA}
+.bg-decor-item .fw.fb{animation-name:floatB}
+.bg-decor-item .fw.fc{animation-name:floatC}
+.bg-decor-item .fw.fd{animation-name:floatB;animation-direction:reverse}
+.bg-decor-item .fw.fe{animation-name:floatA;animation-direction:reverse}
+.bg-decor-item .fw.ff{animation-name:floatC;animation-direction:reverse}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-24px) rotate(7deg)}}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(20px) rotate(-7deg)}}
+@keyframes floatC{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(12px,-18px) rotate(5deg)}}
+
 [x-cloak]{display:none!important}
 </style>
 </head>
 
-<body class="bg-white dark:bg-mono-950 text-zinc-900 dark:text-mono-100 antialiased">
+<body class="relative bg-white dark:bg-mono-950 text-zinc-900 dark:text-mono-100 antialiased">
+
+<!-- ═══ FLOATING BACKGROUND DECOR (robots / robotic arms / humanoids / rockets / drones / moons / stars) ═══ -->
+<div class="bg-decor" aria-hidden="true">
+
+  <!-- rocketA 0 - about -->
+  <div class="bg-decor-item" style="top:0.7%;left:13.6%;width:78px;height:78px" data-depth="0.069" data-sway="5.2" data-phase="2.65">
+    <div class="fw fb" style="animation-duration:23.0s;animation-delay:-6.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotA 1 - about -->
+  <div class="bg-decor-item hidden md:block" style="top:2.6%;right:23.2%;width:53px;height:53px" data-depth="0.048" data-sway="7.1" data-phase="3.7">
+    <div class="fw fe" style="animation-duration:15.0s;animation-delay:-7.0s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="3" r="2" fill="#F92672"/>
+    <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+    <circle cx="25" cy="21" r="3" fill="#272822"/>
+    <circle cx="39" cy="21" r="3" fill="#272822"/>
+    <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+    <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="32" y1="4" x2="32" y2="10"/>
+    <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10" width="32" height="22" rx="6"/>
+    <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <path d="M25 27h14"/>
+    <rect x="12" y="34" width="40" height="24" rx="6"/>
+    <line x1="32" y1="34" x2="32" y2="58"/>
+    <line x1="4" y1="40" x2="12" y2="40"/>
+    <line x1="52" y1="40" x2="60" y2="40"/>
+    <line x1="22" y1="58" x2="22" y2="62"/>
+    <line x1="42" y1="58" x2="42" y2="62"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 2 - about -->
+  <div class="bg-decor-item" style="top:7.7%;left:8.7%;width:104px;height:104px" data-depth="0.061" data-sway="5.4" data-phase="2.39">
+    <div class="fw fc" style="animation-duration:16.2s;animation-delay:-15.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- humanoid 3 - about -->
+  <div class="bg-decor-item" style="top:6.2%;right:35.9%;width:143px;height:143px" data-depth="0.038" data-sway="11.7" data-phase="5.21">
+    <div class="fw fd" style="animation-duration:20.0s;animation-delay:-0.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 4 - about -->
+  <div class="bg-decor-item hidden md:block" style="top:6.0%;left:31.6%;width:55px;height:55px" data-depth="0.02" data-sway="7.3" data-phase="0.63">
+    <div class="fw ff" style="animation-duration:15.4s;animation-delay:-14.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotArm 5 - about -->
+  <div class="bg-decor-item" style="top:6.5%;right:17.3%;width:97px;height:97px" data-depth="0.071" data-sway="13.1" data-phase="3.83">
+    <div class="fw fc" style="animation-duration:15.1s;animation-delay:-14.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotB 6 - about -->
+  <div class="bg-decor-item" style="top:7.4%;left:8.9%;width:98px;height:98px" data-depth="0.048" data-sway="13.6" data-phase="5.29">
+    <div class="fw fc" style="animation-duration:26.8s;animation-delay:-7.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="20" r="16" fill="#A6E22E"/>
+    <circle cx="25" cy="18" r="3.2" fill="#272822"/>
+    <circle cx="39" cy="18" r="3.2" fill="#272822"/>
+    <path d="M25 26c3 3 11 3 14 0" stroke="#272822" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="4" r="2.4" fill="#E6DB74"/>
+    <line x1="32" y1="6" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="14" y="38" width="36" height="20" rx="10" fill="#AE81FF"/>
+    <circle cx="8" cy="46" r="6" fill="#A6E22E"/>
+    <circle cx="56" cy="46" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="20" r="16"/>
+    <circle cx="25" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <path d="M25 26c3 3 11 3 14 0"/>
+    <circle cx="32" cy="4" r="2.4" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="6" x2="32" y2="10"/>
+    <rect x="14" y="38" width="36" height="20" rx="10"/>
+    <circle cx="8" cy="46" r="6"/>
+    <circle cx="56" cy="46" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 7 - about -->
+  <div class="bg-decor-item" style="top:2.7%;right:3.3%;width:90px;height:90px" data-depth="0.072" data-sway="16.3" data-phase="1.98">
+    <div class="fw fd" style="animation-duration:16.0s;animation-delay:-15.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 0 - experience -->
+  <div class="bg-decor-item" style="top:29.2%;left:40.4%;width:104px;height:104px" data-depth="0.049" data-sway="7.7" data-phase="3.67">
+    <div class="fw fb" style="animation-duration:16.0s;animation-delay:-15.1s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- moon 1 - experience -->
+  <div class="bg-decor-item hidden md:block" style="top:29.3%;right:11.2%;width:63px;height:63px" data-depth="0.067" data-sway="6.1" data-phase="1.0">
+    <div class="fw fe" style="animation-duration:19.4s;animation-delay:-4.9s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 2 - experience -->
+  <div class="bg-decor-item" style="top:31.7%;left:18.2%;width:122px;height:122px" data-depth="0.067" data-sway="4.2" data-phase="4.53">
+    <div class="fw fd" style="animation-duration:19.9s;animation-delay:-0.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 3 - experience -->
+  <div class="bg-decor-item" style="top:33.5%;right:34.3%;width:89px;height:89px" data-depth="0.015" data-sway="14.1" data-phase="4.52">
+    <div class="fw fa" style="animation-duration:16.4s;animation-delay:-16.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneB 4 - experience -->
+  <div class="bg-decor-item" style="top:30.6%;left:6.5%;width:126px;height:126px" data-depth="0.027" data-sway="9.2" data-phase="1.01">
+    <div class="fw fc" style="animation-duration:24.6s;animation-delay:-9.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 22l8 10-8 10-8-10z" fill="#F92672"/>
+    <line x1="24" y1="26" x2="12" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="26" x2="52" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="38" x2="12" y2="48" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="38" x2="52" y2="48" stroke="#57564A" stroke-width="2"/>
+    <circle cx="12" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="12" cy="48" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="48" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 22l8 10-8 10-8-10z"/>
+    <line x1="24" y1="26" x2="12" y2="16"/>
+    <line x1="40" y1="26" x2="52" y2="16"/>
+    <line x1="24" y1="38" x2="12" y2="48"/>
+    <line x1="40" y1="38" x2="52" y2="48"/>
+    <circle cx="12" cy="16" r="6"/>
+    <circle cx="52" cy="16" r="6"/>
+    <circle cx="12" cy="48" r="6"/>
+    <circle cx="52" cy="48" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 5 - experience -->
+  <div class="bg-decor-item" style="top:35.5%;right:27.2%;width:108px;height:108px" data-depth="0.074" data-sway="15.3" data-phase="1.5">
+    <div class="fw fa" style="animation-duration:13.7s;animation-delay:-12.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotArm 6 - experience -->
+  <div class="bg-decor-item" style="top:35.9%;left:5.6%;width:108px;height:108px" data-depth="0.023" data-sway="13.2" data-phase="5.95">
+    <div class="fw fa" style="animation-duration:26.7s;animation-delay:-9.3s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotB 7 - experience -->
+  <div class="bg-decor-item" style="top:30.8%;right:27.5%;width:73px;height:73px" data-depth="0.058" data-sway="9.6" data-phase="4.22">
+    <div class="fw fe" style="animation-duration:23.3s;animation-delay:-6.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="20" r="16" fill="#A6E22E"/>
+    <circle cx="25" cy="18" r="3.2" fill="#272822"/>
+    <circle cx="39" cy="18" r="3.2" fill="#272822"/>
+    <path d="M25 26c3 3 11 3 14 0" stroke="#272822" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="4" r="2.4" fill="#E6DB74"/>
+    <line x1="32" y1="6" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="14" y="38" width="36" height="20" rx="10" fill="#AE81FF"/>
+    <circle cx="8" cy="46" r="6" fill="#A6E22E"/>
+    <circle cx="56" cy="46" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="20" r="16"/>
+    <circle cx="25" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <path d="M25 26c3 3 11 3 14 0"/>
+    <circle cx="32" cy="4" r="2.4" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="6" x2="32" y2="10"/>
+    <rect x="14" y="38" width="36" height="20" rx="10"/>
+    <circle cx="8" cy="46" r="6"/>
+    <circle cx="56" cy="46" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- humanoid 8 - experience -->
+  <div class="bg-decor-item" style="top:35.3%;left:21.0%;width:77px;height:77px" data-depth="0.048" data-sway="12.2" data-phase="0.05">
+    <div class="fw fb" style="animation-duration:13.0s;animation-delay:-19.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 9 - experience -->
+  <div class="bg-decor-item hidden md:block" style="top:25.2%;right:4.8%;width:50px;height:50px" data-depth="0.055" data-sway="7.0" data-phase="0.83">
+    <div class="fw fc" style="animation-duration:13.1s;animation-delay:-15.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-yellow-300" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- moon 0 - projects -->
+  <div class="bg-decor-item" style="top:76.2%;left:12.2%;width:100px;height:100px" data-depth="0.041" data-sway="9.9" data-phase="2.93">
+    <div class="fw fd" style="animation-duration:14.9s;animation-delay:-18.1s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 1 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:79.7%;right:43.3%;width:52px;height:52px" data-depth="0.067" data-sway="7.5" data-phase="1.19">
+    <div class="fw fa" style="animation-duration:18.0s;animation-delay:-13.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneA 2 - projects -->
+  <div class="bg-decor-item" style="top:70.7%;left:13.7%;width:71px;height:71px" data-depth="0.048" data-sway="4.7" data-phase="6.28">
+    <div class="fw fa" style="animation-duration:18.6s;animation-delay:-2.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="24" y="26" width="16" height="12" rx="3" fill="#FD971F"/>
+    <line x1="24" y1="28" x2="10" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="28" x2="54" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="36" x2="10" y2="50" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="36" x2="54" y2="50" stroke="#57564A" stroke-width="2"/>
+    <circle cx="10" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="10" cy="50" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="50" r="7" fill="#66D9EF"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="24" y="26" width="16" height="12" rx="3"/>
+    <line x1="24" y1="28" x2="10" y2="14"/>
+    <line x1="40" y1="28" x2="54" y2="14"/>
+    <line x1="24" y1="36" x2="10" y2="50"/>
+    <line x1="40" y1="36" x2="54" y2="50"/>
+    <circle cx="10" cy="14" r="7"/>
+    <circle cx="54" cy="14" r="7"/>
+    <circle cx="10" cy="50" r="7"/>
+    <circle cx="54" cy="50" r="7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 3 - projects -->
+  <div class="bg-decor-item" style="top:90.4%;right:40.9%;width:148px;height:148px" data-depth="0.028" data-sway="9.6" data-phase="0.37">
+    <div class="fw fb" style="animation-duration:14.5s;animation-delay:-10.3s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneA 4 - projects -->
+  <div class="bg-decor-item" style="top:91.0%;left:13.1%;width:140px;height:140px" data-depth="0.059" data-sway="15.0" data-phase="4.16">
+    <div class="fw fd" style="animation-duration:16.3s;animation-delay:-6.1s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="24" y="26" width="16" height="12" rx="3" fill="#FD971F"/>
+    <line x1="24" y1="28" x2="10" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="28" x2="54" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="36" x2="10" y2="50" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="36" x2="54" y2="50" stroke="#57564A" stroke-width="2"/>
+    <circle cx="10" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="10" cy="50" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="50" r="7" fill="#66D9EF"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="24" y="26" width="16" height="12" rx="3"/>
+    <line x1="24" y1="28" x2="10" y2="14"/>
+    <line x1="40" y1="28" x2="54" y2="14"/>
+    <line x1="24" y1="36" x2="10" y2="50"/>
+    <line x1="40" y1="36" x2="54" y2="50"/>
+    <circle cx="10" cy="14" r="7"/>
+    <circle cx="54" cy="14" r="7"/>
+    <circle cx="10" cy="50" r="7"/>
+    <circle cx="54" cy="50" r="7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneB 5 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:62.3%;right:11.1%;width:47px;height:47px" data-depth="0.034" data-sway="4.7" data-phase="2.99">
+    <div class="fw fe" style="animation-duration:23.0s;animation-delay:-18.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 22l8 10-8 10-8-10z" fill="#F92672"/>
+    <line x1="24" y1="26" x2="12" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="26" x2="52" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="38" x2="12" y2="48" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="38" x2="52" y2="48" stroke="#57564A" stroke-width="2"/>
+    <circle cx="12" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="12" cy="48" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="48" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 22l8 10-8 10-8-10z"/>
+    <line x1="24" y1="26" x2="12" y2="16"/>
+    <line x1="40" y1="26" x2="52" y2="16"/>
+    <line x1="24" y1="38" x2="12" y2="48"/>
+    <line x1="40" y1="38" x2="52" y2="48"/>
+    <circle cx="12" cy="16" r="6"/>
+    <circle cx="52" cy="16" r="6"/>
+    <circle cx="12" cy="48" r="6"/>
+    <circle cx="52" cy="48" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 6 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:61.2%;left:42.4%;width:50px;height:50px" data-depth="0.067" data-sway="9.7" data-phase="5.91">
+    <div class="fw fb" style="animation-duration:13.0s;animation-delay:-18.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 7 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:76.3%;right:3.7%;width:50px;height:50px" data-depth="0.034" data-sway="7.7" data-phase="4.21">
+    <div class="fw fd" style="animation-duration:21.9s;animation-delay:-8.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- humanoid 8 - projects -->
+  <div class="bg-decor-item" style="top:65.1%;left:7.5%;width:122px;height:122px" data-depth="0.071" data-sway="4.1" data-phase="3.9">
+    <div class="fw fc" style="animation-duration:18.9s;animation-delay:-1.4s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 9 - projects -->
+  <div class="bg-decor-item" style="top:58.1%;right:11.0%;width:73px;height:73px" data-depth="0.068" data-sway="9.2" data-phase="0.99">
+    <div class="fw fb" style="animation-duration:26.0s;animation-delay:-2.4s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 10 - projects -->
+  <div class="bg-decor-item" style="top:80.8%;left:27.7%;width:143px;height:143px" data-depth="0.048" data-sway="17.0" data-phase="0.65">
+    <div class="fw ff" style="animation-duration:19.9s;animation-delay:-6.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- moon 11 - projects -->
+  <div class="bg-decor-item" style="top:65.0%;right:39.4%;width:135px;height:135px" data-depth="0.028" data-sway="8.8" data-phase="4.32">
+    <div class="fw fe" style="animation-duration:14.3s;animation-delay:-14.4s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 12 - projects -->
+  <div class="bg-decor-item" style="top:73.7%;left:12.5%;width:148px;height:148px" data-depth="0.032" data-sway="4.0" data-phase="4.84">
+    <div class="fw fa" style="animation-duration:13.4s;animation-delay:-11.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 13 - projects -->
+  <div class="bg-decor-item" style="top:61.3%;right:20.6%;width:130px;height:130px" data-depth="0.072" data-sway="13.7" data-phase="0.94">
+    <div class="fw fd" style="animation-duration:20.4s;animation-delay:-17.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotA 14 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:76.5%;left:8.2%;width:56px;height:56px" data-depth="0.063" data-sway="16.0" data-phase="5.65">
+    <div class="fw fa" style="animation-duration:16.6s;animation-delay:-2.0s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="3" r="2" fill="#F92672"/>
+    <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+    <circle cx="25" cy="21" r="3" fill="#272822"/>
+    <circle cx="39" cy="21" r="3" fill="#272822"/>
+    <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+    <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="32" y1="4" x2="32" y2="10"/>
+    <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10" width="32" height="22" rx="6"/>
+    <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <path d="M25 27h14"/>
+    <rect x="12" y="34" width="40" height="24" rx="6"/>
+    <line x1="32" y1="34" x2="32" y2="58"/>
+    <line x1="4" y1="40" x2="12" y2="40"/>
+    <line x1="52" y1="40" x2="60" y2="40"/>
+    <line x1="22" y1="58" x2="22" y2="62"/>
+    <line x1="42" y1="58" x2="42" y2="62"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotArm 15 - projects -->
+  <div class="bg-decor-item" style="top:64.5%;right:6.3%;width:139px;height:139px" data-depth="0.052" data-sway="6.2" data-phase="5.84">
+    <div class="fw fe" style="animation-duration:25.3s;animation-delay:-11.9s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="ic-dark text-yellow-300" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 16 - projects -->
+  <div class="bg-decor-item" style="top:90.6%;left:36.1%;width:92px;height:92px" data-depth="0.062" data-sway="9.8" data-phase="4.21">
+    <div class="fw fa" style="animation-duration:14.7s;animation-delay:-1.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 17 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:65.1%;right:35.1%;width:53px;height:53px" data-depth="0.028" data-sway="15.4" data-phase="2.89">
+    <div class="fw fd" style="animation-duration:25.1s;animation-delay:-2.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- humanoid 18 - projects -->
+  <div class="bg-decor-item" style="top:63.5%;left:29.7%;width:91px;height:91px" data-depth="0.061" data-sway="8.9" data-phase="3.2">
+    <div class="fw fc" style="animation-duration:16.2s;animation-delay:-18.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 19 - projects -->
+  <div class="bg-decor-item" style="top:67.4%;right:3.2%;width:73px;height:73px" data-depth="0.017" data-sway="12.4" data-phase="2.17">
+    <div class="fw fb" style="animation-duration:20.7s;animation-delay:-0.3s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 20 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:71.2%;left:43.3%;width:54px;height:54px" data-depth="0.018" data-sway="10.1" data-phase="3.27">
+    <div class="fw fd" style="animation-duration:25.5s;animation-delay:-16.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 21 - projects -->
+  <div class="bg-decor-item" style="top:80.2%;right:41.5%;width:134px;height:134px" data-depth="0.072" data-sway="16.9" data-phase="3.91">
+    <div class="fw ff" style="animation-duration:15.0s;animation-delay:-11.4s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 22 - projects -->
+  <div class="bg-decor-item" style="top:81.4%;left:14.6%;width:79px;height:79px" data-depth="0.033" data-sway="5.8" data-phase="2.64">
+    <div class="fw ff" style="animation-duration:18.1s;animation-delay:-12.0s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneA 23 - projects -->
+  <div class="bg-decor-item" style="top:82.4%;right:9.3%;width:112px;height:112px" data-depth="0.033" data-sway="6.9" data-phase="4.93">
+    <div class="fw fc" style="animation-duration:18.1s;animation-delay:-3.3s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="24" y="26" width="16" height="12" rx="3" fill="#FD971F"/>
+    <line x1="24" y1="28" x2="10" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="28" x2="54" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="36" x2="10" y2="50" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="36" x2="54" y2="50" stroke="#57564A" stroke-width="2"/>
+    <circle cx="10" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="10" cy="50" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="50" r="7" fill="#66D9EF"/>
+      </svg>
+      <svg class="ic-dark text-yellow-300" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="24" y="26" width="16" height="12" rx="3"/>
+    <line x1="24" y1="28" x2="10" y2="14"/>
+    <line x1="40" y1="28" x2="54" y2="14"/>
+    <line x1="24" y1="36" x2="10" y2="50"/>
+    <line x1="40" y1="36" x2="54" y2="50"/>
+    <circle cx="10" cy="14" r="7"/>
+    <circle cx="54" cy="14" r="7"/>
+    <circle cx="10" cy="50" r="7"/>
+    <circle cx="54" cy="50" r="7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 24 - projects -->
+  <div class="bg-decor-item" style="top:67.1%;left:20.6%;width:126px;height:126px" data-depth="0.073" data-sway="14.3" data-phase="4.14">
+    <div class="fw fb" style="animation-duration:19.7s;animation-delay:-4.1s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-yellow-300" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- humanoid 25 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:79.4%;right:28.0%;width:51px;height:51px" data-depth="0.027" data-sway="4.3" data-phase="1.54">
+    <div class="fw fb" style="animation-duration:22.1s;animation-delay:-15.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneB 26 - projects -->
+  <div class="bg-decor-item" style="top:86.1%;left:5.1%;width:93px;height:93px" data-depth="0.038" data-sway="9.6" data-phase="0.93">
+    <div class="fw ff" style="animation-duration:20.6s;animation-delay:-5.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 22l8 10-8 10-8-10z" fill="#F92672"/>
+    <line x1="24" y1="26" x2="12" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="26" x2="52" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="38" x2="12" y2="48" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="38" x2="52" y2="48" stroke="#57564A" stroke-width="2"/>
+    <circle cx="12" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="12" cy="48" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="48" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 22l8 10-8 10-8-10z"/>
+    <line x1="24" y1="26" x2="12" y2="16"/>
+    <line x1="40" y1="26" x2="52" y2="16"/>
+    <line x1="24" y1="38" x2="12" y2="48"/>
+    <line x1="40" y1="38" x2="52" y2="48"/>
+    <circle cx="12" cy="16" r="6"/>
+    <circle cx="52" cy="16" r="6"/>
+    <circle cx="12" cy="48" r="6"/>
+    <circle cx="52" cy="48" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 27 - projects -->
+  <div class="bg-decor-item hidden md:block" style="top:87.6%;right:38.1%;width:53px;height:53px" data-depth="0.057" data-sway="10.5" data-phase="3.5">
+    <div class="fw fd" style="animation-duration:15.3s;animation-delay:-3.9s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 0 - contact -->
+  <div class="bg-decor-item" style="top:95.2%;left:35.7%;width:84px;height:84px" data-depth="0.045" data-sway="15.6" data-phase="3.44">
+    <div class="fw fd" style="animation-duration:21.2s;animation-delay:-5.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- moon 1 - contact -->
+  <div class="bg-decor-item" style="top:97.0%;right:21.9%;width:77px;height:77px" data-depth="0.062" data-sway="10.8" data-phase="1.5">
+    <div class="fw fb" style="animation-duration:24.6s;animation-delay:-14.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneA 2 - contact -->
+  <div class="bg-decor-item" style="top:96.8%;left:11.8%;width:86px;height:86px" data-depth="0.024" data-sway="9.4" data-phase="0.96">
+    <div class="fw fc" style="animation-duration:25.4s;animation-delay:-18.4s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="24" y="26" width="16" height="12" rx="3" fill="#FD971F"/>
+    <line x1="24" y1="28" x2="10" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="28" x2="54" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="36" x2="10" y2="50" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="36" x2="54" y2="50" stroke="#57564A" stroke-width="2"/>
+    <circle cx="10" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="10" cy="50" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="50" r="7" fill="#66D9EF"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="24" y="26" width="16" height="12" rx="3"/>
+    <line x1="24" y1="28" x2="10" y2="14"/>
+    <line x1="40" y1="28" x2="54" y2="14"/>
+    <line x1="24" y1="36" x2="10" y2="50"/>
+    <line x1="40" y1="36" x2="54" y2="50"/>
+    <circle cx="10" cy="14" r="7"/>
+    <circle cx="54" cy="14" r="7"/>
+    <circle cx="10" cy="50" r="7"/>
+    <circle cx="54" cy="50" r="7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotArm 3 - contact -->
+  <div class="bg-decor-item" style="top:95.0%;right:15.9%;width:103px;height:103px" data-depth="0.038" data-sway="14.8" data-phase="5.94">
+    <div class="fw fd" style="animation-duration:12.9s;animation-delay:-3.3s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotA 4 - contact -->
+  <div class="bg-decor-item" style="top:94.8%;left:2.2%;width:89px;height:89px" data-depth="0.072" data-sway="9.9" data-phase="4.69">
+    <div class="fw fc" style="animation-duration:23.3s;animation-delay:-2.9s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="3" r="2" fill="#F92672"/>
+    <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+    <circle cx="25" cy="21" r="3" fill="#272822"/>
+    <circle cx="39" cy="21" r="3" fill="#272822"/>
+    <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+    <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="32" y1="4" x2="32" y2="10"/>
+    <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10" width="32" height="22" rx="6"/>
+    <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <path d="M25 27h14"/>
+    <rect x="12" y="34" width="40" height="24" rx="6"/>
+    <line x1="32" y1="34" x2="32" y2="58"/>
+    <line x1="4" y1="40" x2="12" y2="40"/>
+    <line x1="52" y1="40" x2="60" y2="40"/>
+    <line x1="22" y1="58" x2="22" y2="62"/>
+    <line x1="42" y1="58" x2="42" y2="62"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
 
 <!-- ═══ NAV ═══ -->
 <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
@@ -205,8 +1302,216 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
 </section>
 
 <!-- ═══ EDUCATION ═══ -->
-<section id="education" class="py-16 md:py-20 bg-zinc-50 dark:bg-mono-900/40 scroll-mt-24">
-  <div class="max-w-6xl mx-auto px-6">
+<section id="education" class="relative py-16 md:py-20 bg-zinc-50 dark:bg-mono-900/40 scroll-mt-24 overflow-hidden">
+  <div class="bg-decor" aria-hidden="true" style="z-index:0">
+    <!-- rocketA 0 - education -->
+    <div class="bg-decor-item" style="top:4.4%;left:13.0%;width:70px;height:70px" data-depth="0.069" data-sway="5.2" data-phase="2.65">
+      <div class="fw fb" style="animation-duration:23.0s;animation-delay:-6.5s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+      <circle cx="32" cy="26" r="5" fill="#272822"/>
+      <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+      <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+      <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+        </svg>
+        <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+      <circle cx="32" cy="26" r="5"/>
+      <path d="M22 34l-8 12 10-4"/>
+      <path d="M42 34l8 12-10-4"/>
+      <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- robotA 1 - education -->
+    <div class="bg-decor-item hidden md:block" style="top:22.6%;right:22.2%;width:45px;height:45px" data-depth="0.048" data-sway="7.1" data-phase="3.7">
+      <div class="fw fe" style="animation-duration:15.0s;animation-delay:-7.0s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="3" r="2" fill="#F92672"/>
+      <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+      <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+      <circle cx="25" cy="21" r="3" fill="#272822"/>
+      <circle cx="39" cy="21" r="3" fill="#272822"/>
+      <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+      <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+      <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+      <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+      <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="32" y1="4" x2="32" y2="10"/>
+      <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+      <rect x="16" y="10" width="32" height="22" rx="6"/>
+      <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+      <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+      <path d="M25 27h14"/>
+      <rect x="12" y="34" width="40" height="24" rx="6"/>
+      <line x1="32" y1="34" x2="32" y2="58"/>
+      <line x1="4" y1="40" x2="12" y2="40"/>
+      <line x1="52" y1="40" x2="60" y2="40"/>
+      <line x1="22" y1="58" x2="22" y2="62"/>
+      <line x1="42" y1="58" x2="42" y2="62"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- star 2 - education -->
+    <div class="bg-decor-item" style="top:73.3%;left:8.4%;width:96px;height:96px" data-depth="0.061" data-sway="5.4" data-phase="2.39">
+      <div class="fw fc" style="animation-duration:16.2s;animation-delay:-15.7s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+        </svg>
+        <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- humanoid 3 - education -->
+    <div class="bg-decor-item" style="top:58.8%;right:34.3%;width:100px;height:100px" data-depth="0.02" data-sway="8.1" data-phase="3.95">
+      <div class="fw fe" style="animation-duration:13.9s;animation-delay:-1.6s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+      <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+      <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+      <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+      <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+      <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+      <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="12" r="8"/>
+      <line x1="27" y1="10" x2="24" y2="10"/>
+      <line x1="37" y1="10" x2="40" y2="10"/>
+      <rect x="20" y="22" width="24" height="22" rx="5"/>
+      <line x1="20" y1="28" x2="10" y2="40"/>
+      <line x1="44" y1="28" x2="54" y2="40"/>
+      <line x1="26" y1="44" x2="22" y2="58"/>
+      <line x1="38" y1="44" x2="42" y2="58"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- moon 4 - education -->
+    <div class="bg-decor-item hidden md:block" style="top:56.3%;left:30.2%;width:47px;height:47px" data-depth="0.02" data-sway="7.3" data-phase="0.63">
+      <div class="fw ff" style="animation-duration:15.4s;animation-delay:-14.2s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+      <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+      <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+      <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+        </svg>
+        <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- robotArm 5 - education -->
+    <div class="bg-decor-item" style="top:61.8%;right:16.6%;width:89px;height:89px" data-depth="0.071" data-sway="13.1" data-phase="3.83">
+      <div class="fw fc" style="animation-duration:15.1s;animation-delay:-14.7s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+      <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+      <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="46" cy="24" r="3" fill="#272822"/>
+      <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+      <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+        </svg>
+        <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="18" y="54" width="28" height="6" rx="2"/>
+      <line x1="32" y1="54" x2="32" y2="38"/>
+      <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+      <line x1="32" y1="38" x2="46" y2="24"/>
+      <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+      <line x1="46" y1="24" x2="40" y2="12"/>
+      <path d="M34 8l6 4 6-4"/>
+      <path d="M34 12l6 4 6-4"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- robotB 6 - education -->
+    <div class="bg-decor-item" style="top:70.5%;left:8.5%;width:90px;height:90px" data-depth="0.048" data-sway="13.6" data-phase="5.29">
+      <div class="fw fc" style="animation-duration:26.8s;animation-delay:-7.2s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="20" r="16" fill="#A6E22E"/>
+      <circle cx="25" cy="18" r="3.2" fill="#272822"/>
+      <circle cx="39" cy="18" r="3.2" fill="#272822"/>
+      <path d="M25 26c3 3 11 3 14 0" stroke="#272822" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <circle cx="32" cy="4" r="2.4" fill="#E6DB74"/>
+      <line x1="32" y1="6" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+      <rect x="14" y="38" width="36" height="20" rx="10" fill="#AE81FF"/>
+      <circle cx="8" cy="46" r="6" fill="#A6E22E"/>
+      <circle cx="56" cy="46" r="6" fill="#A6E22E"/>
+        </svg>
+        <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="20" r="16"/>
+      <circle cx="25" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+      <circle cx="39" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+      <path d="M25 26c3 3 11 3 14 0"/>
+      <circle cx="32" cy="4" r="2.4" fill="currentColor" stroke="none"/>
+      <line x1="32" y1="6" x2="32" y2="10"/>
+      <rect x="14" y="38" width="36" height="20" rx="10"/>
+      <circle cx="8" cy="46" r="6"/>
+      <circle cx="56" cy="46" r="6"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- star 7 - education -->
+    <div class="bg-decor-item" style="top:23.5%;right:3.3%;width:82px;height:82px" data-depth="0.072" data-sway="16.3" data-phase="1.98">
+      <div class="fw fd" style="animation-duration:16.0s;animation-delay:-15.8s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+        </svg>
+        <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- rocketA 8 - education -->
+    <div class="bg-decor-item" style="top:39.2%;left:38.6%;width:100px;height:100px" data-depth="0.049" data-sway="7.7" data-phase="3.67">
+      <div class="fw fb" style="animation-duration:16.0s;animation-delay:-15.1s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+      <circle cx="32" cy="26" r="5" fill="#272822"/>
+      <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+      <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+      <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+        </svg>
+        <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+      <circle cx="32" cy="26" r="5"/>
+      <path d="M22 34l-8 12 10-4"/>
+      <path d="M42 34l8 12-10-4"/>
+      <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+        </svg>
+      </div>
+    </div>
+  
+    <!-- moon 9 - education -->
+    <div class="bg-decor-item hidden md:block" style="top:39.5%;right:10.8%;width:59px;height:59px" data-depth="0.067" data-sway="6.1" data-phase="1.0">
+      <div class="fw fe" style="animation-duration:19.4s;animation-delay:-4.9s">
+        <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+          <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+      <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+      <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+      <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+        </svg>
+        <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+        </svg>
+      </div>
+    </div>
+  
+  </div>
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
     <div class="mb-14">
       <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">What I have studied</p>
       <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-mono-100 mb-4">Education</h2>
@@ -362,8 +1667,295 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
 </section>
 
 <!-- ═══ SKILLS ═══ -->
-<section id="skills" class="py-16 md:py-20 bg-zinc-50 dark:bg-mono-900/40 scroll-mt-24">
-  <div class="max-w-6xl mx-auto px-6">
+<section id="skills" class="relative py-16 md:py-20 bg-zinc-50 dark:bg-mono-900/40 scroll-mt-24 overflow-hidden">
+<div class="bg-decor" aria-hidden="true" style="z-index:0">
+  <!-- rocketA 0 - skills -->
+  <div class="bg-decor-item" style="top:4.4%;left:13.0%;width:68px;height:68px" data-depth="0.069" data-sway="5.2" data-phase="2.65">
+    <div class="fw fb" style="animation-duration:23.0s;animation-delay:-6.5s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotA 1 - skills -->
+  <div class="bg-decor-item hidden md:block" style="top:22.8%;right:22.2%;width:43px;height:43px" data-depth="0.048" data-sway="7.1" data-phase="3.7">
+    <div class="fw fe" style="animation-duration:15.0s;animation-delay:-7.0s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="3" r="2" fill="#F92672"/>
+    <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+    <circle cx="25" cy="21" r="3" fill="#272822"/>
+    <circle cx="39" cy="21" r="3" fill="#272822"/>
+    <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+    <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="32" y1="4" x2="32" y2="10"/>
+    <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10" width="32" height="22" rx="6"/>
+    <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <path d="M25 27h14"/>
+    <rect x="12" y="34" width="40" height="24" rx="6"/>
+    <line x1="32" y1="34" x2="32" y2="58"/>
+    <line x1="4" y1="40" x2="12" y2="40"/>
+    <line x1="52" y1="40" x2="60" y2="40"/>
+    <line x1="22" y1="58" x2="22" y2="62"/>
+    <line x1="42" y1="58" x2="42" y2="62"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 2 - skills -->
+  <div class="bg-decor-item" style="top:74.1%;left:8.4%;width:94px;height:94px" data-depth="0.061" data-sway="5.4" data-phase="2.39">
+    <div class="fw fc" style="animation-duration:16.2s;animation-delay:-15.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- humanoid 3 - skills -->
+  <div class="bg-decor-item" style="top:59.4%;right:34.3%;width:98px;height:98px" data-depth="0.02" data-sway="8.1" data-phase="3.95">
+    <div class="fw fe" style="animation-duration:13.9s;animation-delay:-1.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- moon 4 - skills -->
+  <div class="bg-decor-item hidden md:block" style="top:56.8%;left:30.2%;width:45px;height:45px" data-depth="0.02" data-sway="7.3" data-phase="0.63">
+    <div class="fw ff" style="animation-duration:15.4s;animation-delay:-14.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+      </svg>
+      <svg class="ic-dark text-emerald-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotArm 5 - skills -->
+  <div class="bg-decor-item" style="top:62.4%;right:16.6%;width:87px;height:87px" data-depth="0.071" data-sway="13.1" data-phase="3.83">
+    <div class="fw fc" style="animation-duration:15.1s;animation-delay:-14.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- robotB 6 - skills -->
+  <div class="bg-decor-item" style="top:71.3%;left:8.5%;width:88px;height:88px" data-depth="0.048" data-sway="13.6" data-phase="5.29">
+    <div class="fw fc" style="animation-duration:26.8s;animation-delay:-7.2s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="20" r="16" fill="#A6E22E"/>
+    <circle cx="25" cy="18" r="3.2" fill="#272822"/>
+    <circle cx="39" cy="18" r="3.2" fill="#272822"/>
+    <path d="M25 26c3 3 11 3 14 0" stroke="#272822" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="4" r="2.4" fill="#E6DB74"/>
+    <line x1="32" y1="6" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="14" y="38" width="36" height="20" rx="10" fill="#AE81FF"/>
+    <circle cx="8" cy="46" r="6" fill="#A6E22E"/>
+    <circle cx="56" cy="46" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="20" r="16"/>
+    <circle cx="25" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <path d="M25 26c3 3 11 3 14 0"/>
+    <circle cx="32" cy="4" r="2.4" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="6" x2="32" y2="10"/>
+    <rect x="14" y="38" width="36" height="20" rx="10"/>
+    <circle cx="8" cy="46" r="6"/>
+    <circle cx="56" cy="46" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 7 - skills -->
+  <div class="bg-decor-item" style="top:23.8%;right:3.3%;width:80px;height:80px" data-depth="0.072" data-sway="16.3" data-phase="1.98">
+    <div class="fw fd" style="animation-duration:16.0s;animation-delay:-15.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-accent" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketA 8 - skills -->
+  <div class="bg-decor-item" style="top:39.6%;left:38.6%;width:98px;height:98px" data-depth="0.049" data-sway="7.7" data-phase="3.67">
+    <div class="fw fb" style="animation-duration:16.0s;animation-delay:-15.1s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- moon 9 - skills -->
+  <div class="bg-decor-item hidden md:block" style="top:39.9%;right:10.8%;width:57px;height:57px" data-depth="0.067" data-sway="6.1" data-phase="1.0">
+    <div class="fw fe" style="animation-duration:19.4s;animation-delay:-4.9s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 10 - skills -->
+  <div class="bg-decor-item" style="top:58.7%;left:17.4%;width:116px;height:116px" data-depth="0.067" data-sway="4.2" data-phase="4.53">
+    <div class="fw fd" style="animation-duration:19.9s;animation-delay:-0.6s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- rocketB 11 - skills -->
+  <div class="bg-decor-item" style="top:73.3%;right:32.7%;width:83px;height:83px" data-depth="0.015" data-sway="14.1" data-phase="4.52">
+    <div class="fw fa" style="animation-duration:16.4s;animation-delay:-16.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- droneB 12 - skills -->
+  <div class="bg-decor-item" style="top:50.2%;left:6.3%;width:120px;height:120px" data-depth="0.027" data-sway="9.2" data-phase="1.01">
+    <div class="fw fc" style="animation-duration:24.6s;animation-delay:-9.8s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 22l8 10-8 10-8-10z" fill="#F92672"/>
+    <line x1="24" y1="26" x2="12" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="26" x2="52" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="38" x2="12" y2="48" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="38" x2="52" y2="48" stroke="#57564A" stroke-width="2"/>
+    <circle cx="12" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="12" cy="48" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="48" r="6" fill="#A6E22E"/>
+      </svg>
+      <svg class="ic-dark text-sky-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 22l8 10-8 10-8-10z"/>
+    <line x1="24" y1="26" x2="12" y2="16"/>
+    <line x1="40" y1="26" x2="52" y2="16"/>
+    <line x1="24" y1="38" x2="12" y2="48"/>
+    <line x1="40" y1="38" x2="52" y2="48"/>
+    <circle cx="12" cy="16" r="6"/>
+    <circle cx="52" cy="16" r="6"/>
+    <circle cx="12" cy="48" r="6"/>
+    <circle cx="52" cy="48" r="6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- star 13 - skills -->
+  <div class="bg-decor-item" style="top:89.3%;right:26.0%;width:102px;height:102px" data-depth="0.074" data-sway="15.3" data-phase="1.5">
+    <div class="fw fa" style="animation-duration:13.7s;animation-delay:-12.7s">
+      <svg class="ic-light" viewBox="0 0 64 64" fill="none">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/>
+      </svg>
+      <svg class="ic-dark text-pink-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/>
+      </svg>
+    </div>
+  </div>
+</div>
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
     <div class="mb-14">
       <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">My Toolbox</p>
       <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-mono-100 mb-4">Technical Skills</h2>
@@ -764,6 +2356,54 @@ function app() {
     }
   }
 }
+</script>
+
+<!-- ═══ FLOATING DECOR: gentle drift + scroll "ripple" scatter ═══ -->
+<script>
+(function(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('.bg-decor-item[data-depth]'));
+  if (!items.length) return;
+  var state = items.map(function(el){
+    return {
+      el: el,
+      depth: parseFloat(el.getAttribute('data-depth')) || 0.03,
+      sway: parseFloat(el.getAttribute('data-sway')) || 8,
+      phase: parseFloat(el.getAttribute('data-phase')) || 0
+    };
+  });
+
+  var lastScrollY = window.scrollY;
+  var energy = 0; // scroll "ripple" energy - spikes on scroll, decays back to calm
+
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    energy = Math.min(energy + Math.abs(y - lastScrollY) * 0.08, 45);
+    lastScrollY = y;
+  }, { passive: true });
+
+  function loop(){
+    var y = window.scrollY;
+    var t = performance.now() / 1000;
+    energy *= 0.95;
+    if (energy < 0.05) energy = 0;
+
+    for (var i = 0; i < state.length; i++) {
+      var s = state[i];
+      // slow, gentle ambient drift - always running, even at rest
+      var drift = Math.sin(t * 0.18 + s.phase) * (s.sway * 0.3);
+      // ripple: scroll motion scatters icons outward, settling back once scrolling stops
+      var scatterX = Math.sin(y * 0.006 + s.phase) * energy;
+      var scatterY = Math.cos(y * 0.0045 + s.phase * 1.4) * (energy * 0.6);
+      // parallax: different depths drift at different rates while scrolling
+      var parallaxY = -y * s.depth;
+      var tx = drift + scatterX;
+      var ty = parallaxY + scatterY;
+      s.el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0)';
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
 </script>
 
 </body>
