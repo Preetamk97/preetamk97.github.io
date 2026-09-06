@@ -1,10 +1,8 @@
-# Chapter 21. Using_ROS2_Diagnostics
+# Chapter 34 — Using ROS2 Diagnostics
 
-[← Back to Contents](00_Contents.md) | [← Previous: Chapter 20 — Understanding ROS2 Diagnostics](33_Understanding_ROS2_Diagnostics.md) | [Next: Chapter 22 — ROS2 Diagnostics Use Example →](35_ROS2_Diagnostics_Use_Example.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 33 — Understanding ROS2 Diagnostics](33_Understanding_ROS2_Diagnostics.md) | [Next Lesson: Chapter 35 — ROS2 Diagnostics — A Complete Use Example →](35_ROS2_Diagnostics_Use_Example.md)
 
 ---
-
-# README 2: Using ROS 2 Diagnostics
 
 In the previous chapter, we explored the theory and architecture of the ROS 2 Diagnostics framework. Now, we move from theory to implementation.
 
@@ -67,7 +65,7 @@ public:
         // It wraps the publisher and automatically reports health to the /diagnostics topic.
         // Change `"example_topic"` to your actual data topic name.
         diagnosed_pub_ = std::make_shared<diagnostic_updater::DiagnosedPublisher<std_msgs::msg::String>>(
-            this->create_publisher<std_msgs/msg::String>("example_topic", 10),
+            this->create_publisher<std_msgs::msg::String>("example_topic", 10),
             updater_,
             freq_param,
             time_param
@@ -247,12 +245,12 @@ int main(int argc, char **argv)
 
 ### How this Code Works
 
-- **`updater_.update()`** **(The Trigger)**: This is vital. In a service-based node, the node is often idle. Calling update() inside the handler ensures that as soon as the service finishes, the new performance data is published to the system. Without this, the diagnostics would only update on a slow, fixed background timer.
+- **`updater_.update()` (The Trigger)**: This is vital. In a service-based node, the node is often idle. Calling update() inside the handler ensures that as soon as the service finishes, the new performance data is published to the system. Without this, the diagnostics would only update on a slow, fixed background timer.
 - **`updater_.add("Name", callback)`**: This is the manual way to register a diagnostic task. Every time `updater_.update()` is called, it triggers this function to evaluate the current health of the service.
 - **`check_service_health` (The Callback)**: This function is the “Logic Core.” Its role is to translate your raw variables (like execution time) into a human-readable status (OK/WARN/ERROR). It doesn’t run constantly; it only runs when triggered by the `Updater`.
 - **The Diagnostic Pipeline**:
     1. The **Service Handler** records the raw performance data.
-    2. **`updater_.update()`** calls the callback function that was previously registered by add() `updater_.add()` i.e. the `check_service_health` callback function.
+    2. **`updater_.update()`** calls the callback function that was previously registered by `updater_.add()`, i.e. the `check_service_health` callback function.
     3. The **Callback** (`check_service_health`) is executed to evaluate that data against your thresholds. It compares your raw numbers against your thresholds (e.g., “Is 0.6s > 0.5s?”) and sets the severity level **(OK/WARN/ERROR)**.
     4. The **Updater** packages the result into a `DiagnosticArray` and publishes it.
 - **`DiagnosticStatusWrapper &stat`**: This object is the “Report Builder” used to construct the diagnostic message.
@@ -416,7 +414,7 @@ int main(int argc, char **argv)
 
 - **Long-Running Tracking**: Because an Action can run for seconds or minutes, we call `updater_.update()` inside the execution loop (the `for` loop). This ensures that the `/diagnostics` topic is updated continuously, allowing the “Total execution time” to grow in real-time on the monitoring dashboard.
 - **Stale Feedback Detection**: We record `last_feedback_time_` every time the action sends a feedback update to the client. If the internal logic gets stuck in a heavy calculation or a hardware hang occurs, the feedback stops. The Diagnostic Callback will detect this time gap and report an **ERROR**.
-- **Active vs. Idle**: The logic uses a boolean flag (`is_active_`) to distinguish between the server being “Idle” (ready for a goal) and “Processing” (currently executing). This prevents false warnings about “Total execution time” when the robot is simply waiting for a command.
+- **Active vs. Idle**: The logic uses a boolean flag (`is_active_`) to distinguish between the server being “Idle” (ready for a goal) and “Processing” (currently executing). This prevents false warnings about “Total execution time” when the robot is simply waiting for a command.
 
 ### Key Customization Points
 
@@ -426,13 +424,13 @@ int main(int argc, char **argv)
     - **Total Duration (30.0s)**: Set this to the maximum “sane” limit for the task. For example, a robot navigating to a nearby room might have a limit of `120.0` seconds.
 - **Hardware ID**: Update `"action_engine_v1"` to a unique string identifying the specific subsystem (e.g., `navigation_action` or `manipulator_controller`).
 
-## 4. Using Prebuilt codes from `diagnostics_common_diagnostics` package
+## 4. Using Prebuilt codes from `diagnostic_common_diagnostics` package
 
-The **`ros/diagnostics`** library provides the **`diagnostics_common_diagnostics`** package, which contains pre-made nodes for monitoring “generic” hardware and system health. These are highly optimized and adhere to the standard diagnostic format, making them instantly compatible with the Aggregator and Robot’s Hardware.
+The **`ros/diagnostics`** library provides the **`diagnostic_common_diagnostics`** package, which contains pre-made nodes for monitoring “generic” hardware and system health. These are highly optimized and adhere to the standard diagnostic format, making them instantly compatible with the Aggregator and Robot’s Hardware.
 
-### List of Prebuilt Monitor codes provided by the `diagnostics_common_diagnostics` package
+### List of Prebuilt Monitor codes provided by the `diagnostic_common_diagnostics` package
 
-The `diagnostics_common_diagnostics` package provides several specialized monitoring nodes. Instead of writing custom C++ code, you can use these ready-made codes to monitor standard system metrics:
+The `diagnostic_common_diagnostics` package provides several specialized monitoring nodes. Instead of writing custom C++ code, you can use these ready-made codes to monitor standard system metrics:
 
 | Module Name | Purpose |
 | --- | --- |
@@ -442,7 +440,7 @@ The `diagnostics_common_diagnostics` package provides several specialized monito
 | **`ram_monitor.py`** | Allows users to monitor the RAM usage of their system in real-time. It publishes the usage percentage in a diagnostic message. |
 | **`sensors_monitor.py`** | Allows users to monitor the temperature, volt and fan speeds of any system sensor/hardware system in real-time. It uses the `LM_Sensors` package to get the data. |
 
-If you wish to study these source codes, they can be directly accessed at the folowing official address: https://github.com/ros/diagnostics/tree/ros2/diagnostic_common_diagnostics/diagnostic_common_diagnostics
+If you wish to study these source codes, they can be accessed at the official repository: [ros/diagnostics — diagnostic_common_diagnostics](https://github.com/ros/diagnostics/tree/ros2/diagnostic_common_diagnostics/diagnostic_common_diagnostics)
 
 ### How to use them
 
@@ -453,28 +451,28 @@ Since these monitors are external components, you must first configure your pack
 **System Installation**: If you are working on a new machine, ensure the package is installed via terminal:
 
 ```bash
-sudo apt install ros-<ros2-distro>-diagnostics-common-diagnostics
+sudo apt install ros-<ros2-distro>-diagnostic-common-diagnostics
 ```
 
-Update your project’s configuration files to ensure the `diagnostics_common_diagnostics` package is included during the build and install process.
+Update your project’s configuration files to ensure the `diagnostic_common_diagnostics` package is included during the build and install process.
 
 **In your `package.xml`:**
 
 ```xml
-<depend>diagnostics_common_diagnostics</depend>
+<depend>diagnostic_common_diagnostics</depend>
 ```
 
 **In your `CMakeLists.txt`:**
 
 ```
-find_package(diagnostics_common_diagnostics REQUIRED)
+find_package(diagnostic_common_diagnostics REQUIRED)
 ```
 
 ### Step 2: Implementation (Launch File)
 
 Because these are prebuilt, you do not need to write any custom source code. You simply “summon” them inside your Python launch file as you would with any other node.
 
-**Example launch file code that lauches all the modules provided by the `diagnostics_common_diagnostics` package**
+**Example launch file code that launches all the modules provided by the `diagnostic_common_diagnostics` package**
 
 ```python
 from launch import LaunchDescription
@@ -486,7 +484,7 @@ def generate_launch_description():
         # 1. CPU MONITOR
         # Monitors total CPU usage to detect processing bottlenecks.
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='cpu_monitor.py',
             name='cpu_monitor',
             parameters=[{
@@ -498,7 +496,7 @@ def generate_launch_description():
         # 2. RAM MONITOR
         # Monitors memory usage to detect memory leaks or high-load conditions.
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='ram_monitor.py',
             name='ram_monitor',
             parameters=[{
@@ -510,7 +508,7 @@ def generate_launch_description():
         # 3. HD (Hard Drive) MONITOR
         # Ensures the system has enough disk space for logs, maps, and recordings.
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='hd_monitor.py',
             name='hd_monitor',
             parameters=[{
@@ -523,7 +521,7 @@ def generate_launch_description():
         # 4. NTP MONITOR
         # Crucial for multi-computer setups to ensure message timestamps are synchronized.
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='ntp_monitor.py',
             name='ntp_monitor',
             parameters=[{
@@ -539,7 +537,7 @@ def generate_launch_description():
         # 5. SENSORS MONITOR
         # Monitors hardware health including motherboard temperatures, voltages, and cooling fans.
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='sensors_monitor.py',
             name='sensors_monitor',
             parameters=[{
@@ -566,7 +564,7 @@ install(
 
 ## 5. Integrating Custom Diagnostics Node For Monitoring Network
 
-Sometimes you need to monitor WiFi signal strength or internet latency metrics that the standard packages don’t cover. Below given is custom script for the exact same purpose.
+Sometimes you need to monitor WiFi signal strength or internet latency metrics that the standard packages don’t cover. Below is a custom script for exactly that purpose.
 
 ### Step 1: Adding the Code
 
@@ -732,7 +730,7 @@ def generate_launch_description():
     ])
 ```
 
-### How to find the interface name of your Local System ?
+### How to find the interface name of your Local System
 
 This is the standard Linux way to see every “doorway” (interface) on your machine, even if it’s currently turned off.
 
@@ -758,49 +756,49 @@ The aggregator is entirely driven by a configuration file. You define **“Analy
 
 ```yaml
 /**:
-ros__parameters:
-analyzers:
+  ros__parameters:
+    analyzers:
       # --- GROUP 1: SYSTEM HEALTH ---
-compute:
-type: diagnostic_aggregator/AnalyzerGroup
-path: Compute
-analyzers:
-cpu:
-type: diagnostic_aggregator/GenericAnalyzer
-path: CPU Usage
-find_and_remove_prefix:'cpu_monitor'
-ram:
-type: diagnostic_aggregator/GenericAnalyzer
-path: Memory
-find_and_remove_prefix:'ram_monitor'
+      compute:
+        type: diagnostic_aggregator/AnalyzerGroup
+        path: Compute
+        analyzers:
+          cpu:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: CPU Usage
+            find_and_remove_prefix: 'cpu_monitor'
+          ram:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: Memory
+            find_and_remove_prefix: 'ram_monitor'
 
       # --- GROUP 2: NETWORKING ---
-networking:
-type: diagnostic_aggregator/GenericAnalyzer
-path: Networking
+      networking:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Networking
         # This matches the Hardware ID we set in the Python script
-hardware_id:'Robot_Networking'
+        hardware_id: 'Robot_Networking'
 
       # --- GROUP 3: APPLICATION LOGIC (Topic/Service/Action) ---
-application:
-type: diagnostic_aggregator/AnalyzerGroup
-path: App Logic
-analyzers:
-topics:
-type: diagnostic_aggregator/GenericAnalyzer
-path: Data Streams
+      application:
+        type: diagnostic_aggregator/AnalyzerGroup
+        path: App Logic
+        analyzers:
+          topics:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: Data Streams
             # Matches the name used in your Topic monitor
-contains:'Topic Health'
-services:
-type: diagnostic_aggregator/GenericAnalyzer
-path: Task Services
+            contains: 'Topic Health'
+          services:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: Task Services
             # Matches the name used in your Service monitor
-contains:'Service Health'
-actions:
-type: diagnostic_aggregator/GenericAnalyzer
-path: Long Running Actions
+            contains: 'Service Health'
+          actions:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: Long Running Actions
             # Matches the name used in your Action monitor
-contains:'Action Health Check'
+            contains: 'Action Health Check'
 ```
 
 Always make sure to register the `config` folder with your `CMakeLists.txt` file:
@@ -903,7 +901,7 @@ def generate_launch_description():
     - **`contains`**: Groups any diagnostic message that contains a specific string in its name (e.g., automatically matching any node that includes the string `"Service Health"`).
 - **Severity Propagation**: This is the most critical feature of the aggregator. If a “CPU Usage” node nested deep inside the tree turns **RED (Error)**, the parent **“Compute”** folder and the top-level system status will also turn **RED**. This ensures that an operator can detect a failure at a glance without having to manually expand every single category.
 
-## 7. The Master Launch File:
+## 7. The Master Launch File
 
 To wrap everything up, we can create a single “Master Launch File.” This script consolidates your custom network monitor, the prebuilt system monitors, the aggregator for organization, and the rqt GUI for an all-in-one health dashboard.
 
@@ -921,11 +919,11 @@ def generate_launch_description():
 
     return LaunchDescription([
 
-        # --- 2. SYSTEM MONITORS (Prebuilt from diagnostics_common_diagnostics) ---
+        # --- 2. SYSTEM MONITORS (Prebuilt from diagnostic_common_diagnostics) ---
 
         # CPU Monitor: Tracks total processing load
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='cpu_monitor.py',
             name='cpu_monitor',
             parameters=[{
@@ -936,7 +934,7 @@ def generate_launch_description():
 
         # RAM Monitor: Tracks memory and swap space
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='ram_monitor.py',
             name='ram_monitor',
             parameters=[{
@@ -947,7 +945,7 @@ def generate_launch_description():
 
         # HD Monitor: Tracks disk space at a specific mount point
         Node(
-            package='diagnostics_common_diagnostics',
+            package='diagnostic_common_diagnostics',
             executable='hd_monitor.py',
             name='hd_monitor',
             parameters=[{
@@ -1061,4 +1059,5 @@ With these tools in your repertoire, you are now equipped to build industrial-gr
 
 ---
 
-[← Back to Contents](00_Contents.md) | [← Previous: Chapter 20 — Understanding ROS2 Diagnostics](33_Understanding_ROS2_Diagnostics.md) | [Next: Chapter 22 — ROS2 Diagnostics Use Example →](35_ROS2_Diagnostics_Use_Example.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 33 — Understanding ROS2 Diagnostics](33_Understanding_ROS2_Diagnostics.md) | [Next Lesson: Chapter 35 — ROS2 Diagnostics — A Complete Use Example →](35_ROS2_Diagnostics_Use_Example.md)
+

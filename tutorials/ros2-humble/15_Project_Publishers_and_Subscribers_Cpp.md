@@ -1,20 +1,20 @@
-# Project 1.1 : Publishers & Subscribers (C++)
+# Chapter 15 — Project 1 — Publishers & Subscribers (C++)
 
-[← Back to Contents](00_Contents.md) | [← Previous: Chapter 10 — ROS2 Interface Types](14_ROS2_Interface_Types.md) | [Next: Project 1.2 — Publishers and Subscribers (Python) →](16_Project_Publishers_and_Subscribers_Python.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 14 — ROS2 Interface Types](14_ROS2_Interface_Types.md) | [Next Lesson: Chapter 16 — Project 1 — Publishers & Subscribers (Python) →](16_Project_Publishers_and_Subscribers_Python.md)
 
 ---
 
-# Problem Statement
+## Problem Statement
 
 For this project, let us consider a simple robot that has **4 wheels** and is moving at a **constant speed**.
 
 For this robot, we are going to create 2 simple nodes.
 
-The **first** node **publishes** the readings of a **tachometer sensor** ( which measures the **RPM** of the robot wheels - which can be any **constant** of your choice ) to a topic called **rpm**. 
+The **first** node **publishes** the readings of a **tachometer sensor** ( which measures the **RPM** of the robot wheels - which can be any **constant** of your choice ) to a topic called **rpm**.
 
-Now the **second** node subscribes to the **topic** **rpm** and calculates the **speed** of the moving robot based on the **rpm** values and the **diameter** of the robot **wheels** (which is another constant) - and publishes this result to another new topic named **speed(m/s).** 
+Now the **second** node subscribes to the **topic rpm** and calculates the **speed** of the moving robot based on the **rpm** values and the **diameter** of the robot **wheels** (which is another constant) - and publishes this result to another new topic named **speed(m/s).**
 
-# **rpm_publisher.cpp** code:
+## **rpm_publisher.cpp** code:
 
 ```cpp
 // Including the rclcpp library - for ros2 c++ functionality.
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-# **rpm_subscriber.cpp** code:
+## **rpm_subscriber.cpp** code:
 
 ```cpp
 #include "rclcpp/rclcpp.hpp"
@@ -108,66 +108,67 @@ int main(int argc, char *argv[])
 }
 ```
 
-# Compiling And Executing The Nodes:
+## Compiling And Executing The Nodes:
 
-1. **Adding the newly created files to `CMakeList.txt` file.** 
-    
-    Add the following code to the **CMakeList.txt** file of the **ros2_cpp_udemy_tutorial/src/udemy_ros2_pkg** package folder.
-    
+1. **Adding the newly created files to `CMakeLists.txt` file.**
+
+    Add the following code to the **CMakeLists.txt** file of the **ros2_cpp_udemy_tutorial/src/udemy_ros2_pkg** package folder.
+
     ```c
-    add_executable(rpm_publisher src/rpm_publisher.cpp) 
+    add_executable(rpm_publisher src/rpm_publisher.cpp)
     ament_target_dependencies(rpm_publisher rclcpp std_msgs)
-    
-    add_executable(rpm_subscriber src/rpm_subscriber.cpp) 
+
+    add_executable(rpm_subscriber src/rpm_subscriber.cpp)
     ament_target_dependencies(rpm_subscriber rclcpp std_msgs)
-    
-    install(TARGETS         
-    				publisher         
-    				subscriber        
-    				rpm_publisher        
-    				rpm_subscriber        
+
+    install(TARGETS
+    				publisher
+    				subscriber
+    				rpm_publisher
+    				rpm_subscriber
     				DESTINATION lib/${PROJECT_NAME}
     )
     ```
-    
+
 2. **Compiling the Workspace.** Open a new terminal in the **ros2_cpp_udemy_tutorial** workspace and build the workspace by running the `colcon build` command from the terminal.
 3. **To run the rpm_publisher node:**
-    
-    in the same terminal from the previous step, run the following commands:
-    
+
+    In the same terminal from the previous step, run the following commands:
+
     ```cpp
     source install/setup.bash
     ros2 run udemy_ros2_pkg rpm_publisher
-    
+
     ```
-    
+
 4. **To see the rpm messages published by the rpm_publisher** open a **parallel terminal** and run the following commands:
-    
+
     ```cpp
     ros2 topic echo rpm
     ```
-    
+
 5. **To run the rpm_subscriber node:**
-    
+
     Open a new terminal in the **ros2_cpp_udemy_tutorial** workspace and run the following commands:
-    
+
     ```cpp
     source install/setup.bash
     ros2 run udemy_ros2_pkg rpm_subscriber
-    
+
     ```
-    
-6. **To see the speed messages published by the  rpm_subscriber** open a **parallel terminal** and run the following commands:
-    
+
+6. **To see the speed messages published by the rpm_subscriber** open a **parallel terminal** and run the following commands:
+
     ```cpp
     ros2 topic echo speed
     ```
-    
 
-![Untitled](images/image106.png)
 
-![Untitled](images/image107.png)
+![Figure 1 — Project 1 — Publishers & Subscribers (C++)](images/image106.png)
+
+![Figure 2 — Project 1 — Publishers & Subscribers (C++)](images/image107.png)
 
 ---
 
-[← Back to Contents](00_Contents.md) | [← Previous: Chapter 10 — ROS2 Interface Types](14_ROS2_Interface_Types.md) | [Next: Project 1.2 — Publishers and Subscribers (Python) →](16_Project_Publishers_and_Subscribers_Python.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 14 — ROS2 Interface Types](14_ROS2_Interface_Types.md) | [Next Lesson: Chapter 16 — Project 1 — Publishers & Subscribers (Python) →](16_Project_Publishers_and_Subscribers_Python.md)
+

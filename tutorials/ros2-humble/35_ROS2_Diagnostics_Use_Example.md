@@ -1,8 +1,10 @@
-# Chapter 22. ROS2_Diagnostics_Use_Example
+# Chapter 35 — ROS2 Diagnostics — A Complete Use Example
 
-# README 3: ROS 2 Diagnostics Use Example - TurtleBot3 Navigation with Custom A* Planner & Diagnostic System
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 34 — Using ROS2 Diagnostics](34_Using_ROS2_Diagnostics.md)
 
-# 0. Prerequisites and Installations
+---
+
+## 0. Prerequisites and Installations
 
 Before setting up the project, ensure the following tools and packages are installed on your system.
 
@@ -25,19 +27,19 @@ sudo apt install ros-$ROS_DISTRO-rqt-robot-monitor
 sudo apt install python3-colcon-common-extensions
 ```
 
-## 1. Setting up the Project
+### 1. Setting up the Project
 
-### 1.1 Create the Workspace
+#### 1.1 Create the Workspace
 
 - Create a new workspace folder named **`turtlebot3_ws`** inside your **`Home`** directory.
 - Inside the **turtlebot3_ws** workspace folder create a src directory.
-    
+
     ```bash
     mkdir -p ~/turtlebot3_ws/src
     ```
-    
 
-### 1.2 Clone Repositories
+
+#### 1.2 Clone Repositories
 
 We need the official TurtleBot3 source codes to run the simulation. Clone the following repositories into the src folder:
 
@@ -48,7 +50,7 @@ git clone -b $ROS_DISTRO https://github.com/ROBOTIS-GIT/turtlebot3_simulations.g
 git clone -b $ROS_DISTRO https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 ```
 
-### 1.3 Build the Workspace
+#### 1.3 Build the Workspace
 
 Navigate to the workspace folder inside your terminal and build the packages using colcon.
 
@@ -61,9 +63,9 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-## 2. Running Basic Simulation and Navigation
+### 2. Running Basic Simulation and Navigation
 
-### 2.1 Launching Gazebo
+#### 2.1 Launching Gazebo
 
 Set the robot model environment variable (*waffle* in this case) and launch the simulation world.
 
@@ -79,7 +81,7 @@ source /usr/share/gazebo/setup.sh
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
-### 2.2 Mapping (SLAM)
+#### 2.2 Mapping (SLAM)
 
 To create a map of the environment, launch the SLAM node while Gazebo is running.
 
@@ -96,9 +98,9 @@ ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
 ```
 
 - Open a new terminal on the Remote PC with Ctrl + Alt + T and run the teleoperation node from the Remote PC. Specify your TurtleBot3 model (waffle) using the TURTLEBOT3_MODEL parameter.
-    
+
     **Terminal 3:**
-    
+
     ```bash
     source /opt/ros/humble/setup.bash
     cd ~/turtlebot3_ws/
@@ -106,9 +108,9 @@ ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
     export TURTLEBOT3_MODEL=waffle
     ros2 run turtlebot3_teleop teleop_keyboard
     ```
-    
 
-### 2.3 Saving the Map
+
+#### 2.3 Saving the Map
 
 Once satisfied with the map, save it to your disk.
 
@@ -119,9 +121,9 @@ source /opt/ros/humble/setup.bash
 ros2 run nav2_map_server map_saver_cli -f ~/map
 ```
 
-After running this commands the map will get saved inside the **`Home`** direcctory of your system.
+After running this command the map will get saved inside the **`Home`** directory of your system.
 
-### 2.4 Starting Navigation (Nav2)
+#### 2.4 Starting Navigation (Nav2)
 
 Close the SLAM node and launch the Navigation2 stack using your saved map.
 
@@ -133,11 +135,11 @@ export TURTLEBOT3_MODEL=waffle
 ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml
 ```
 
-## 3. Custom Global Planner Plugin (A*)
+### 3. Custom Global Planner Plugin (A\*)
 
 This section details the creation of a custom Global Planner plugin compliant with the nav2_core interface.
 
-### 3.1 Creating the Package
+#### 3.1 Creating the Package
 
 Create a new package named **`custom_a_star_planner`** with `rclcpp` and `nav2_core` dependencies.
 
@@ -147,27 +149,27 @@ cd ~/turtlebot3_ws/src
 ros2 pkg create --build-type ament_cmake custom_a_star_planner --dependencies rclcpp nav2_core nav2_util pluginlib nav2_costmap_2d geometry_msgs
 ```
 
-### 3.2 Implementation
+#### 3.2 Implementation
 
-The core logic was implemented in C++. This plugin inherits from `nav2_core::GlobalPlanner` and implements the `createPlan` method using the **A* algorithm**.
+The core logic was implemented in C++. This plugin inherits from `nav2_core::GlobalPlanner` and implements the `createPlan` method using the **A\* algorithm**.
 
 - Create a new file named `a_star_planner.cpp` inside the `custom_a_star_planner/src` folder. Copy and paste the below code in it.
-    
+
     **File: `custom_a_star_planner/src/a_star_planner.cpp`**
-    
+
     ```cpp
     #include<cmath>
     #include<queue>
     #include<vector>
     #include<unordered_map>
     #include<algorithm>
-    
+
     #include"pluginlib/class_list_macros.hpp"
     #include"custom_a_star_planner/a_star_planner.hpp"
-    
+
     namespace custom_a_star_planner
     {
-    
+
     void AStarPlanner::configure(
       const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent,
       std::string name, std::shared_ptr<tf2_ros::Buffer> tf,
@@ -177,18 +179,18 @@ The core logic was implemented in C++. This plugin inherits from `nav2_core::Glo
       costmap_ = costmap_ros_->getCostmap();
       name_ = name;
     }
-    
+
     void AStarPlanner::cleanup() {}
     void AStarPlanner::activate() {}
     void AStarPlanner::deactivate() {}
-    
+
     nav_msgs::msg::Path AStarPlanner::createPlan(
       const geometry_msgs::msg::PoseStamped & start,
       const geometry_msgs::msg::PoseStamped & goal)
     {
       // Artificial delay to trigger Diagnostic WARN (e.g., 600ms)
       // std::this_thread::sleep_for(std::chrono::milliseconds(600));
-    
+
       // --- GOAL GATE: Prevent replanning if a path already exists & the goal hasn't changed ---
       if (!latest_path_.poses.empty() &&
           std::abs(latest_goal_.pose.position.x - goal.pose.position.x) < 0.01 &&
@@ -209,11 +211,11 @@ The core logic was implemented in C++. This plugin inherits from `nav2_core::Glo
         latest_path_.header.stamp = start.header.stamp;
         return latest_path_;
       }
-    
+
       nav_msgs::msg::Path global_path;
       global_path.header.stamp = start.header.stamp;
       global_path.header.frame_id = "map";
-    
+
       // 1. Convert World Coordinates to Map Coordinates
       // 2. worldToMap : It translates the coordinates from the continuous physical world into the discrete
       //  world of pixels (cells) that the computer uses to perform the A* search.
@@ -228,48 +230,48 @@ The core logic was implemented in C++. This plugin inherits from `nav2_core::Glo
       {
         return global_path;
       }
-    
+
       // This line converts 2D grid coordinates (row and column) into 1D index numbers for each cell.
       unsigned int start_idx = costmap_->getIndex(start_x, start_y);
       unsigned int goal_idx = costmap_->getIndex(goal_x, goal_y);
-    
+
       // 2. Initialize A* Data Structures
       std::priority_queue<Node, std::vector<Node>, std::greater<Node>> open_list;
       std::unordered_map<unsigned int, double> g_costs;
       std::unordered_map<unsigned int, unsigned int> parent_map;
-    
+
       open_list.push({start_idx, 0.0, euclidean_distance(start_idx, goal_idx), 0.0, start_idx});
       g_costs[start_idx] = 0.0;
-    
+
       bool goal_found = false;
-    
+
       // 3. Main A* Loop
       while (!open_list.empty()) {
         Node current = open_list.top();
         open_list.pop();
-    
+
         if (current.index == goal_idx) {
           goal_found = true;
           break;
         }
-    
+
         for (unsigned int neighbor_idx : get_neighbors(current.index)) {
           if (costmap_->getCost(neighbor_idx) >= 253) continue;
-    
+
           double move_cost = euclidean_distance(current.index, neighbor_idx);
           double new_g = current.g + move_cost;
-    
+
           if (g_costs.find(neighbor_idx) == g_costs.end() || new_g < g_costs[neighbor_idx]) {
             g_costs[neighbor_idx] = new_g;
             double h = euclidean_distance(neighbor_idx, goal_idx);
             double f = new_g + h;
-    
+
             parent_map[neighbor_idx] = current.index;
             open_list.push({neighbor_idx, new_g, h, f, current.index});
           }
         }
       }
-    
+
       // 4. Path Reconstruction
       if (goal_found) {
         unsigned int curr = goal_idx;
@@ -279,43 +281,43 @@ The core logic was implemented in C++. This plugin inherits from `nav2_core::Glo
           unsigned int mx, my;
           costmap_->indexToCells(curr, mx, my);
           costmap_->mapToWorld(mx, my, world_x, world_y);
-    
+
           pose.header = global_path.header;
           pose.pose.position.x = world_x;
           pose.pose.position.y = world_y;
           pose.pose.orientation.w = 1.0;
           global_path.poses.push_back(pose);
-    
+
           curr = parent_map[curr];
         }
         global_path.poses.push_back(start);
         std::reverse(global_path.poses.begin(), global_path.poses.end());
-    
+
         // Fix final orientation
         if (!global_path.poses.empty()) {
             global_path.poses.back().pose.orientation = goal.pose.orientation;
         }
-    
+
         // Save for the Goal Gate
         latest_path_ = global_path;
         latest_goal_ = goal;
       }
-    
+
       return global_path;
     }
-    
+
     double AStarPlanner::euclidean_distance(unsigned int start_index, unsigned int goal_index) {
       unsigned int x1, y1, x2, y2;
       costmap_->indexToCells(start_index, x1, y1);
       costmap_->indexToCells(goal_index, x2, y2);
       return std::hypot(static_cast<double>(x1) - x2, static_cast<double>(y1) - y2);
     }
-    
+
     std::vector<unsigned int> AStarPlanner::get_neighbors(unsigned int index) {
       std::vector<unsigned int> neighbors;
       unsigned int mx, my;
       costmap_->indexToCells(index, mx, my);
-    
+
       for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
           if (dx == 0 && dy == 0) continue;
@@ -328,27 +330,27 @@ The core logic was implemented in C++. This plugin inherits from `nav2_core::Glo
       }
       return neighbors;
     }
-    
+
     } // namespace custom_a_star_planner
-    
+
     #include"pluginlib/class_list_macros.hpp"
     PLUGINLIB_EXPORT_CLASS(custom_a_star_planner::AStarPlanner, nav2_core::GlobalPlanner)
     ```
-    
+
 - Create a new file named `a_star_planner.hpp` inside the `custom_a_star_planner/include/custom_a_star_planner` folder. Copy and paste the below code in it.
-    
+
     **File: `custom_a_star_planner/include/custom_a_star_planner/a_star_planner.hpp`**
-    
+
     ```cpp
     #ifndef CUSTOM_A_STAR_PLANNER__A_STAR_PLANNER_HPP_
     #define CUSTOM_A_STAR_PLANNER__A_STAR_PLANNER_HPP_
-    
+
     #include<memory>
     #include<string>
     #include<vector>
     #include<queue>
     #include<unordered_map>
-    
+
     #include"geometry_msgs/msg/point.hpp"
     #include"geometry_msgs/msg/pose_stamped.hpp"
     #include"nav2_core/global_planner.hpp"
@@ -356,60 +358,60 @@ The core logic was implemented in C++. This plugin inherits from `nav2_core::Glo
     #include"nav2_util/robot_utils.hpp"
     #include"nav2_util/lifecycle_node.hpp"
     #include"nav2_costmap_2d/costmap_2d_ros.hpp"
-    
+
     namespace custom_a_star_planner
     {
-    
+
     struct Node {
       unsigned int index;
       double g;
       double h;
       double f;
       unsigned int parent_index;
-    
+
       bool operator>(const Node& other) const {
         return f > other.f;
       }
     };
-    
+
     class AStarPlanner : public nav2_core::GlobalPlanner
     {
     public:
       AStarPlanner() = default;
       ~AStarPlanner() = default;
-    
+
       void configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr & parent,
         std::string name, std::shared_ptr<tf2_ros::Buffer> tf,
         std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros) override;
-    
+
       void cleanup() override;
       void activate() override;
       void deactivate() override;
-    
+
       nav_msgs::msg::Path createPlan(
         const geometry_msgs::msg::PoseStamped & start,
         const geometry_msgs::msg::PoseStamped & goal) override;
-    
+
     private:
       double euclidean_distance(unsigned int start_index, unsigned int goal_index);
       std::vector<unsigned int> get_neighbors(unsigned int index);
-    
+
       std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros_;
       nav2_costmap_2d::Costmap2D * costmap_;
       std::string name_;
-    
+
       // Logic to prevent continuous replanning
       nav_msgs::msg::Path latest_path_;
       geometry_msgs::msg::PoseStamped latest_goal_;
     };
-    
+
     }  // namespace custom_a_star_planner
-    
+
     #endif
     ```
-    
 
-### 3.3 Plugin Registration
+
+#### 3.3 Plugin Registration
 
 To make the planner visible to the ROS 2 plugin system, we registered it using pluginlib.
 
@@ -425,7 +427,7 @@ To make the planner visible to the ROS 2 plugin system, we registered it using p
 </library>
 ```
 
-### 3.4 Build Configuration
+#### 3.4 Build Configuration
 
 Updated **CMakeLists.txt** to compile the library and export the plugin.
 
@@ -531,27 +533,27 @@ ament_package()
 </package>
 ```
 
-### 3.5 Integration with Nav2: Changing the Default Global Planner to Custom A* Planner
+#### 3.5 Integration with Nav2: Changing the Default Global Planner to Custom A\* Planner
 
 - In order to change the planner-plugin that is used by the Navigation2 stack’s `planner_server` node, firstly a new folder named `config` is created inside the **custom_a_star_planner** package and inside it the file named **waffle.yaml** which is copied directly from ***turtlebot3_ws/src/turtlebot3/turtlebot3_navigation2/param*** directory is pasted and renamed as ***custom_nav_params.yaml***.
-    
+
     This is the default *.yaml* configuration file that the `turtlebot3/turtlebot3_navigation` package uses upon running the bash command for default navigation:
-    
+
     ```
     ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=$HOME/map.yaml
     ```
-    
+
 - Inside the file ***custom_nav_params.yaml*** the field ***planner_server:GridBased:plugin*** is changed from its default value to `"custom_a_star_planner/AStarPlanner"`.
-    
+
     ```yaml
     planner_server:
-    ros__parameters:
-    expected_planner_frequency:0.0
-    planner_plugins:["GridBased"]
-    GridBased:
-    plugin:"custom_a_star_planner/AStarPlanner" # custom A* class
+      ros__parameters:
+        expected_planner_frequency: 0.0
+        planner_plugins: ["GridBased"]
+        GridBased:
+          plugin: "custom_a_star_planner/AStarPlanner"   # custom A* class
     ```
-    
+
 
 After doing the changes, build the `custom_a_star_planner` package once before proceeding. Run the following commands:
 
@@ -564,7 +566,7 @@ rosdep install --from-paths src -y --ignore-src
 colcon build --symlink-install
 ```
 
-In order to use this particular params file while lauching your navigation node use the following command:
+In order to use this particular params file while launching your navigation node use the following command:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -576,7 +578,7 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py \
   params_file:=$(ros2 pkg prefix custom_a_star_planner)/share/custom_a_star_planner/config/custom_nav_params.yaml
 ```
 
-## 4. Diagnostic & Monitoring System
+### 4. Diagnostic & Monitoring System
 
 To ensure robustness, we developed a 3-layer diagnostic system:
 
@@ -584,7 +586,7 @@ To ensure robustness, we developed a 3-layer diagnostic system:
 - Planner Diagnostics
 - Network Monitor
 
-### 4.1 Controller Diagnostics Node (C++)
+#### 4.1 Controller Diagnostics Node (C++)
 
 Monitors the controller_server health via heartbeat checks on /cmd_vel and detects if the robot is stalled (moving but position not changing). Add this file inside the `src` directory of the `turtlebot3/turtlebot3_navigation2` package.
 
@@ -784,7 +786,7 @@ install(TARGETS
 )
 ```
 
-### 4.2 Planner Diagnostics Node (C++)
+#### 4.2 Planner Diagnostics Node (C++)
 
 Monitors the planner_server to ensure path calculation requests are being processed. Add this file inside the `src` directory of the `custom_a_star_planner` package.
 
@@ -943,7 +945,7 @@ install(TARGETS
 )
 ```
 
-### 4.3 Network Monitor Node (Python)
+#### 4.3 Network Monitor Node (Python)
 
 - This is a custom python script that monitors WiFi signal strength (RSSI) from /proc/net/wireless and verifies internet connectivity via DNS socket connection.
 - Create a new `ament_cmake` type package named `robot_diagnostics` within the `src` directory of `turtlebot_ws` folder.
@@ -1089,7 +1091,7 @@ install(PROGRAMS
 <depend>diagnostic_msgs</depend>
 ```
 
-### 4.4 Diagnostic Aggregator
+#### 4.4 Diagnostic Aggregator
 
 To organize the raw data in the RQT dashboard, we configured a Diagnostic Aggregator using a YAML file.
 
@@ -1102,28 +1104,28 @@ To organize the raw data in the RQT dashboard, we configured a Diagnostic Aggreg
 ```yaml
 # nav_aggregator.yaml
 diagnostic_aggregator:
-ros__parameters:
-analyzers:
+  ros__parameters:
+    analyzers:
       # Analyzer for the Controller Node
-controller_analyzer:
-type: diagnostic_aggregator/GenericAnalyzer
-path:'Controller' # Appears as "Controller" in the tree
-find:'Controller Server Health'
-timeout:5.0  # If no update for 5 seconds, mark as STALE
+      controller_analyzer:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: 'Controller'                  # Appears as "Controller" in the tree
+        find: 'Controller Server Health'
+        timeout: 5.0                        # If no update for 5 seconds, mark as STALE
 
       # Analyzer for the Planner Node
-planner_analyzer:
-type: diagnostic_aggregator/GenericAnalyzer
-path:'Planner' # Appears as "Planner" in the tree
-find:'Planner Health'
-timeout:5.0  # If no update for 5 seconds, mark as STALE
+      planner_analyzer:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: 'Planner'                     # Appears as "Planner" in the tree
+        find: 'Planner Health'
+        timeout: 5.0                        # If no update for 5 seconds, mark as STALE
 
       # Inside your nav_aggregator.yaml analyzers:
-network:
-type: diagnostic_aggregator/GenericAnalyzer
-path:'Network'
-find:'Wifi and Internet Status'
-timeout:5.0  # If no update for 5 seconds, mark as STALE
+      network:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: 'Network'
+        find: 'Wifi and Internet Status'
+        timeout: 5.0                        # If no update for 5 seconds, mark as STALE
 ```
 
 **Update CMakeLists.txt (Install Configuration)**
@@ -1150,7 +1152,7 @@ ament_package()
 
 **Update `package.xml` for the Aggregator**
 
-Since you are now using the `diagnostic_aggregator` in your configuration and (soon) in your launch file, you must add it as a execution dependency.
+Since you are now using the `diagnostic_aggregator` in your configuration and (soon) in your launch file, you must add it as an execution dependency.
 
 Add this line to `robot_diagnostics/package.xml`:
 
@@ -1158,7 +1160,7 @@ Add this line to `robot_diagnostics/package.xml`:
 <exec_depend>diagnostic_aggregator</exec_depend>
 ```
 
-### 4.5 System Launch File
+#### 4.5 System Launch File
 
 A unified launch file was created to start all diagnostic nodes and the aggregator simultaneously, along with the RQT Robot Monitor.
 
@@ -1241,7 +1243,7 @@ def generate_launch_description():
     ])
 ```
 
-### 4.6 Finalizing CMakeLists.txt
+#### 4.6 Finalizing CMakeLists.txt
 
 Ensure the `robot_diagnostics/CMakeLists.txt` includes the installation for the `launch` folder:
 
@@ -1252,19 +1254,19 @@ install(
 )
 ```
 
-### 4.7 How to Run
+#### 4.7 How to Run
 
 After implementing the code, follow these steps to see the health system in action.
 
 1. **Build the workspace**:
 Open a terminal and run:
-    
+
     ```bash
     cd ~/turtlebot3_ws
     colcon build --symlink-install
     source install/setup.bash
     ```
-    
+
 2. **Launch the Simulation & Navigation**:
 
 You need the robot environment and the navigation stack running for the diagnostics to have data to monitor.
@@ -1310,37 +1312,42 @@ If everything is set up correctly, the rqt_robot_monitor window will pop up show
 
 ### 5. Emulating the Stuck Robot Condition
 
-- In order to emulate the stuck robot condition, make the following changes in the ***custom_nav_params.yaml*** file :
-    
+- In order to emulate the stuck robot condition, make the following changes in the ***custom_nav_params.yaml*** file:
+
     ```yaml
     local_costmap:
-    local_costmap:
-            # robot_radius: 0.15 # original
-    robot_radius:0.5
-    plugins:["obstacle_layer","voxel_layer","inflation_layer"]
-    inflation_layer:
-    plugin:"nav2_costmap_2d::InflationLayer"
-                # inflation_radius: 0.5 # original
-    inflation_radius:8.0
-                # cost_scaling_factor: 5.0 #original
-    cost_scaling_factor:0.1
+      local_costmap:
+        # robot_radius: 0.15 # original
+        robot_radius: 0.5
+        plugins: ["obstacle_layer", "voxel_layer", "inflation_layer"]
+        inflation_layer:
+          plugin: "nav2_costmap_2d::InflationLayer"
+          # inflation_radius: 0.5 # original
+          inflation_radius: 8.0
+          # cost_scaling_factor: 5.0 # original
+          cost_scaling_factor: 0.1
     ```
-    
-    ### 1. `inflation_radius: 8.0`
-    
-    This defines the **physical distance** (in meters) from an obstacle where the costmap starts increasing the “cost” of moving.
-    
-    - **What 8.0 means:** You have told the robot that every single obstacle has an “aura” of **8 meters** around it.
-    - **The Effect:** Even if a wall is far away, the robot will see the area within 8 meters of that wall as a potential risk.
-    - **The Practical Result:** In a standard room, an 8-meter radius is **massive**. Since most rooms aren’t 16 meters wide, your entire local costmap will likely be “filled” with inflation costs. The robot may struggle to find any “free space” to move because it thinks every square inch of the room is “near” an obstacle.
-    
-    ---
-    
-    ### 2. `cost_scaling_factor: 0.1`
-    
-    This controls **how fast the danger decreases** as the robot moves away from an obstacle. It defines the “slope” of the mountain.
-    
-    - **How the math works:** The cost at a specific cell is calculated using a decay function: exp(−1.0⋅cost_scaling_factor⋅(distance−inscribed_radius)).
-    - **What 0.1 means:** A **lower** value (like 0.1) makes the cost decay **very slowly**.
-    - **The Effect:** Usually, this value is around 5.0 or 10.0 to make the “danger” drop off quickly once the robot is a safe distance away. By setting it to 0.1, you have created a very “gentle slope.” Even at 5 meters away from a wall, the cost will still be significantly high.
-    - **The Practical Result:** The robot will be extremely “shy.” It won’t just avoid hitting a wall; it will try to stay as far away as humanly possible, even if it means taking a massive detour or failing to fit through a wide doorway.
+
+#### 1. `inflation_radius: 8.0`
+
+This defines the **physical distance** (in meters) from an obstacle where the costmap starts increasing the “cost” of moving.
+
+- **What 8.0 means:** You have told the robot that every single obstacle has an “aura” of **8 meters** around it.
+- **The Effect:** Even if a wall is far away, the robot will see the area within 8 meters of that wall as a potential risk.
+- **The Practical Result:** In a standard room, an 8-meter radius is **massive**. Since most rooms aren’t 16 meters wide, your entire local costmap will likely be “filled” with inflation costs. The robot may struggle to find any “free space” to move because it thinks every square inch of the room is “near” an obstacle.
+
+---
+
+#### 2. `cost_scaling_factor: 0.1`
+
+This controls **how fast the danger decreases** as the robot moves away from an obstacle. It defines the “slope” of the mountain.
+
+- **How the math works:** The cost at a specific cell is calculated using a decay function: exp(−1.0⋅cost_scaling_factor⋅(distance−inscribed_radius)).
+- **What 0.1 means:** A **lower** value (like 0.1) makes the cost decay **very slowly**.
+- **The Effect:** Usually, this value is around 5.0 or 10.0 to make the “danger” drop off quickly once the robot is a safe distance away. By setting it to 0.1, you have created a very “gentle slope.” Even at 5 meters away from a wall, the cost will still be significantly high.
+- **The Practical Result:** The robot will be extremely “shy.” It won’t just avoid hitting a wall; it will try to stay as far away as humanly possible, even if it means taking a massive detour or failing to fit through a wide doorway.
+
+---
+
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 34 — Using ROS2 Diagnostics](34_Using_ROS2_Diagnostics.md)
+

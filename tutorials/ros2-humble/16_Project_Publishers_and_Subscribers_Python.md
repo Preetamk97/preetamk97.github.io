@@ -1,62 +1,62 @@
-# Project 1.2 : Publishers & Subscribers (Python)
+# Chapter 16 — Project 1 — Publishers & Subscribers (Python)
 
-[← Back to Contents](00_Contents.md) | [← Previous: Project 1.1 — Publishers and Subscribers (C++)](15_Project_Publishers_and_Subscribers_Cpp.md) | [Next: Chapter 11.1 — ROS2 Parameters (C++) →](17_ROS2_Parameters_Cpp.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 15 — Project 1 — Publishers & Subscribers (C++)](15_Project_Publishers_and_Subscribers_Cpp.md) | [Next Lesson: Chapter 17 — ROS2 Parameters (C++) →](17_ROS2_Parameters_Cpp.md)
 
 ---
 
-# Problem Statement
+## Problem Statement
 
 For this project, let us consider a simple robot that has **4 wheels** and is moving at a **constant speed**.
 
 For this robot, we are going to create 2 simple nodes.
 
-The **first** node **publishes** the readings of a **tachometer sensor** ( which measures the **RPM** of the robot wheels - which can be any **constant** of your choice ) to a topic called **rpm**. 
+The **first** node **publishes** the readings of a **tachometer sensor** ( which measures the **RPM** of the robot wheels - which can be any **constant** of your choice ) to a topic called **rpm**.
 
-Now the **second** node subscribes to the **topic** **rpm** and calculates the **speed** of the moving robot based on the **rpm** values and the **diameter** of the robot **wheels** (which is another constant) - and publishes this result to another new topic named **speed(m/s).** 
+Now the **second** node subscribes to the **topic rpm** and calculates the **speed** of the moving robot based on the **rpm** values and the **diameter** of the robot **wheels** (which is another constant) - and publishes this result to another new topic named **speed(m/s).**
 
-# **rpm_publisher.py** code:
+## **rpm_publisher.py** code:
 
 ```python
 #! /usr/bin/env python3
 
-import rclpy                        
-from rclpy.node import Node         
-from std_msgs.msg import Float32     
-                                    
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import Float32
+
 RPM = 10
 
-class RpmPublisher(Node):    
-    
-    
-    def __init__(self):
-        super().__init__("rpm_pub_node")                                                                              
-        self.pub = self.create_publisher(Float32, 'rpm', 10)            
-        self.counter = 0                            
-        self.timer = self.create_timer(0.5, self.rpm_publisher_callback_func)   
-       
-    def rpm_publisher_callback_func(self):
-        msg = Float32()                                  
-        msg.data = float(RPM) 
-        self.pub.publish(msg)                          
-        self.counter += 1 
-                                     
-def main(args=None):
-    rclpy.init()                           
-    my_pub =  RpmPublisher()         
-    print("RPM Publisher Node is running...")
-    
-    try:
-        rclpy.spin(my_pub)                  
-                                            
-    except KeyboardInterrupt:               
-        print("Terminating publisher...")
-        my_pub.destroy_node()               
+class RpmPublisher(Node):
 
-if __name__=='__main__':  
+
+    def __init__(self):
+        super().__init__("rpm_pub_node")
+        self.pub = self.create_publisher(Float32, 'rpm', 10)
+        self.counter = 0
+        self.timer = self.create_timer(0.5, self.rpm_publisher_callback_func)
+
+    def rpm_publisher_callback_func(self):
+        msg = Float32()
+        msg.data = float(RPM)
+        self.pub.publish(msg)
+        self.counter += 1
+
+def main(args=None):
+    rclpy.init()
+    my_pub =  RpmPublisher()
+    print("RPM Publisher Node is running...")
+
+    try:
+        rclpy.spin(my_pub)
+
+    except KeyboardInterrupt:
+        print("Terminating publisher...")
+        my_pub.destroy_node()
+
+if __name__=='__main__':
     main()
 ```
 
-# **rpm_subscriber.py** code:
+## **rpm_subscriber.py** code:
 
 ```python
 #! /usr/bin/env python3
@@ -70,36 +70,36 @@ DIAMETER = 10   # meters
 
 class RPMSubscriber(Node):
     def __init__(self):
-        super().__init__("rpm_sub_node")  
+        super().__init__("rpm_sub_node")
         self.sub = self.create_subscription(Float32, 'rpm', self.subscriber_callback_func, 10)
-        self.pub = self.create_publisher(Float32, 'speed', 10) 
-        
-    def subscriber_callback_func(self, msg): 
+        self.pub = self.create_publisher(Float32, 'speed', 10)
+
+    def subscriber_callback_func(self, msg):
         SPEED = (msg.data * PI * DIAMETER)/60   # SPEED = DISTANCE/TIME
                                                 # DISTANCE = WHEEL CIRCUMFERENCE * RPM
                                                 # TIME = 60 secs (1 minute)
         msg = Float32()
         msg.data = float(SPEED)
-        self.pub.publish(msg)                                 
-        
-        
+        self.pub.publish(msg)
+
+
 def main(args=None):
-    rclpy.init()                            
-    rpm_sub_node =  RPMSubscriber()       
+    rclpy.init()
+    rpm_sub_node =  RPMSubscriber()
     print("Waiting for rpm data to be published...")
-    
+
     try:
-        rclpy.spin(rpm_sub_node)                  
-                                            
-    except KeyboardInterrupt:              
+        rclpy.spin(rpm_sub_node)
+
+    except KeyboardInterrupt:
         print("Terminating subscriber...")
-        rpm_sub_node.destroy_node()               
-        
+        rpm_sub_node.destroy_node()
+
 if __name__ == '__main__':
     main()
 ```
 
-# **CMakeLists.txt**
+## CMakeLists.txt
 
 ```c
 cmake_minimum_required(VERSION 3.8)
@@ -111,25 +111,25 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# Adding the below 2 dependencies for configuring our python 
+# Adding the below 2 dependencies for configuring our python
 # scripts stored inside /scripts folder into this package.
-find_package(ament_cmake_python REQUIRED) 
+find_package(ament_cmake_python REQUIRED)
 find_package(rclpy REQUIRED)
 
 ament_python_install_package(scripts)
 # The above line of code is used to specify that our package contains Python scripts
-# inside a "Python Package Folder" named "scripts". 
-# It is a command provided by the ROS2 build system (ament) to configure 
+# inside a "Python Package Folder" named "scripts".
+# It is a command provided by the ROS2 build system (ament) to configure
 # the installation of Python packages.
 # A package folder is simply a python files folder containing a __init__.py file inside it.
-# Make sure that the "scripts" folder has atleast a blank file named __init__.py inside it. 
+# Make sure that the "scripts" folder has atleast a blank file named __init__.py inside it.
 
 # Specifying our python scripts.
 install(PROGRAMS
   scripts/publisher.py
   scripts/subscriber.py
-  **scripts/rpm_publisher.py
-  scripts/rpm_subscriber.py**
+  scripts/rpm_publisher.py
+  scripts/rpm_subscriber.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -148,7 +148,7 @@ endif()
 ament_package()
 ```
 
-# package.xml
+## package.xml
 
 ```xml
 <?xml version="1.0"?>
@@ -176,33 +176,34 @@ ament_package()
 </package>
 ```
 
-# Compiling And Executing The Nodes:
+## Compiling And Executing The Nodes:
 
 1. **To run the rpm_publisher node:**
-    
-    Open a **new termina**l in the **ros2_py_udemy_tutorial** workspace and run the following commands:
-    
+
+    Open a **new terminal** in the **ros2_py_udemy_tutorial** workspace and run the following commands:
+
     ```cpp
     source install/setup.bash
     ros2 run udemy_ros2_pkg rpm_publisher.py
-    
+
     ```
-    
+
 2. **To run the rpm_subscriber node:**
-    
+
     Open a **new terminal** in the **ros2_py_udemy_tutorial** workspace and run the following commands:
-    
+
     ```cpp
     source install/setup.bash
     ros2 run udemy_ros2_pkg rpm_subscriber.py
-    
-    ```
-    
 
-1. Now let us run our nodes. Open a **new terminal** and **run the following commands.**
-    
-    ![Untitled](images/image108.png)
+    ```
+
+
+3. Now let us run our nodes. Open a **new terminal** and **run the following commands.**
+
+    ![Figure 1 — Project 1 — Publishers & Subscribers (Python)](images/image108.png)
 
 ---
 
-[← Back to Contents](00_Contents.md) | [← Previous: Project 1.1 — Publishers and Subscribers (C++)](15_Project_Publishers_and_Subscribers_Cpp.md) | [Next: Chapter 11.1 — ROS2 Parameters (C++) →](17_ROS2_Parameters_Cpp.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 15 — Project 1 — Publishers & Subscribers (C++)](15_Project_Publishers_and_Subscribers_Cpp.md) | [Next Lesson: Chapter 17 — ROS2 Parameters (C++) →](17_ROS2_Parameters_Cpp.md)
+

@@ -1,21 +1,21 @@
-# Chapter 1. Prerequisites & Introduction
+# Chapter 1 — Prerequisites & Introduction
 
-[← Back to Contents](00_Contents.md) | [Next: Chapter 2 — Environment Setup →](02_Environment_Setup.md)
+[← Back to Contents](00_Contents.md) | [Next Lesson: Chapter 2 — Environment Setup →](02_Environment_Setup.md)
 
 ---
 
-# Prerequisites:
+## Prerequisites:
 
 1. Basic knowledge of **C++ or Python Programming Language**.
-    
-    *Resources: C++ Course (Complete Playlist - 74 Videos) on CodeWithHarry ****YT Channel,  Python Programming Tutorials on Bro Code YT Channel*
-    
-2. Knowledge of using **Ubuntu Linux** and its terminal commands is recommended but not mandatory.
-    
-    *Resource: Linux Course (1hr Video Approx.) by CodeWithHarry Channel on Youtube.*
-    
 
-# What is ROS2 ?
+    *Resources: C++ Course (Complete Playlist - 74 Videos) on CodeWithHarry YT Channel, Python Programming Tutorials on Bro Code YT Channel*
+
+2. Knowledge of using **Ubuntu Linux** and its terminal commands is recommended but not mandatory.
+
+    *Resource: Linux Course (1hr Video Approx.) by CodeWithHarry Channel on Youtube.*
+
+
+## What is ROS2?
 
 - **The Robot Operating System 2 (ROS 2) is a set of software libraries and tools that help you build robot applications.**
 - It provides a communication interface for software components (called "nodes") to interact with each other and with the underlying hardware.
@@ -24,4 +24,5 @@
 
 ---
 
-[← Back to Contents](00_Contents.md) | [Next: Chapter 2 — Environment Setup →](02_Environment_Setup.md)
+[← Back to Contents](00_Contents.md) | [Next Lesson: Chapter 2 — Environment Setup →](02_Environment_Setup.md)
+

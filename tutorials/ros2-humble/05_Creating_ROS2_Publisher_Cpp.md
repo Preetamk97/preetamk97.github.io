@@ -1,16 +1,16 @@
-# Chapter 5.1 Creating ROS2 Publisher (C++)
+# Chapter 5 — Creating ROS2 Publisher (C++)
 
-[← Back to Contents](00_Contents.md) | [← Previous: Chapter 4 — Setting Up a ROS2 Workspace (for both C++ and Python)](04_Setting_Up_a_ROS2_Workspace.md) | [Next: Chapter 5.2 — Creating a ROS2 Publisher (Python) →](06_Creating_ROS2_Publisher_Python.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 4 — Setting Up a ROS2 Workspace (for both C++ & Python)](04_Setting_Up_a_ROS2_Workspace.md) | [Next Lesson: Chapter 6 — Creating ROS2 Publisher (Python) →](06_Creating_ROS2_Publisher_Python.md)
 
 ---
 
 In this lesson, we will create our very own **ROS2 Publisher Node** using **C++**. We'll make a simple publisher that publishes a string that says **Hello World**, followed by a number which increments up every time we publish. Then in a future lesson, we'll create a subscriber to receive the messages we publish.
 
 1. For now, let's open our code editor → **open folder** → open **ros2_cpp_udemy_tutorial** workspace folder.
-2. In the VS Code File Explorer Panel on the left, under the **source directory (src)** → **udemy_ros2_pkg** package folder → **source directory(src) →** Create a new file named **publisher.cpp.**
-3. Complete information on **ROS2 C++ API** is documented in the official **rclcpp** **Documentation** ([https://docs.ros2.org/foxy/api/rclcpp/index.html](https://docs.ros2.org/foxy/api/rclcpp/index.html)).
+2. In the VS Code File Explorer Panel on the left, under the **source directory (src)** → **udemy_ros2_pkg** package folder → **source directory (src) →** Create a new file named **publisher.cpp.**
+3. Complete information on **ROS2 C++ API** is documented in the official **rclcpp Documentation** ([https://docs.ros2.org/foxy/api/rclcpp/index.html](https://docs.ros2.org/foxy/api/rclcpp/index.html)).
 
-# Commented Code:
+## Commented Code:
 
 ```cpp
 #include <rclcpp/rclcpp.hpp>
@@ -27,7 +27,7 @@ In this lesson, we will create our very own **ROS2 Publisher Node** using **C++*
 // opt/ros/humble/include/std_msgs/msg/string.hpp
 // This line includes the "string" message type from the std_msgs package, which is a basic message type in ROS2 that can be used to send and receive string data between nodes. The std_msgs package contains many other basic message types as well, such as int32, float64, and boolean.
 
-#include <chrono> 
+#include <chrono>
 //Neccesary for giving value of duration argument inside create_wall_timer(duration, callback_func) function below.
 #include <functional>
 // Necessary import for using the std::bind() function below.
@@ -115,12 +115,12 @@ int main(int argc, char * argv[]) // The argc and argv parameters are standard c
 
     rclcpp::shutdown();
     // The rclcpp::shutdown(); line of code is used to shut down the ROS2 system and the node by calling the shutdown() function of the rclcpp library. This function is responsible for releasing any resources allocated by the node, closing communication interfaces and stopping the event loop that was started by the rclcpp::spin() function.
-    
+
     return 0;
 }
 ```
 
-# Clean Code Without Comments:
+## Clean Code Without Comments:
 
 ```cpp
 #include <rclcpp/rclcpp.hpp>
@@ -172,6 +172,57 @@ int main(int argc, char *argv[])
 }
 ```
 
+## Antonio Brandi’s C++ Publisher Code:
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/string.hpp>
+#include <chrono>
+using namespace std::chrono_literals;
+class SimplePublisher : public rclcpp::Node
+{
+private:
+rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
+rclcpp::TimerBase::SharedPtr timer_;
+unsigned int counter_;
+public:
+SimplePublisher() : Node("simple_publisher"), counter_(0)
+// "simple_publisher" = official name of the publisher
+// by which it will be known in the Data Distribution Pipeline.
+{
+pub_ = create_publisher<std_msgs::msg::String>("chatter", 10);
+// create_publisher<> is template function of the rclcpp::Node class.
+// "chatter" is the name of the topic that the created
+// nodes's publisher is gonna publish to.
+// 10 : No. of messages that the publisher will keep as
+// backup in case the subscriber is not able top recieve them.
+timer_ = create_wall_timer(1s, std::bind(&SimplePublisher::timerCallback, this));
+// create_wall_timer<> is a function of the rclcpp::Node class.
+RCLCPP_INFO(get_logger(), "Publishing at 1 Hz");
+// RCLCPP_INFFO is a method of the rclcpp library
+// get_logger() is a method of the rclcpp::Node class which returns a logger
+// for logging messeages onto the terminal.
+}
+void timerCallback()
+{
+auto message = std_msgs::msg::String();
+message.data = "Hello ROS 2 - counter:" + std::to_string(counter_++);
+pub_->publish(message);
+// publish(message) is a function of the rclcpp::Publisher class.
+}
+};
+int main(int argc, char* argv[])
+{
+rclcpp::init(argc, argv);  // ros2 run arduinobot_cpp_examples simple_publisher.cpp
+auto node = std::make_shared<SimplePublisher>();
+// Making a shared_ptr object of SimplePublisher class.
+rclcpp::spin(node);  // Keeps the node up and running continuously
+rclcpp::shutdown();  // Closes all the node operation on pressing CTRL+C in the terminal
+return 0;
+}
+```
+
 ---
 
-[← Back to Contents](00_Contents.md) | [← Previous: Chapter 4 — Setting Up a ROS2 Workspace (for both C++ and Python)](04_Setting_Up_a_ROS2_Workspace.md) | [Next: Chapter 5.2 — Creating a ROS2 Publisher (Python) →](06_Creating_ROS2_Publisher_Python.md)
+[← Back to Contents](00_Contents.md) | [← Previous Lesson: Chapter 4 — Setting Up a ROS2 Workspace (for both C++ & Python)](04_Setting_Up_a_ROS2_Workspace.md) | [Next Lesson: Chapter 6 — Creating ROS2 Publisher (Python) →](06_Creating_ROS2_Publisher_Python.md)
+
