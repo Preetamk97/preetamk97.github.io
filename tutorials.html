@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" x-data="app()" x-init="init()" :class="{'dark':dark}" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Step-by-step robotics tutorials by Pritam Ranjan Kalita — Raspberry Pi 5 basics and CubeMars AK80-9 motor control, from first principles to a full capstone project.">
+<meta name="author" content="Pritam Ranjan Kalita">
+<meta property="og:title" content="Tutorials — Pritam's Portfolio">
+<meta property="og:description" content="Step-by-step robotics tutorials by Pritam Ranjan Kalita — Raspberry Pi 5 basics and CubeMars AK80-9 motor control.">
+<meta property="og:type" content="website">
+<title>Tutorials — Pritam Ranjan Kalita</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { display: ['PT Sans','sans-serif'], body: ['DM Sans','sans-serif'] },
+      colors: {
+        accent: '#FF6B2B', 'accent-light': '#FF8F5C',
+        mono: { 50:'#F8F8F2',100:'#F8F8F2',200:'#E8E6D9',300:'#CFCDBB',400:'#A6A28A',500:'#8B8770',600:'#75715E',700:'#57564A',800:'#3E3D32',900:'#272822',950:'#1E1F1C' }
+      }
+    }
+  }
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{font-family:'DM Sans',sans-serif}
+h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif}
+body{transition:background-color .3s,color .3s}
+
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#FF6B2B;border-radius:99px}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+.nl{position:relative}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .22s cubic-bezier(.4,0,.2,1)}
+.nl:hover::after,.nl.on::after{width:100%}
+.nl.on{font-weight:500}
+
+.shimmer,.btn-primary{position:relative;overflow:hidden}
+.shimmer::after,.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .4s cubic-bezier(.4,0,.2,1)}
+.shimmer:hover::after,.btn-primary:hover::after{left:160%}
+
+.pf{overflow:hidden;background:#d4d4d8}
+.pf img{width:100%;height:100%;object-fit:cover;display:block}
+
+.photo-frame{position:relative;overflow:hidden;background:#e4e4e7}
+.photo-frame img{width:100%;height:100%;object-fit:contain;display:block;background:#fff}
+.dark .photo-frame img{background:#272822}
+
+.card-h{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .18s}
+.card-h:hover{transform:translateY(-4px)}
+
+.tl-line{position:absolute;left:19px;top:2.75rem;bottom:-2rem;width:2px;background:linear-gradient(to bottom,#FF6B2B,transparent)}
+.tl-dot{width:40px;height:40px;border-radius:9999px;background:#FF6B2B;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.skill-tile{transition:transform .25s cubic-bezier(.4,0,.2,1),border-color .2s}
+.skill-tile:hover{transform:translateY(-4px)}
+.skill-icon{width:2.75rem;height:2.75rem;display:flex;align-items:center;justify-content:center}
+.skill-icon img{width:100%;height:100%;object-fit:contain}
+.badge-icon{width:2.75rem;height:2.75rem;border-radius:.65rem;display:flex;align-items:center;justify-content:center;font-family:'PT Sans',sans-serif;font-weight:700;font-size:.9rem;color:#fff;letter-spacing:-0.02em}
+
+.media-tab{transition:background-color .18s,color .18s}
+.img-caption{font-size:.8rem;color:#a1a1aa;text-align:center;margin-top:.6rem}
+video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+
+.type-caret{display:inline-block;margin-left:2px;width:2px;background:#FF6B2B;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.social-icon{width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:rgba(0,0,0,.06);transition:background-color .2s,transform .2s}
+.dark .social-icon{background:rgba(255,255,255,.08)}
+.social-icon:hover{background:#FF6B2B;transform:translateY(-3px)}
+
+.bg-decor{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-decor-item{position:absolute;will-change:transform}
+.bg-decor-item.dc-off{opacity:0}
+.bg-decor-item .fw{display:block;width:100%;height:100%;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
+.bg-decor-item svg{display:block;width:100%;height:100%}
+.bg-decor-item .ic-light{opacity:.15;filter:saturate(.4)}
+.dark .bg-decor-item .ic-light{display:none}
+.bg-decor-item .ic-dark{display:none;opacity:.15}
+.dark .bg-decor-item .ic-dark{display:block}
+.bg-decor-item .fw.fa{animation-name:floatA}
+.bg-decor-item .fw.fb{animation-name:floatB}
+.bg-decor-item .fw.fc{animation-name:floatC}
+.bg-decor-item .fw.fd{animation-name:floatB;animation-direction:reverse}
+.bg-decor-item .fw.fe{animation-name:floatA;animation-direction:reverse}
+.bg-decor-item .fw.ff{animation-name:floatC;animation-direction:reverse}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-24px) rotate(7deg)}}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(20px) rotate(-7deg)}}
+@keyframes floatC{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(12px,-18px) rotate(5deg)}}
+
+[x-cloak]{display:none!important}
+</style>
+<style>
+/* ── Tutorials page additions (on top of the shared base style block above) ── */
+.brand-row{display:flex;align-items:center;gap:1.25rem}
+.brand-link{font-family:'PT Sans',sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:-0.01em;position:relative;z-index:10}
+
+.subject-card{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .2s,box-shadow .28s}
+.subject-card:hover{transform:translateY(-6px)}
+.subject-card.is-active{border-color:#FF6B2B}
+.subject-card .subject-icon{width:3.5rem;height:3.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.subject-card .subject-icon img{width:100%;height:100%;object-fit:contain}
+
+.chapter-row{transition:transform .22s cubic-bezier(.4,0,.2,1),border-color .18s,background-color .18s}
+.chapter-row:hover{transform:translateX(4px)}
+.chapter-num{width:2.5rem;height:2.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-family:'PT Sans',sans-serif;font-weight:700;font-size:.85rem;flex-shrink:0;background:rgba(255,107,43,.12);color:#FF6B2B}
+
+.crumb{position:relative}
+.crumb::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .22s cubic-bezier(.4,0,.2,1)}
+.crumb:hover::after{width:100%}
+
+.pill-btn{transition:transform .22s cubic-bezier(.4,0,.2,1),background-color .18s,border-color .18s}
+.pill-btn:hover{transform:translateY(-2px)}
+
+.chapter-fade-enter{opacity:0;transform:translateY(14px)}
+.chapter-fade-enter-active{transition:opacity .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.4,0,.2,1)}
+
+/* Rendered markdown content, layered on top of the Tailwind Typography 'prose' classes */
+.tut-content{max-width:none}
+.tut-content :is(h1,h2,h3,h4){font-family:'PT Sans',sans-serif;scroll-margin-top:6rem}
+.tut-content h1{font-size:1.9rem}
+.tut-content a{text-decoration-color:rgba(255,107,43,.35);text-underline-offset:3px}
+.tut-content pre{border-radius:1rem;position:relative}
+.tut-content pre code.hljs{background:transparent;padding:0}
+.tut-content :not(pre)>code{background:rgba(255,107,43,.1);color:#FF6B2B;border-radius:.35rem;padding:.15rem .4rem;font-weight:500}
+.tut-content :not(pre)>code::before,.tut-content :not(pre)>code::after{content:none}
+.tut-content img{border-radius:1rem;border:1px solid rgba(0,0,0,.06)}
+.dark .tut-content img{border-color:rgba(255,255,255,.08)}
+.tut-content figure{margin:1.75rem 0}
+.tut-content figcaption{font-size:.8rem;color:#a1a1aa;text-align:center;margin-top:.6rem}
+.tut-content figure video,.tut-content video{width:100%;max-width:640px;display:block;margin:0 auto;border-radius:1rem;background:#000}
+.tut-content table{display:block;overflow-x:auto;white-space:nowrap}
+.tut-content blockquote{border-left-color:#FF6B2B}
+.tut-content .katex-display{overflow-x:auto;overflow-y:hidden;padding:.25rem 0}
+
+.skeleton{background:linear-gradient(100deg,rgba(120,120,120,.08) 30%,rgba(120,120,120,.16) 50%,rgba(120,120,120,.08) 70%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+@media (max-width:400px){.brand-row{gap:.75rem}.brand-link{font-size:1.05rem}}
+</style>
+</head>
+
+<body class="relative bg-white dark:bg-mono-950 text-zinc-900 dark:text-mono-100 antialiased">
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<symbol id="ic-robotA-d" viewBox="0 0 64 64"><line x1="32" y1="4" x2="32" y2="10"/>
+    <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10" width="32" height="22" rx="6"/>
+    <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <path d="M25 27h14"/>
+    <rect x="12" y="34" width="40" height="24" rx="6"/>
+    <line x1="32" y1="34" x2="32" y2="58"/>
+    <line x1="4" y1="40" x2="12" y2="40"/>
+    <line x1="52" y1="40" x2="60" y2="40"/>
+    <line x1="22" y1="58" x2="22" y2="62"/>
+    <line x1="42" y1="58" x2="42" y2="62"/></symbol>
+<symbol id="ic-robotA-l" viewBox="0 0 64 64"><circle cx="32" cy="3" r="2" fill="#F92672"/>
+    <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+    <circle cx="25" cy="21" r="3" fill="#272822"/>
+    <circle cx="39" cy="21" r="3" fill="#272822"/>
+    <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+    <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="ic-robotB-d" viewBox="0 0 64 64"><circle cx="32" cy="20" r="16"/>
+    <circle cx="25" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <path d="M25 26c3 3 11 3 14 0"/>
+    <circle cx="32" cy="4" r="2.4" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="6" x2="32" y2="10"/>
+    <rect x="14" y="38" width="36" height="20" rx="10"/>
+    <circle cx="8" cy="46" r="6"/>
+    <circle cx="56" cy="46" r="6"/></symbol>
+<symbol id="ic-robotB-l" viewBox="0 0 64 64"><circle cx="32" cy="20" r="16" fill="#A6E22E"/>
+    <circle cx="25" cy="18" r="3.2" fill="#272822"/>
+    <circle cx="39" cy="18" r="3.2" fill="#272822"/>
+    <path d="M25 26c3 3 11 3 14 0" stroke="#272822" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="4" r="2.4" fill="#E6DB74"/>
+    <line x1="32" y1="6" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="14" y="38" width="36" height="20" rx="10" fill="#AE81FF"/>
+    <circle cx="8" cy="46" r="6" fill="#A6E22E"/>
+    <circle cx="56" cy="46" r="6" fill="#A6E22E"/></symbol>
+<symbol id="ic-droneA-d" viewBox="0 0 64 64"><rect x="24" y="26" width="16" height="12" rx="3"/>
+    <line x1="24" y1="28" x2="10" y2="14"/>
+    <line x1="40" y1="28" x2="54" y2="14"/>
+    <line x1="24" y1="36" x2="10" y2="50"/>
+    <line x1="40" y1="36" x2="54" y2="50"/>
+    <circle cx="10" cy="14" r="7"/>
+    <circle cx="54" cy="14" r="7"/>
+    <circle cx="10" cy="50" r="7"/>
+    <circle cx="54" cy="50" r="7"/></symbol>
+<symbol id="ic-droneA-l" viewBox="0 0 64 64"><rect x="24" y="26" width="16" height="12" rx="3" fill="#FD971F"/>
+    <line x1="24" y1="28" x2="10" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="28" x2="54" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="36" x2="10" y2="50" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="36" x2="54" y2="50" stroke="#57564A" stroke-width="2"/>
+    <circle cx="10" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="10" cy="50" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="50" r="7" fill="#66D9EF"/></symbol>
+<symbol id="ic-droneB-d" viewBox="0 0 64 64"><path d="M32 22l8 10-8 10-8-10z"/>
+    <line x1="24" y1="26" x2="12" y2="16"/>
+    <line x1="40" y1="26" x2="52" y2="16"/>
+    <line x1="24" y1="38" x2="12" y2="48"/>
+    <line x1="40" y1="38" x2="52" y2="48"/>
+    <circle cx="12" cy="16" r="6"/>
+    <circle cx="52" cy="16" r="6"/>
+    <circle cx="12" cy="48" r="6"/>
+    <circle cx="52" cy="48" r="6"/></symbol>
+<symbol id="ic-droneB-l" viewBox="0 0 64 64"><path d="M32 22l8 10-8 10-8-10z" fill="#F92672"/>
+    <line x1="24" y1="26" x2="12" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="26" x2="52" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="38" x2="12" y2="48" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="38" x2="52" y2="48" stroke="#57564A" stroke-width="2"/>
+    <circle cx="12" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="12" cy="48" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="48" r="6" fill="#A6E22E"/></symbol>
+<symbol id="ic-rocketA-d" viewBox="0 0 64 64"><path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/></symbol>
+<symbol id="ic-rocketA-l" viewBox="0 0 64 64"><path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/></symbol>
+<symbol id="ic-rocketB-d" viewBox="0 0 64 64"><path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/></symbol>
+<symbol id="ic-rocketB-l" viewBox="0 0 64 64"><path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/></symbol>
+<symbol id="ic-moon-d" viewBox="0 0 64 64"><path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/></symbol>
+<symbol id="ic-moon-l" viewBox="0 0 64 64"><path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/></symbol>
+<symbol id="ic-star-d" viewBox="0 0 64 64"><path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/></symbol>
+<symbol id="ic-star-l" viewBox="0 0 64 64"><path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/></symbol>
+<symbol id="ic-robotArm-d" viewBox="0 0 64 64"><rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/></symbol>
+<symbol id="ic-robotArm-l" viewBox="0 0 64 64"><rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/></symbol>
+<symbol id="ic-humanoid-d" viewBox="0 0 64 64"><circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/></symbol>
+<symbol id="ic-humanoid-l" viewBox="0 0 64 64"><circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/></symbol>
+</defs></svg>
+<script>var DECOR_HERO_COUNT = 15;</script>
+
+<!-- ═══ NAV ═══ -->
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  :class="sc?'bg-white/90 dark:bg-mono-950/90 backdrop-blur-md shadow-sm shadow-black/5':''">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+
+    <div class="brand-row">
+      <a href="index.html" class="brand-link">
+        <span class="text-zinc-900 dark:text-mono-100">Pritam</span><span class="text-accent">.</span>
+      </a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-8">
+      <button @click="dark=!dark" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-mono-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors" :aria-label="dark?'Light mode':'Dark mode'">
+        <svg x-show="!dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg x-show="dark"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3 md:hidden">
+      <button @click="dark=!dark" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-mono-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors" :aria-label="dark?'Light mode':'Dark mode'">
+        <svg x-show="!dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg x-show="dark"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<!-- ═══ HERO ═══ -->
+<section class="relative pt-32 pb-10 md:pt-40 md:pb-14 overflow-hidden scroll-mt-24">
+  <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-200/50 dark:bg-mono-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <div class="bg-decor" data-decor-section="hero" aria-hidden="true" style="z-index:-1"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 w-full">
+
+    <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Learn &amp; Build</p>
+    <h1 class="reveal d1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-mono-100 mb-5">Tutorials.</h1>
+    <p class="reveal d2 text-lg md:text-xl text-zinc-500 dark:text-mono-400 leading-relaxed max-w-2xl">
+      Step-by-step write-ups from my own robotics work.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ SUBJECTS + CHAPTER STACK ═══ -->
+<section class="relative pb-24 overflow-hidden">
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 w-full">
+
+    <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
+      <template x-for="s in subjects" :key="s.slug">
+        <button type="button" @click="selectSubject(s.slug)"
+          class="subject-card card-h text-left bg-white dark:bg-mono-900 rounded-2xl p-6 md:p-7 border border-zinc-100 dark:border-mono-800 hover:border-accent relative overflow-hidden"
+          :class="subject===s.slug?'is-active':''">
+          <div class="flex items-start gap-4">
+            <span class="subject-icon"><img :src="s.icon" :alt="s.name+' logo'" loading="lazy"></span>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-display font-bold text-lg md:text-xl text-zinc-900 dark:text-mono-100 mb-1" x-text="s.name"></h3>
+              <p class="text-sm text-zinc-500 dark:text-mono-400 leading-relaxed" x-text="s.tagline"></p>
+              <p class="text-xs font-semibold text-accent mt-3" x-text="s.chapters.length + ' lessons'"></p>
+            </div>
+          </div>
+        </button>
+      </template>
+    </div>
+
+    <div x-show="subject" x-cloak
+      x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0"
+      class="mt-10 md:mt-12">
+
+      <div class="flex flex-wrap items-center gap-2 text-sm text-zinc-500 dark:text-mono-400 mb-6">
+        <button type="button" @click="closeChapter()" class="crumb font-medium hover:text-accent transition-colors" x-text="currentSubject ? currentSubject.name : ''"></button>
+        <template x-if="chapter">
+          <span class="flex items-center gap-2 min-w-0">
+            <span>/</span>
+            <span class="text-zinc-900 dark:text-mono-100 font-medium truncate" x-text="chapter.title"></span>
+          </span>
+        </template>
+      </div>
+
+      <!-- chapter stack (list) -->
+      <div x-show="!chapter" x-cloak>
+        <div class="grid gap-3">
+          <template x-for="(c,i) in (currentSubject ? currentSubject.chapters : [])" :key="c.file">
+            <button type="button" @click="selectChapter(c)"
+              class="chapter-row flex items-center gap-4 w-full text-left bg-white dark:bg-mono-900 rounded-xl p-4 md:p-5 border border-zinc-100 dark:border-mono-800 hover:border-accent">
+              <span class="chapter-num" x-text="i+1"></span>
+              <span class="flex-1 min-w-0">
+                <span class="block font-display font-semibold text-zinc-900 dark:text-mono-100 leading-snug" x-text="c.title"></span>
+                <span class="block text-xs text-zinc-500 dark:text-mono-400 mt-1" x-show="c.desc" x-text="c.desc"></span>
+              </span>
+              <svg class="w-4 h-4 text-zinc-300 dark:text-mono-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- chapter content -->
+      <div x-show="chapter" x-cloak id="chapter-content-anchor">
+        <div class="bg-white dark:bg-mono-900 rounded-2xl border border-zinc-100 dark:border-mono-800 p-6 md:p-10">
+
+          <div x-show="loading" class="space-y-3" aria-hidden="true">
+            <div class="skeleton h-7 w-2/3 rounded-lg"></div>
+            <div class="skeleton h-4 w-full rounded-lg"></div>
+            <div class="skeleton h-4 w-5/6 rounded-lg"></div>
+            <div class="skeleton h-4 w-3/4 rounded-lg"></div>
+            <div class="skeleton h-48 w-full rounded-lg mt-6"></div>
+          </div>
+
+          <p x-show="!loading && error" class="text-sm text-red-500" x-text="error"></p>
+
+          <div x-show="!loading && !error"
+            class="prose dark:prose-invert prose-zinc max-w-none tut-content prose-headings:font-display prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-zinc-900 dark:prose-strong:text-mono-100 prose-code:font-normal prose-img:mx-auto prose-blockquote:font-normal prose-blockquote:not-italic"
+            @click="onContentClick($event)" id="chapter-content" x-html="chapterHtml"></div>
+
+          <div class="flex flex-wrap items-center justify-between gap-4 mt-10 pt-6 border-t border-zinc-100 dark:border-mono-800" x-show="!loading && !error">
+            <button type="button" x-show="prevChapter" @click="selectChapter(prevChapter)" class="pill-btn inline-flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-mono-400 hover:text-accent max-w-[45%]">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              <span class="truncate" x-text="prevChapter?prevChapter.title:''"></span>
+            </button>
+            <span x-show="!prevChapter"></span>
+            <button type="button" @click="closeChapter()" class="pill-btn text-sm font-medium text-zinc-500 dark:text-mono-400 hover:text-accent">All lessons</button>
+            <button type="button" x-show="nextChapter" @click="selectChapter(nextChapter)" class="pill-btn inline-flex items-center gap-2 text-sm font-medium text-accent max-w-[45%] justify-end text-right">
+              <span class="truncate" x-text="nextChapter?nextChapter.title:''"></span>
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t border-zinc-100 dark:border-mono-900">
+  <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+    <p class="text-sm text-zinc-400">&copy; <span id="yr"></span> Pritam Ranjan Kalita. All rights reserved.</p>
+  </div>
+</footer>
+<script>
+function app() {
+  return {
+    dark: false,
+    sc: false,
+
+    subject: null,
+    chapter: null,
+    chapterHtml: '',
+    loading: false,
+    error: '',
+    io: null,
+
+    subjects: [
+      {
+        slug: "raspberry-pi-5-basics",
+        name: "Raspberry Pi 5 Basics",
+        tagline: "Hardware, OS setup, remote access, and sensor wiring for the Raspberry Pi 5.",
+        icon: "assets/icons/raspberrypi-logo.png",
+        chapters: [
+          { file: "01_Introduction.md", title: "Lesson 1: Introduction to Raspberry Pi 5", desc: "Major hardware components, connectors, the GPIO header, and common applications." },
+          { file: "02_Clean-Formatting-An-Used-RPi-SD-Card.md", title: "Lesson 2: Clean-Formatting a Previously Used SD Card", desc: "Prepare a previously used microSD card before installing a fresh OS." },
+          { file: "03_Installing-Raspberry-Pi-OS-and-Connecting-via-SSH.md", title: "Lesson 3: Installing Raspberry Pi OS and Connecting via SSH", desc: "Flash the OS with Raspberry Pi Imager, enable SSH, and connect remotely." },
+          { file: "04_Configuring_Remote_Desktop_Access_with_VNC.md", title: "Lesson 4: Configuring Remote Desktop Access with VNC", desc: "Set up VNC and access the Pi's graphical desktop from your computer." },
+          { file: "05_Changing_the_Wi-Fi_Network_of_Your_Raspberry_Pi.md", title: "Lesson 5: Changing the Wi-Fi Network of Your Raspberry Pi", desc: "Switch Wi-Fi networks, including WPA2-Enterprise, from desktop or terminal." },
+          { file: "06_Frequently_Used_Raspberry_Pi_Terminal_Commands.md", title: "Lesson 6: Frequently Used Raspberry Pi Terminal Commands", desc: "A reference for navigation, file management, networking, and process control." },
+          { file: "07_AS5048B_Magnetic_Position_Sensor.md", title: "Lesson 7: The AS5048B Magnetic Position Sensor", desc: "Wire the sensor over I2C and read its 14-bit absolute angle in Python." }
+        ]
+      },
+      {
+        slug: "cubemars-ak80-9",
+        name: "CubeMars AK80-9 Motor Control",
+        tagline: "Every control mode of the AK80-9 V3.0 actuator, from first principles to a dual-motor capstone.",
+        icon: "assets/icons/cubemars-logo.png",
+        chapters: [
+          { file: "01_Meet_the_AK80-9.md", title: "Chapter 1 — Meet the AK80-9" },
+          { file: "02_Currents_Torque_and_FOC.md", title: "Chapter 2 — Currents, Torque, and FOC" },
+          { file: "03_Units_the_Motor_Speaks.md", title: "Chapter 3 — The Units the Motor Speaks" },
+          { file: "04_Control_Mode_Map_and_First_Power_Up.md", title: "Chapter 4 — Control-Mode Map and First Power-Up" },
+          { file: "05_Duty_Cycle_Mode.md", title: "Chapter 5 — Duty Cycle Mode" },
+          { file: "06_Current_Loop_Mode.md", title: "Chapter 6 — Current Loop Mode" },
+          { file: "07_Current_Brake_Mode.md", title: "Chapter 7 — Current Brake Mode" },
+          { file: "08_Velocity_Loop_Mode.md", title: "Chapter 8 — Velocity Loop Mode" },
+          { file: "09_Position_Loop_Mode.md", title: "Chapter 9 — Position Loop Mode" },
+          { file: "10_Position_Velocity_Mode.md", title: "Chapter 10 — Position–Velocity Loop Mode" },
+          { file: "11_MIT_Force_Control_Mode.md", title: "Chapter 11 — MIT (Force) Control Mode" },
+          { file: "12_Choosing_the_Right_Control_Mode.md", title: "Chapter 12 — Choosing the Right Control Mode" },
+          { file: "13_Controlling_the_AK80-9_from_a_Raspberry_Pi_5.md", title: "Chapter 13 — Controlling the AK80-9 from a Raspberry Pi 5" },
+          { file: "14_Different_Control_Modes_Using_Python___EpicallyPowerFullAPI.md", title: "Chapter 14 — Every Control Mode from Python" },
+          { file: "15_Capstone_Project.md", title: "Chapter 15 — Capstone Project" }
+        ]
+      }
+    ],
+
+    get currentSubject() {
+      return this.subjects.find(s => s.slug === this.subject) || null;
+    },
+    get prevChapter() {
+      const s = this.currentSubject;
+      if (!s || !this.chapter) return null;
+      const i = s.chapters.findIndex(c => c.file === this.chapter.file);
+      return i > 0 ? s.chapters[i - 1] : null;
+    },
+    get nextChapter() {
+      const s = this.currentSubject;
+      if (!s || !this.chapter) return null;
+      const i = s.chapters.findIndex(c => c.file === this.chapter.file);
+      return (i >= 0 && i < s.chapters.length - 1) ? s.chapters[i + 1] : null;
+    },
+
+    init() {
+      this.dark = localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      this.$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
+
+      window.addEventListener('scroll', () => { this.sc = window.scrollY > 20; }, { passive: true });
+
+      this.io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); this.io.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      this.$nextTick(() => this.refreshReveals());
+
+      document.getElementById('yr').textContent = new Date().getFullYear();
+
+      window.addEventListener('hashchange', () => this.applyHash(false));
+      this.applyHash(true);
+    },
+
+    refreshReveals() {
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (!el.dataset.observed) { el.dataset.observed = '1'; this.io.observe(el); }
+      });
+    },
+
+    applyHash(isInitial) {
+      const raw = decodeURIComponent(location.hash.replace(/^#/, ''));
+      if (!raw) return;
+      const [slug, file] = raw.split('/');
+      const s = this.subjects.find(x => x.slug === slug);
+      if (!s) return;
+      this.subject = slug;
+      if (file) {
+        const c = s.chapters.find(x => x.file === file);
+        if (c) { this.openChapter(c, false); return; }
+      }
+      this.$nextTick(() => this.refreshReveals());
+    },
+
+    updateHash() {
+      const parts = [];
+      if (this.subject) parts.push(this.subject);
+      if (this.chapter) parts.push(this.chapter.file);
+      const h = '#' + parts.join('/');
+      if (location.hash !== h) history.pushState(null, '', h);
+    },
+
+    selectSubject(slug) {
+      this.subject = slug;
+      this.chapter = null;
+      this.chapterHtml = '';
+      this.error = '';
+      this.updateHash();
+      this.$nextTick(() => this.refreshReveals());
+    },
+
+    closeChapter() {
+      this.chapter = null;
+      this.chapterHtml = '';
+      this.error = '';
+      this.updateHash();
+    },
+
+    selectChapter(c) {
+      this.openChapter(c, true);
+    },
+
+    openChapter(c, doScroll) {
+      this.chapter = c;
+      this.loading = true;
+      this.error = '';
+      this.chapterHtml = '';
+      this.updateHash();
+      const slug = this.subject;
+
+      fetch('tutorials/' + slug + '/' + c.file)
+        .then(res => { if (!res.ok) throw new Error('Could not load this lesson (HTTP ' + res.status + ').'); return res.text(); })
+        .then(raw => {
+          this.chapterHtml = this.renderMarkdown(raw, slug);
+          this.loading = false;
+          this.$nextTick(() => {
+            this.highlightCode();
+            this.refreshReveals();
+            if (doScroll) {
+              const anchor = document.getElementById('chapter-content-anchor');
+              if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        })
+        .catch(err => {
+          this.loading = false;
+          this.error = err.message || 'Something went wrong loading this lesson.';
+        });
+    },
+
+    onContentClick(e) {
+      const a = e.target.closest('a');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      if (/^https?:\/\//i.test(href) || href.startsWith('mailto:') || href.startsWith('#')) return;
+      if (!/\.md($|#)/i.test(href)) return;
+      e.preventDefault();
+      const file = href.split('/').pop().split('#')[0];
+      const s = this.currentSubject;
+      if (!s) return;
+      if (file === '00_Contents.md') { this.closeChapter(); return; }
+      const c = s.chapters.find(x => x.file === file);
+      if (c) this.selectChapter(c);
+    },
+
+    highlightCode() {
+      if (!window.hljs) return;
+      document.querySelectorAll('#chapter-content pre code').forEach(el => hljs.highlightElement(el));
+    },
+
+    renderMarkdown(raw, slug) {
+      const math = [];
+      let text = raw
+        .replace(/\$\$([\s\S]+?)\$\$/g, (m, expr) => { math.push({ expr, display: true }); return 'MATHPLACEHOLDER' + (math.length - 1) + 'END'; })
+        .replace(/\$([^\$\n]+?)\$/g, (m, expr) => { math.push({ expr, display: false }); return 'MATHPLACEHOLDER' + (math.length - 1) + 'END'; });
+
+      let html = marked.parse(text, { gfm: true, breaks: false });
+
+      html = html.replace(/MATHPLACEHOLDER(\d+)END/g, (m, idx) => {
+        const item = math[idx];
+        if (!item || !window.katex) return m;
+        try { return katex.renderToString(item.expr, { throwOnError: false, displayMode: item.display }); }
+        catch (e) { return item.expr; }
+      });
+
+      html = html.replace(/src="([^"]*)"/g, (m, p1) => {
+        if (/^(https?:)?\/\//.test(p1) || p1.startsWith('data:')) return m;
+        return 'src="tutorials/' + slug + '/' + p1.replace(/\\/g, '/') + '"';
+      });
+
+      html = html.replace(/<a\s+href="(https?:\/\/[^"]+)"/g, '<a target="_blank" rel="noopener noreferrer" href="$1"');
+
+      return html;
+    }
+  }
+}
+</script>
+<!-- ═══ FLOATING DECOR: even jittered-grid layout + continuous "on water" bob ═══ -->
+<script>
+(function(){
+  var ICONS = ['robotA','robotB','droneA','droneB','rocketA','rocketB','moon','star','robotArm','humanoid'];
+  var DARK_COLORS = ['text-yellow-300','text-emerald-400','text-sky-400','text-accent','text-purple-400','text-pink-400'];
+  var FLOAT_CLASSES = ['fa','fb','fc','fd','fe','ff'];
+
+  function rand(min, max){ return min + Math.random() * (max - min); }
+  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function buildIconEl(){
+    var icon = pick(ICONS);
+    var color = pick(DARK_COLORS);
+    var size = Math.round(rand(40, 130));
+    var depth = rand(0.015, 0.075).toFixed(3);
+    var sway = rand(4, 18).toFixed(1);
+    var phase = rand(0, 6.4).toFixed(2);
+    var floatClass = pick(FLOAT_CLASSES);
+    var duration = rand(16, 26).toFixed(1);
+    var delay = -rand(0, 20).toFixed(1);
+
+    var item = document.createElement('div');
+    item.className = 'bg-decor-item';
+    item.setAttribute('data-depth', depth);
+    item.setAttribute('data-sway', sway);
+    item.setAttribute('data-phase', phase);
+    item.style.width = size + 'px';
+    item.style.height = size + 'px';
+
+    var fw = document.createElement('div');
+    fw.className = 'fw ' + floatClass;
+    fw.style.animationDuration = duration + 's';
+    fw.style.animationDelay = delay + 's';
+
+    var lightSvg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    lightSvg.setAttribute('class','ic-light');
+    lightSvg.setAttribute('viewBox','0 0 64 64');
+    lightSvg.setAttribute('fill','none');
+    var lightUse = document.createElementNS('http://www.w3.org/2000/svg','use');
+    lightUse.setAttribute('href', '#ic-' + icon + '-l');
+    lightSvg.appendChild(lightUse);
+
+    var darkSvg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    darkSvg.setAttribute('class','ic-dark ' + color);
+    darkSvg.setAttribute('viewBox','0 0 64 64');
+    darkSvg.setAttribute('fill','none');
+    darkSvg.setAttribute('stroke','currentColor');
+    darkSvg.setAttribute('stroke-width','2.5');
+    darkSvg.setAttribute('stroke-linecap','round');
+    darkSvg.setAttribute('stroke-linejoin','round');
+    var darkUse = document.createElementNS('http://www.w3.org/2000/svg','use');
+    darkUse.setAttribute('href', '#ic-' + icon + '-d');
+    darkSvg.appendChild(darkUse);
+
+    fw.appendChild(lightSvg);
+    fw.appendChild(darkSvg);
+    item.appendChild(fw);
+    return item;
+  }
+
+  // Places `count` icons across the parts of a section that are actually
+  // VISIBLE, so the decoration reads as evenly spread on screen. Three things
+  // matter, and each fixes a specific way the naive version looked wrong:
+  //
+  //  1. Opaque content (cards, panels, the timeline) is measured up front and
+  //     treated as a no-go zone. Spreading icons evenly across the raw section
+  //     box puts most of them behind a card where they are invisible, which is
+  //     what made sections look "all icons crammed on one side".
+  //  2. Candidates are drawn with best-candidate sampling against the free
+  //     space: each icon tries several random spots and keeps the one furthest
+  //     from its nearest neighbour. That yields an even, Poisson-disc-like
+  //     scatter without leaving the ragged holes a fixed grid produces when the
+  //     free area is an irregular ring around a card.
+  //  3. Collision uses an INFLATED radius covering how far the CSS float
+  //     keyframes plus the JS bob/sway can carry an icon at runtime. Two icons
+  //     parked 1px apart would collide the moment they start drifting, so the
+  //     motion envelope is reserved up front.
+  var MIN_GAP = 10;       // clearance between two icons' motion envelopes, px
+  var MOTION_BUDGET = 34; // max px the float keyframes + bob/sway displace an icon
+  var CANDIDATES = 14;    // random spots tried per icon; highest spacing wins
+
+  // Elements that paint an OPAQUE background over the decor layer. Icons are
+  // kept out of these so every icon that exists is an icon you can see. Only
+  // genuinely solid blocks belong here - matching too broadly (every rounded
+  // corner, every image) leaves so little free space that icons get dropped
+  // and whatever space remains is lopsided, which looks worse than the
+  // occlusion it was meant to fix. An element only counts as a blocker if it
+  // actually has a non-transparent background painted on it.
+  var BLOCKER_SELECTOR = [
+    '.card-h', '.skill-tile', '.subject-card', '.chapter-row',
+    '.photo-frame', '.pf', 'video'
+  ].join(',');
+
+  function isOpaque(node){
+    var bg = getComputedStyle(node).backgroundColor;
+    if (!bg || bg === 'transparent') return false;
+    var m = bg.match(/^rgba?\(([^)]+)\)/);
+    if (!m) return true;
+    var parts = m[1].split(',');
+    return parts.length < 4 || parseFloat(parts[3]) > 0.6;
+  }
+
+  function collectBlockers(container, pw, ph){
+    // The decor layer sits behind its section; look at the section for content.
+    var host = container.parentElement;
+    if (!host) return [];
+    var base = container.getBoundingClientRect();
+    var out = [];
+    var nodes = host.querySelectorAll(BLOCKER_SELECTOR);
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (container.contains(n)) continue; // our own icons
+      var r = n.getBoundingClientRect();
+      if (r.width < 60 || r.height < 60) continue; // ignore chips/badges
+      if (!isOpaque(n)) continue;
+      var box = {
+        x1: r.left - base.left, y1: r.top - base.top,
+        x2: r.right - base.left, y2: r.bottom - base.top
+      };
+      if (box.x2 <= 0 || box.y2 <= 0 || box.x1 >= pw || box.y1 >= ph) continue;
+      out.push(box);
+    }
+    // If content covers most of the section there is no useful free space left;
+    // fall back to ignoring blockers so the requested icon count still appears
+    // rather than silently thinning out to a handful.
+    var covered = 0;
+    for (var b = 0; b < out.length; b++) {
+      covered += (out[b].x2 - out[b].x1) * (out[b].y2 - out[b].y1);
+    }
+    if (covered > pw * ph * 0.55) return [];
+    return out;
+  }
+
+  function layoutContainer(container, count){
+    container.innerHTML = '';
+    if (count <= 0) return;
+    var pw = container.clientWidth, ph = container.clientHeight;
+    if (pw <= 0 || ph <= 0) return;
+
+    var blockers = collectBlockers(container, pw, ph);
+    function blocked(cx, cy, r){
+      for (var b = 0; b < blockers.length; b++) {
+        var k = blockers[b];
+        // treat the icon's motion envelope as a box for this test
+        if (cx + r > k.x1 && cx - r < k.x2 && cy + r > k.y1 && cy - r < k.y2) return true;
+      }
+      return false;
+    }
+
+    var placed = []; // {cx, cy, r} using inflated radii
+    function nearestGap(cx, cy, r){
+      // distance to the closest neighbour's envelope; negative means overlap
+      var best = Infinity;
+      for (var p = 0; p < placed.length; p++) {
+        var dx = cx - placed[p].cx, dy = cy - placed[p].cy;
+        var d = Math.sqrt(dx * dx + dy * dy) - (r + placed[p].r);
+        if (d < best) best = d;
+      }
+      return best;
+    }
+
+    var frag = document.createDocumentFragment();
+    for (var k = 0; k < count; k++) {
+      var el = buildIconEl();
+      var size = parseFloat(el.style.width);
+      var radius = size / 2;
+      var envelope = radius + MOTION_BUDGET;
+
+      // best-candidate sampling: try a handful of free spots, keep the one with
+      // the most room around it. This is what makes the scatter look even.
+      var bestX = null, bestY = null, bestScore = -Infinity;
+      for (var t = 0; t < CANDIDATES; t++) {
+        var cx = rand(envelope, Math.max(envelope, pw - envelope));
+        var cy = rand(envelope, Math.max(envelope, ph - envelope));
+        if (blocked(cx, cy, envelope)) continue;
+        var score = nearestGap(cx, cy, envelope);
+        if (score > bestScore) { bestScore = score; bestX = cx; bestY = cy; }
+      }
+
+      if (bestX === null) {
+        // everywhere sampled was behind content - retry ignoring blockers so the
+        // icon still lands somewhere legal rather than being dropped
+        for (var t2 = 0; t2 < CANDIDATES * 2; t2++) {
+          var rx = rand(envelope, Math.max(envelope, pw - envelope));
+          var ry = rand(envelope, Math.max(envelope, ph - envelope));
+          var s2 = nearestGap(rx, ry, envelope);
+          if (s2 > bestScore) { bestScore = s2; bestX = rx; bestY = ry; }
+        }
+      }
+
+      // shrink until this icon's envelope clears every neighbour: icons must
+      // never overlap, even where free space is tight
+      while (bestScore < MIN_GAP && radius > 9) {
+        radius *= 0.85;
+        envelope = radius + MOTION_BUDGET;
+        bestScore = nearestGap(bestX, bestY, envelope);
+      }
+      if (bestScore < MIN_GAP) {
+        // No room at the chosen spot even shrunk. Take one more sweep of the
+        // whole container at the small size before giving up, so a crowded
+        // section still shows the number of icons that was asked for.
+        radius = 9; envelope = radius + MOTION_BUDGET;
+        for (var t3 = 0; t3 < CANDIDATES * 3; t3++) {
+          var qx = rand(envelope, Math.max(envelope, pw - envelope));
+          var qy = rand(envelope, Math.max(envelope, ph - envelope));
+          var s3 = nearestGap(qx, qy, envelope);
+          if (s3 > bestScore) { bestScore = s3; bestX = qx; bestY = qy; }
+        }
+        if (bestScore < MIN_GAP) continue; // truly full - skip rather than overlap
+      }
+
+      size = Math.round(radius * 2);
+      radius = size / 2;
+      envelope = radius + MOTION_BUDGET;
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+
+      placed.push({ cx: bestX, cy: bestY, r: envelope });
+      var left = Math.max(0, Math.min(pw - size, bestX - radius));
+      var top = Math.max(0, Math.min(ph - size, bestY - radius));
+      el.style.left = left.toFixed(2) + 'px';
+      el.style.top = top.toFixed(2) + 'px';
+      frag.appendChild(el);
+    }
+    container.appendChild(frag);
+  }
+
+  var container = document.querySelector('[data-decor-section="hero"]');
+  if (!container) return;
+
+  function regenerate(){
+    var count = Math.max(0, (window.DECOR_HERO_COUNT | 0) || 0);
+    layoutContainer(container, count);
+    startFloat();
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(regenerate, 200);
+  });
+
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(regenerate, 150);
+    });
+    ro.observe(container);
+  }
+
+  regenerate();
+
+  // ── continuous "on water" bob + gentle scroll parallax ──
+  var floatState = [];
+  var floatRunning = false;
+  var lastScrollY = window.scrollY;
+  var energy = 0;
+
+  function startFloat(){
+    var items = Array.prototype.slice.call(document.querySelectorAll('.bg-decor-item[data-depth]'));
+    floatState = items.map(function(el){
+      var depth = parseFloat(el.getAttribute('data-depth')) || 0.03;
+      var sway = parseFloat(el.getAttribute('data-sway')) || 8;
+      var phase = parseFloat(el.getAttribute('data-phase')) || 0;
+      return { el: el, depth: depth, sway: sway, phase: phase, freq: 0.11 + (phase % 1) * 0.09 };
+    });
+    if (!floatRunning) { floatRunning = true; requestAnimationFrame(loop); }
+  }
+
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    energy = Math.min(energy + Math.abs(y - lastScrollY) * 0.025, 14);
+    lastScrollY = y;
+  }, { passive: true });
+
+  function loop(){
+    var now = performance.now();
+    var y = window.scrollY;
+    var t = now / 1000;
+    energy *= 0.96;
+    if (energy < 0.03) energy = 0;
+
+    for (var i = 0; i < floatState.length; i++) {
+      var s = floatState[i];
+      var bobY = Math.sin(t * s.freq + s.phase) * (s.sway * 0.55);
+      var bobX = Math.cos(t * s.freq * 0.7 + s.phase * 1.3) * (s.sway * 0.35);
+      var scrollX = Math.sin(y * 0.006 + s.phase) * energy;
+      var scrollY = Math.cos(y * 0.0045 + s.phase * 1.4) * (energy * 0.6);
+      var parallaxY = -y * s.depth;
+
+      var tx = bobX + scrollX;
+      var ty = parallaxY + bobY + scrollY;
+      s.el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0)';
+    }
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body></html>

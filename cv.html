@@ -25,10 +25,167 @@
     .btn-primary{position:relative;overflow:hidden;}
     .btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .4s cubic-bezier(.4,0,.2,1);}
     .btn-primary:hover::after{left:160%;}
+
+    .bg-decor{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+    .bg-decor-item{position:absolute;will-change:transform}
+    .bg-decor-item .fw{display:block;width:100%;height:100%;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
+    .bg-decor-item svg{display:block;width:100%;height:100%}
+    .bg-decor-item .ic-light{opacity:.15;filter:saturate(.4)}
+    .dark .bg-decor-item .ic-light{display:none}
+    .bg-decor-item .ic-dark{display:none;opacity:.15}
+    .dark .bg-decor-item .ic-dark{display:block}
+    .bg-decor-item .fw.fa{animation-name:floatA}
+    .bg-decor-item .fw.fb{animation-name:floatB}
+    .bg-decor-item .fw.fc{animation-name:floatC}
+    .bg-decor-item .fw.fd{animation-name:floatB;animation-direction:reverse}
+    .bg-decor-item .fw.fe{animation-name:floatA;animation-direction:reverse}
+    .bg-decor-item .fw.ff{animation-name:floatC;animation-direction:reverse}
+    @keyframes floatA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-24px) rotate(7deg)}}
+    @keyframes floatB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(20px) rotate(-7deg)}}
+    @keyframes floatC{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(12px,-18px) rotate(5deg)}}
+
     [x-cloak]{display:none!important;}
   </style>
 </head>
 <body class="bg-white dark:bg-mono-950 text-zinc-900 dark:text-mono-100 font-body antialiased">
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<symbol id="ic-robotA-d" viewBox="0 0 64 64"><line x1="32" y1="4" x2="32" y2="10"/>
+    <circle cx="32" cy="3" r="2" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10" width="32" height="22" rx="6"/>
+    <circle cx="25" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="21" r="3" fill="currentColor" stroke="none"/>
+    <path d="M25 27h14"/>
+    <rect x="12" y="34" width="40" height="24" rx="6"/>
+    <line x1="32" y1="34" x2="32" y2="58"/>
+    <line x1="4" y1="40" x2="12" y2="40"/>
+    <line x1="52" y1="40" x2="60" y2="40"/>
+    <line x1="22" y1="58" x2="22" y2="62"/>
+    <line x1="42" y1="58" x2="42" y2="62"/></symbol>
+<symbol id="ic-robotA-l" viewBox="0 0 64 64"><circle cx="32" cy="3" r="2" fill="#F92672"/>
+    <line x1="32" y1="4" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="16" y="10" width="32" height="22" rx="6" fill="#66D9EF"/>
+    <circle cx="25" cy="21" r="3" fill="#272822"/>
+    <circle cx="39" cy="21" r="3" fill="#272822"/>
+    <rect x="12" y="34" width="40" height="24" rx="6" fill="#FD971F"/>
+    <line x1="4" y1="40" x2="12" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="60" y2="40" stroke="#8B8770" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="58" x2="22" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="58" x2="42" y2="62" stroke="#57564A" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="ic-robotB-d" viewBox="0 0 64 64"><circle cx="32" cy="20" r="16"/>
+    <circle cx="25" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <circle cx="39" cy="18" r="3.2" fill="currentColor" stroke="none"/>
+    <path d="M25 26c3 3 11 3 14 0"/>
+    <circle cx="32" cy="4" r="2.4" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="6" x2="32" y2="10"/>
+    <rect x="14" y="38" width="36" height="20" rx="10"/>
+    <circle cx="8" cy="46" r="6"/>
+    <circle cx="56" cy="46" r="6"/></symbol>
+<symbol id="ic-robotB-l" viewBox="0 0 64 64"><circle cx="32" cy="20" r="16" fill="#A6E22E"/>
+    <circle cx="25" cy="18" r="3.2" fill="#272822"/>
+    <circle cx="39" cy="18" r="3.2" fill="#272822"/>
+    <path d="M25 26c3 3 11 3 14 0" stroke="#272822" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="4" r="2.4" fill="#E6DB74"/>
+    <line x1="32" y1="6" x2="32" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="14" y="38" width="36" height="20" rx="10" fill="#AE81FF"/>
+    <circle cx="8" cy="46" r="6" fill="#A6E22E"/>
+    <circle cx="56" cy="46" r="6" fill="#A6E22E"/></symbol>
+<symbol id="ic-droneA-d" viewBox="0 0 64 64"><rect x="24" y="26" width="16" height="12" rx="3"/>
+    <line x1="24" y1="28" x2="10" y2="14"/>
+    <line x1="40" y1="28" x2="54" y2="14"/>
+    <line x1="24" y1="36" x2="10" y2="50"/>
+    <line x1="40" y1="36" x2="54" y2="50"/>
+    <circle cx="10" cy="14" r="7"/>
+    <circle cx="54" cy="14" r="7"/>
+    <circle cx="10" cy="50" r="7"/>
+    <circle cx="54" cy="50" r="7"/></symbol>
+<symbol id="ic-droneA-l" viewBox="0 0 64 64"><rect x="24" y="26" width="16" height="12" rx="3" fill="#FD971F"/>
+    <line x1="24" y1="28" x2="10" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="28" x2="54" y2="14" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="36" x2="10" y2="50" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="36" x2="54" y2="50" stroke="#57564A" stroke-width="2"/>
+    <circle cx="10" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="14" r="7" fill="#66D9EF"/>
+    <circle cx="10" cy="50" r="7" fill="#66D9EF"/>
+    <circle cx="54" cy="50" r="7" fill="#66D9EF"/></symbol>
+<symbol id="ic-droneB-d" viewBox="0 0 64 64"><path d="M32 22l8 10-8 10-8-10z"/>
+    <line x1="24" y1="26" x2="12" y2="16"/>
+    <line x1="40" y1="26" x2="52" y2="16"/>
+    <line x1="24" y1="38" x2="12" y2="48"/>
+    <line x1="40" y1="38" x2="52" y2="48"/>
+    <circle cx="12" cy="16" r="6"/>
+    <circle cx="52" cy="16" r="6"/>
+    <circle cx="12" cy="48" r="6"/>
+    <circle cx="52" cy="48" r="6"/></symbol>
+<symbol id="ic-droneB-l" viewBox="0 0 64 64"><path d="M32 22l8 10-8 10-8-10z" fill="#F92672"/>
+    <line x1="24" y1="26" x2="12" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="26" x2="52" y2="16" stroke="#57564A" stroke-width="2"/>
+    <line x1="24" y1="38" x2="12" y2="48" stroke="#57564A" stroke-width="2"/>
+    <line x1="40" y1="38" x2="52" y2="48" stroke="#57564A" stroke-width="2"/>
+    <circle cx="12" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="16" r="6" fill="#A6E22E"/>
+    <circle cx="12" cy="48" r="6" fill="#A6E22E"/>
+    <circle cx="52" cy="48" r="6" fill="#A6E22E"/></symbol>
+<symbol id="ic-rocketA-d" viewBox="0 0 64 64"><path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z"/>
+    <circle cx="32" cy="26" r="5"/>
+    <path d="M22 34l-8 12 10-4"/>
+    <path d="M42 34l8 12-10-4"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12"/></symbol>
+<symbol id="ic-rocketA-l" viewBox="0 0 64 64"><path d="M32 4c8 8 10 20 10 30 0 6-2 10-10 14-8-4-10-8-10-14 0-10 2-22 10-30z" fill="#66D9EF"/>
+    <circle cx="32" cy="26" r="5" fill="#272822"/>
+    <path d="M22 34l-8 12 10-4z" fill="#FD971F"/>
+    <path d="M42 34l8 12-10-4z" fill="#FD971F"/>
+    <path d="M27 48c1 6 3 10 5 12 2-2 4-6 5-12z" fill="#F92672"/></symbol>
+<symbol id="ic-rocketB-d" viewBox="0 0 64 64"><path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z"/>
+    <circle cx="32" cy="24" r="4.5"/>
+    <path d="M24 30l-10 8 10-2"/>
+    <path d="M40 30l10 8-10-2"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11"/></symbol>
+<symbol id="ic-rocketB-l" viewBox="0 0 64 64"><path d="M32 6c6 6 8 16 8 24v10a8 8 0 01-16 0v-10c0-8 2-18 8-24z" fill="#AE81FF"/>
+    <circle cx="32" cy="24" r="4.5" fill="#272822"/>
+    <path d="M24 30l-10 8 10-2z" fill="#66D9EF"/>
+    <path d="M40 30l10 8-10-2z" fill="#66D9EF"/>
+    <path d="M28 40c0 5 2 9 4 11 2-2 4-6 4-11z" fill="#FD971F"/></symbol>
+<symbol id="ic-moon-d" viewBox="0 0 64 64"><path d="M40 8a24 24 0 100 48 20 20 0 010-48z"/></symbol>
+<symbol id="ic-moon-l" viewBox="0 0 64 64"><path d="M40 8a24 24 0 100 48 20 20 0 010-48z" fill="#E6DB74"/>
+    <circle cx="34" cy="24" r="2.4" fill="#C9A227" opacity=".55"/>
+    <circle cx="30" cy="36" r="1.8" fill="#C9A227" opacity=".55"/>
+    <circle cx="40" cy="42" r="2" fill="#C9A227" opacity=".55"/></symbol>
+<symbol id="ic-star-d" viewBox="0 0 64 64"><path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z"/></symbol>
+<symbol id="ic-star-l" viewBox="0 0 64 64"><path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5z" fill="#E6DB74"/></symbol>
+<symbol id="ic-robotArm-d" viewBox="0 0 64 64"><rect x="18" y="54" width="28" height="6" rx="2"/>
+    <line x1="32" y1="54" x2="32" y2="38"/>
+    <circle cx="32" cy="38" r="3.2" fill="currentColor" stroke="none"/>
+    <line x1="32" y1="38" x2="46" y2="24"/>
+    <circle cx="46" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="46" y1="24" x2="40" y2="12"/>
+    <path d="M34 8l6 4 6-4"/>
+    <path d="M34 12l6 4 6-4"/></symbol>
+<symbol id="ic-robotArm-l" viewBox="0 0 64 64"><rect x="18" y="54" width="28" height="6" rx="2" fill="#57564A"/>
+    <line x1="32" y1="54" x2="32" y2="38" stroke="#FD971F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="3.2" fill="#272822"/>
+    <line x1="32" y1="38" x2="46" y2="24" stroke="#66D9EF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="46" cy="24" r="3" fill="#272822"/>
+    <line x1="46" y1="24" x2="40" y2="12" stroke="#A6E22E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M34 8l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M34 12l6 4 6-4" stroke="#F92672" stroke-width="3" stroke-linecap="round" fill="none"/></symbol>
+<symbol id="ic-humanoid-d" viewBox="0 0 64 64"><circle cx="32" cy="12" r="8"/>
+    <line x1="27" y1="10" x2="24" y2="10"/>
+    <line x1="37" y1="10" x2="40" y2="10"/>
+    <rect x="20" y="22" width="24" height="22" rx="5"/>
+    <line x1="20" y1="28" x2="10" y2="40"/>
+    <line x1="44" y1="28" x2="54" y2="40"/>
+    <line x1="26" y1="44" x2="22" y2="58"/>
+    <line x1="38" y1="44" x2="42" y2="58"/></symbol>
+<symbol id="ic-humanoid-l" viewBox="0 0 64 64"><circle cx="32" cy="12" r="8" fill="#66D9EF"/>
+    <line x1="27" y1="10" x2="24" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <line x1="37" y1="10" x2="40" y2="10" stroke="#8B8770" stroke-width="2"/>
+    <rect x="20" y="22" width="24" height="22" rx="5" fill="#F92672"/>
+    <line x1="20" y1="28" x2="10" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="44" y1="28" x2="54" y2="40" stroke="#57564A" stroke-width="4" stroke-linecap="round"/>
+    <line x1="26" y1="44" x2="22" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/>
+    <line x1="38" y1="44" x2="42" y2="58" stroke="#AE81FF" stroke-width="5" stroke-linecap="round"/></symbol>
+</defs></svg>
+<script>var DECOR_VISIBLE_COUNT = 24;</script>
 
   <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="scrolled?'bg-white/90 dark:bg-mono-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
@@ -37,20 +194,11 @@
         <span class="text-zinc-900 dark:text-mono-100">Pritam</span><span class="text-accent">.</span>
       </a>
       <div class="hidden md:flex items-center gap-8">
-        <ul class="flex items-center gap-8 text-sm font-medium">
-          <li><a href="index.html#about" class="nl text-zinc-600 dark:text-mono-400 hover:text-zinc-900 dark:hover:text-white transition-colors">About</a></li>
-          <li><a href="index.html#education" class="nl text-zinc-600 dark:text-mono-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Education</a></li>
-          <li><a href="index.html#experience" class="nl text-zinc-600 dark:text-mono-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Experience</a></li>
-          <li><a href="index.html#skills" class="nl text-zinc-600 dark:text-mono-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Skills</a></li>
-          <li><a href="index.html#projects" class="nl text-zinc-600 dark:text-mono-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Projects</a></li>
-          <li><a href="index.html#contact" class="nl text-zinc-600 dark:text-mono-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a></li>
-        </ul>
         <div class="flex items-center gap-3">
           <button @click="dark=!dark;localStorage.setItem('theme',dark?'dark':'light')" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-mono-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" :aria-label="dark?'Light mode':'Dark mode'">
             <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
             <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
           </button>
-          <a href="assets/cv/CV_Pritam_Kalita.pdf" download class="inline-flex items-center gap-2 btn-primary bg-accent text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-accent-light transition-colors">Download PDF</a>
         </div>
       </div>
       <div class="flex items-center gap-3 md:hidden">
@@ -58,37 +206,21 @@
           <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
           <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
         </button>
-        <button @click="mobileMenu=!mobileMenu" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-mono-800" aria-label="Toggle menu">
-          <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg x-show="mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
       </div>
     </nav>
-    <div x-show="mobileMenu" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden bg-white dark:bg-mono-950 border-t border-zinc-100 dark:border-mono-900">
-      <ul class="flex flex-col px-6 py-4 gap-4 text-sm font-medium">
-        <li><a href="index.html#about" @click="mobileMenu=false" class="block text-zinc-700 dark:text-mono-300">About</a></li>
-        <li><a href="index.html#education" @click="mobileMenu=false" class="block text-zinc-700 dark:text-mono-300">Education</a></li>
-        <li><a href="index.html#experience" @click="mobileMenu=false" class="block text-zinc-700 dark:text-mono-300">Experience</a></li>
-        <li><a href="index.html#skills" @click="mobileMenu=false" class="block text-zinc-700 dark:text-mono-300">Skills</a></li>
-        <li><a href="index.html#projects" @click="mobileMenu=false" class="block text-zinc-700 dark:text-mono-300">Projects</a></li>
-        <li><a href="index.html#contact" @click="mobileMenu=false" class="block text-zinc-700 dark:text-mono-300">Contact</a></li>
-        <li class="pt-2 border-t border-zinc-100 dark:border-mono-900">
-          <a href="assets/cv/CV_Pritam_Kalita.pdf" download class="inline-flex btn-primary bg-accent text-white font-medium text-sm px-5 py-2.5 rounded-full">Download PDF</a>
-        </li>
-      </ul>
-    </div>
   </header>
 
   <main>
     <section class="pt-36 pb-12 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="bg-decor" data-decor-section="hero" aria-hidden="true" style="z-index:-1"></div>
       <div class="max-w-6xl mx-auto px-6 relative z-10">
         <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Curriculum Vitae</p>
         <h1 class="reveal font-display font-bold text-5xl md:text-6xl text-zinc-900 dark:text-mono-100 leading-tight mb-4">CV</h1>
         <p class="reveal text-lg text-zinc-500 dark:text-mono-400 max-w-2xl leading-relaxed mb-8">My CV is maintained in Overleaf and kept current — the embedded copy below always reflects the latest version. You can also open it directly or download a PDF.</p>
         <div class="reveal flex flex-wrap gap-4">
           <a href="https://www.overleaf.com/read/vgxfmchfrgrg#654e83" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 btn-primary bg-accent text-white font-medium px-6 py-3 rounded-full hover:bg-accent-light transition-colors text-sm">
-            Open latest CV on Overleaf
+            Open CV on Overleaf
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
           <a href="assets/cv/CV_Pritam_Kalita.pdf" download class="inline-flex items-center gap-2 border border-zinc-300 dark:border-mono-700 text-zinc-700 dark:text-mono-300 font-medium px-6 py-3 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm">
@@ -100,8 +232,9 @@
     </section>
 
     <!-- Embedded CV viewer -->
-    <section class="pb-24">
-      <div class="max-w-5xl mx-auto px-6">
+    <section class="pb-24 relative overflow-hidden">
+      <div class="bg-decor" data-decor-section="viewer" aria-hidden="true" style="z-index:-1"></div>
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
         <div class="reveal bg-zinc-50 dark:bg-mono-900 rounded-3xl border border-zinc-100 dark:border-mono-800 overflow-hidden">
           <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100 dark:border-mono-800">
             <p class="text-sm font-medium text-zinc-600 dark:text-mono-400">CV_Pritam_Kalita.pdf</p>
@@ -114,7 +247,6 @@
             </div>
           </object>
         </div>
-        <p class="text-xs text-zinc-400 mt-4 text-center">Note: the PDF above may lag slightly behind the <a href="https://www.overleaf.com/read/vgxfmchfrgrg#654e83" target="_blank" rel="noopener noreferrer" class="text-accent underline underline-offset-2">live Overleaf version</a> — use the Overleaf link for the most current copy.</p>
       </div>
     </section>
   </main>
@@ -130,7 +262,6 @@
       return {
         dark: false,
         scrolled: false,
-        mobileMenu: false,
         init() {
           this.dark = localStorage.getItem('theme') === 'dark'
             || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -145,6 +276,321 @@
         }
       }
     }
+  </script>
+
+  <!-- ═══ FLOATING DECOR: even jittered-grid layout + continuous "on water" bob ═══ -->
+  <script>
+  (function(){
+    var ICONS = ['robotA','robotB','droneA','droneB','rocketA','rocketB','moon','star','robotArm','humanoid'];
+    var DARK_COLORS = ['text-yellow-300','text-emerald-400','text-sky-400','text-accent','text-purple-400','text-pink-400'];
+    var FLOAT_CLASSES = ['fa','fb','fc','fd','fe','ff'];
+
+    function rand(min, max){ return min + Math.random() * (max - min); }
+    function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function buildIconEl(){
+      var icon = pick(ICONS);
+      var color = pick(DARK_COLORS);
+      var size = Math.round(rand(40, 130));
+      var depth = rand(0.015, 0.075).toFixed(3);
+      var sway = rand(4, 18).toFixed(1);
+      var phase = rand(0, 6.4).toFixed(2);
+      var floatClass = pick(FLOAT_CLASSES);
+      var duration = rand(16, 26).toFixed(1);
+      var delay = -rand(0, 20).toFixed(1);
+
+      var item = document.createElement('div');
+      item.className = 'bg-decor-item';
+      item.setAttribute('data-depth', depth);
+      item.setAttribute('data-sway', sway);
+      item.setAttribute('data-phase', phase);
+      item.style.width = size + 'px';
+      item.style.height = size + 'px';
+
+      var fw = document.createElement('div');
+      fw.className = 'fw ' + floatClass;
+      fw.style.animationDuration = duration + 's';
+      fw.style.animationDelay = delay + 's';
+
+      var lightSvg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      lightSvg.setAttribute('class','ic-light');
+      lightSvg.setAttribute('viewBox','0 0 64 64');
+      lightSvg.setAttribute('fill','none');
+      var lightUse = document.createElementNS('http://www.w3.org/2000/svg','use');
+      lightUse.setAttribute('href', '#ic-' + icon + '-l');
+      lightSvg.appendChild(lightUse);
+
+      var darkSvg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      darkSvg.setAttribute('class','ic-dark ' + color);
+      darkSvg.setAttribute('viewBox','0 0 64 64');
+      darkSvg.setAttribute('fill','none');
+      darkSvg.setAttribute('stroke','currentColor');
+      darkSvg.setAttribute('stroke-width','2.5');
+      darkSvg.setAttribute('stroke-linecap','round');
+      darkSvg.setAttribute('stroke-linejoin','round');
+      var darkUse = document.createElementNS('http://www.w3.org/2000/svg','use');
+      darkUse.setAttribute('href', '#ic-' + icon + '-d');
+      darkSvg.appendChild(darkUse);
+
+      fw.appendChild(lightSvg);
+      fw.appendChild(darkSvg);
+      item.appendChild(fw);
+      return item;
+    }
+
+    // Places `count` icons across the parts of a section that are actually
+    // VISIBLE, so the decoration reads as evenly spread on screen. Three things
+    // matter, and each fixes a specific way the naive version looked wrong:
+    //
+    //  1. Opaque content (cards, panels, the timeline) is measured up front and
+    //     treated as a no-go zone. Spreading icons evenly across the raw section
+    //     box puts most of them behind a card where they are invisible, which is
+    //     what made sections look "all icons crammed on one side".
+    //  2. Candidates are drawn with best-candidate sampling against the free
+    //     space: each icon tries several random spots and keeps the one furthest
+    //     from its nearest neighbour. That yields an even, Poisson-disc-like
+    //     scatter without leaving the ragged holes a fixed grid produces when the
+    //     free area is an irregular ring around a card.
+    //  3. Collision uses an INFLATED radius covering how far the CSS float
+    //     keyframes plus the JS bob/sway can carry an icon at runtime. Two icons
+    //     parked 1px apart would collide the moment they start drifting, so the
+    //     motion envelope is reserved up front.
+    var MIN_GAP = 10;       // clearance between two icons' motion envelopes, px
+    var MOTION_BUDGET = 34; // max px the float keyframes + bob/sway displace an icon
+    var CANDIDATES = 14;    // random spots tried per icon; highest spacing wins
+
+    // Elements that paint an OPAQUE background over the decor layer. Icons are
+    // kept out of these so every icon that exists is an icon you can see. Only
+    // genuinely solid blocks belong here - matching too broadly (every rounded
+    // corner, every image) leaves so little free space that icons get dropped
+    // and whatever space remains is lopsided, which looks worse than the
+    // occlusion it was meant to fix. An element only counts as a blocker if it
+    // actually has a non-transparent background painted on it.
+    var BLOCKER_SELECTOR = [
+      '.card-h', '.skill-tile', '.subject-card', '.chapter-row',
+      '.photo-frame', '.pf', 'video'
+    ].join(',');
+
+    function isOpaque(node){
+      var bg = getComputedStyle(node).backgroundColor;
+      if (!bg || bg === 'transparent') return false;
+      var m = bg.match(/^rgba?\(([^)]+)\)/);
+      if (!m) return true;
+      var parts = m[1].split(',');
+      return parts.length < 4 || parseFloat(parts[3]) > 0.6;
+    }
+
+    function collectBlockers(container, pw, ph){
+      // The decor layer sits behind its section; look at the section for content.
+      var host = container.parentElement;
+      if (!host) return [];
+      var base = container.getBoundingClientRect();
+      var out = [];
+      var nodes = host.querySelectorAll(BLOCKER_SELECTOR);
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (container.contains(n)) continue; // our own icons
+        var r = n.getBoundingClientRect();
+        if (r.width < 60 || r.height < 60) continue; // ignore chips/badges
+        if (!isOpaque(n)) continue;
+        var box = {
+          x1: r.left - base.left, y1: r.top - base.top,
+          x2: r.right - base.left, y2: r.bottom - base.top
+        };
+        if (box.x2 <= 0 || box.y2 <= 0 || box.x1 >= pw || box.y1 >= ph) continue;
+        out.push(box);
+      }
+      // If content covers most of the section there is no useful free space left;
+      // fall back to ignoring blockers so the requested icon count still appears
+      // rather than silently thinning out to a handful.
+      var covered = 0;
+      for (var b = 0; b < out.length; b++) {
+        covered += (out[b].x2 - out[b].x1) * (out[b].y2 - out[b].y1);
+      }
+      if (covered > pw * ph * 0.55) return [];
+      return out;
+    }
+
+    function layoutContainer(container, count){
+      container.innerHTML = '';
+      if (count <= 0) return;
+      var pw = container.clientWidth, ph = container.clientHeight;
+      if (pw <= 0 || ph <= 0) return;
+
+      var blockers = collectBlockers(container, pw, ph);
+      function blocked(cx, cy, r){
+        for (var b = 0; b < blockers.length; b++) {
+          var k = blockers[b];
+          // treat the icon's motion envelope as a box for this test
+          if (cx + r > k.x1 && cx - r < k.x2 && cy + r > k.y1 && cy - r < k.y2) return true;
+        }
+        return false;
+      }
+
+      var placed = []; // {cx, cy, r} using inflated radii
+      function nearestGap(cx, cy, r){
+        // distance to the closest neighbour's envelope; negative means overlap
+        var best = Infinity;
+        for (var p = 0; p < placed.length; p++) {
+          var dx = cx - placed[p].cx, dy = cy - placed[p].cy;
+          var d = Math.sqrt(dx * dx + dy * dy) - (r + placed[p].r);
+          if (d < best) best = d;
+        }
+        return best;
+      }
+
+      var frag = document.createDocumentFragment();
+      for (var k = 0; k < count; k++) {
+        var el = buildIconEl();
+        var size = parseFloat(el.style.width);
+        var radius = size / 2;
+        var envelope = radius + MOTION_BUDGET;
+
+        // best-candidate sampling: try a handful of free spots, keep the one with
+        // the most room around it. This is what makes the scatter look even.
+        var bestX = null, bestY = null, bestScore = -Infinity;
+        for (var t = 0; t < CANDIDATES; t++) {
+          var cx = rand(envelope, Math.max(envelope, pw - envelope));
+          var cy = rand(envelope, Math.max(envelope, ph - envelope));
+          if (blocked(cx, cy, envelope)) continue;
+          var score = nearestGap(cx, cy, envelope);
+          if (score > bestScore) { bestScore = score; bestX = cx; bestY = cy; }
+        }
+
+        if (bestX === null) {
+          // everywhere sampled was behind content - retry ignoring blockers so the
+          // icon still lands somewhere legal rather than being dropped
+          for (var t2 = 0; t2 < CANDIDATES * 2; t2++) {
+            var rx = rand(envelope, Math.max(envelope, pw - envelope));
+            var ry = rand(envelope, Math.max(envelope, ph - envelope));
+            var s2 = nearestGap(rx, ry, envelope);
+            if (s2 > bestScore) { bestScore = s2; bestX = rx; bestY = ry; }
+          }
+        }
+
+        // shrink until this icon's envelope clears every neighbour: icons must
+        // never overlap, even where free space is tight
+        while (bestScore < MIN_GAP && radius > 9) {
+          radius *= 0.85;
+          envelope = radius + MOTION_BUDGET;
+          bestScore = nearestGap(bestX, bestY, envelope);
+        }
+        if (bestScore < MIN_GAP) {
+          // No room at the chosen spot even shrunk. Take one more sweep of the
+          // whole container at the small size before giving up, so a crowded
+          // section still shows the number of icons that was asked for.
+          radius = 9; envelope = radius + MOTION_BUDGET;
+          for (var t3 = 0; t3 < CANDIDATES * 3; t3++) {
+            var qx = rand(envelope, Math.max(envelope, pw - envelope));
+            var qy = rand(envelope, Math.max(envelope, ph - envelope));
+            var s3 = nearestGap(qx, qy, envelope);
+            if (s3 > bestScore) { bestScore = s3; bestX = qx; bestY = qy; }
+          }
+          if (bestScore < MIN_GAP) continue; // truly full - skip rather than overlap
+        }
+
+        size = Math.round(radius * 2);
+        radius = size / 2;
+        envelope = radius + MOTION_BUDGET;
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+
+        placed.push({ cx: bestX, cy: bestY, r: envelope });
+        var left = Math.max(0, Math.min(pw - size, bestX - radius));
+        var top = Math.max(0, Math.min(ph - size, bestY - radius));
+        el.style.left = left.toFixed(2) + 'px';
+        el.style.top = top.toFixed(2) + 'px';
+        frag.appendChild(el);
+      }
+      container.appendChild(frag);
+    }
+
+    var containers = Array.prototype.slice.call(document.querySelectorAll('[data-decor-section]'));
+    if (!containers.length) return;
+
+    function regenerate(){
+      var total = Math.max(0, (window.DECOR_VISIBLE_COUNT | 0) || 0);
+      if (!total) { containers.forEach(function(c){ c.innerHTML = ''; }); return; }
+
+      // split the total proportionally by each container's own visible area, so a
+      // small hero gets fewer icons than a taller section, but every container's
+      // own share is spread evenly across its own footprint
+      var areas = containers.map(function(c){ return Math.max(c.clientWidth * c.clientHeight, 1); });
+      var totalArea = areas.reduce(function(a,b){ return a+b; }, 0);
+      var counts = areas.map(function(a){ return Math.max(1, Math.round(total * a / totalArea)); });
+
+      // rounding can drift the sum away from `total` - correct by trimming/padding
+      // the largest container's share
+      var sum = counts.reduce(function(a,b){ return a+b; }, 0);
+      var biggest = areas.indexOf(Math.max.apply(null, areas));
+      counts[biggest] += (total - sum);
+      if (counts[biggest] < 0) counts[biggest] = 0;
+
+      containers.forEach(function(c, idx){ layoutContainer(c, counts[idx]); });
+      startFloat();
+    }
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(regenerate, 200);
+    });
+
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(regenerate, 150);
+      });
+      containers.forEach(function(c){ ro.observe(c); });
+    }
+
+    regenerate();
+
+    // ── continuous "on water" bob + gentle scroll parallax ──
+    var floatState = [];
+    var floatRunning = false;
+    var lastScrollY = window.scrollY;
+    var energy = 0;
+
+    function startFloat(){
+      var items = Array.prototype.slice.call(document.querySelectorAll('.bg-decor-item[data-depth]'));
+      floatState = items.map(function(el){
+        var depth = parseFloat(el.getAttribute('data-depth')) || 0.03;
+        var sway = parseFloat(el.getAttribute('data-sway')) || 8;
+        var phase = parseFloat(el.getAttribute('data-phase')) || 0;
+        return { el: el, depth: depth, sway: sway, phase: phase, freq: 0.11 + (phase % 1) * 0.09 };
+      });
+      if (!floatRunning) { floatRunning = true; requestAnimationFrame(loop); }
+    }
+
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      energy = Math.min(energy + Math.abs(y - lastScrollY) * 0.025, 14);
+      lastScrollY = y;
+    }, { passive: true });
+
+    function loop(){
+      var now = performance.now();
+      var y = window.scrollY;
+      var t = now / 1000;
+      energy *= 0.96;
+      if (energy < 0.03) energy = 0;
+
+      for (var i = 0; i < floatState.length; i++) {
+        var s = floatState[i];
+        var bobY = Math.sin(t * s.freq + s.phase) * (s.sway * 0.55);
+        var bobX = Math.cos(t * s.freq * 0.7 + s.phase * 1.3) * (s.sway * 0.35);
+        var scrollX = Math.sin(y * 0.006 + s.phase) * energy;
+        var scrollY = Math.cos(y * 0.0045 + s.phase * 1.4) * (energy * 0.6);
+        var parallaxY = -y * s.depth;
+
+        var tx = bobX + scrollX;
+        var ty = parallaxY + bobY + scrollY;
+        s.el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0)';
+      }
+      requestAnimationFrame(loop);
+    }
+  })();
   </script>
 </body>
 </html>
