@@ -497,8 +497,8 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
           </div>
           <ul class="list-disc list-outside ml-4 text-sm text-zinc-500 dark:text-mono-400 leading-relaxed space-y-1.5 mt-4">
             <li>Built and integrated a University of Michigan Open Source Leg v2 robotic lower-limb platform 
-              from individual components, and am currently developing a real-time gait trajectory controller for 
-              its knee and ankle actuators. </li>
+              from individual components.</li>
+            <li>Currently developing a time-based gait trajectory controller for its knee and ankle actuators.</li>
           </ul>
         </article>
       </div>
@@ -702,19 +702,19 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
 
         <div class="reveal d2 px-8 md:px-12" x-data="{ tab: 'traj15' }">
           <div class="flex flex-wrap gap-2 mb-4">
-            <button @click="tab='traj15'" :class="tab==='traj15' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Trajectory · 1.5 m/s</button>
-            <button @click="tab='ct15'" :class="tab==='ct15' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Cross-Track Error · 1.5 m/s</button>
+            <button @click="tab='env'" :class="tab==='env' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Working Environment</button>
+            <button @click="tab='ct15'" :class="tab==='ct15' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Trajectory · 1.5 m/s</button>
+            <button @click="tab='traj15'" :class="tab==='traj15' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Cross-Track Error · 1.5 m/s</button>
             <button @click="tab='traj05'" :class="tab==='traj05' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Trajectory · 0.5 m/s</button>
             <button @click="tab='ct05'" :class="tab==='ct05' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Cross-Track Error · 0.5 m/s</button>
-            <button @click="tab='env'" :class="tab==='env' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">Working Environment</button>
           </div>
 
           <div class="photo-frame w-full h-72 md:h-[440px] rounded-2xl border border-zinc-100 dark:border-mono-800">
+            <img x-show="tab==='env'" x-cloak src="assets/img/thesis_environment.png" alt="Working environment map of the grid-based robot" loading="lazy">
             <img x-show="tab==='traj15'" x-cloak src="assets/img/thesis_trajectory_15ms.png" alt="Mean trajectory overlay for RPP vs SNMPC-RPP at 1.5 m/s" loading="lazy">
             <img x-show="tab==='ct15'" x-cloak src="assets/img/thesis_crosstrack_15ms.png" alt="Cross-track error comparison at 1.5 m/s" loading="lazy">
             <img x-show="tab==='traj05'" x-cloak src="assets/img/thesis_trajectory_05ms.png" alt="Mean trajectory overlay for RPP vs SNMPC-RPP at 0.5 m/s" loading="lazy">
             <img x-show="tab==='ct05'" x-cloak src="assets/img/thesis_crosstrack_05ms.png" alt="Cross-track error comparison at 0.5 m/s" loading="lazy">
-            <img x-show="tab==='env'" x-cloak src="assets/img/thesis_environment.png" alt="Working environment map of the grid-based robot" loading="lazy">
           </div>
           <p class="img-caption" x-show="tab==='traj15'" x-cloak>Mean trajectory overlays for RPP (blue) and SNMPC-RPP (red) against the reference path at v = 1.5 m/s — the speed at which uncertainty-aware control matters most.</p>
           <p class="img-caption" x-show="tab==='ct15'" x-cloak>Cross-track error along the path at 1.5 m/s: SNMPC-RPP (red) cuts peak error roughly in half versus baseline RPP (blue) at each turn.</p>
