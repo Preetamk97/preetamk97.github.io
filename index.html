@@ -738,20 +738,16 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
         <div class="reveal d3 px-8 md:px-12 mt-8">
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-zinc-50 dark:bg-mono-800/60 rounded-2xl p-5 border-l-2 border-accent">
-              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">&minus;40%+</p>
-              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">Cross-track MAE vs. baseline RPP at 1.5 m/s</p>
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">40%&plus; Reduction in MAE</p>
+              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">SNMPC-RPP vs. Baseline RPP at 1.5 m/s</p>
             </div>
             <div class="bg-zinc-50 dark:bg-mono-800/60 rounded-2xl p-5 border-l-2 border-accent">
-              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">&minus;50%+</p>
-              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">RMSE reduction vs. baseline RPP at 1.5 m/s</p>
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">50%&plus; Reduction in RMSE</p>
+              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">SNMPC-RPP vs. Baseline RPP at 1.5 m/s</p>
             </div>
             <div class="bg-zinc-50 dark:bg-mono-800/60 rounded-2xl p-5 border-l-2 border-accent">
-              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">5 Hz</p>
-              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">Real-time optimization cycle (COBYLA solver)</p>
-            </div>
-            <div class="bg-zinc-50 dark:bg-mono-800/60 rounded-2xl p-5 border-l-2 border-accent">
-              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">3</p>
-              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">Operating speeds validated in ROS 2 / Gazebo</p>
+              <p class="font-display font-bold text-2xl text-zinc-900 dark:text-mono-100">Validated Across :</p>
+              <p class="text-xs text-zinc-500 dark:text-mono-400 mt-1 leading-snug">3 operating speeds - 5 runs/trials each - ROS 2 + Gazebo</p>
             </div>
           </div>
         </div>
@@ -762,7 +758,7 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
               <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-mono-100 mb-3">About the project</h4>
               <div class="text-sm text-zinc-500 dark:text-mono-400 leading-relaxed space-y-4">
                 <p>The Regulated Pure Pursuit (RPP) controller — a widely used trajectory-tracking algorithm in ROS 2's Nav2 stack — selects its lookahead distance using a simple velocity-based heuristic. This assumes the robot's pose is known perfectly, which breaks down as localization uncertainty (from noisy odometry, IMU drift, and sparse position corrections) grows over time.</p>
-                <p>I designed an SNMPC-RPP controller that replaces only the lookahead-selection module of RPP, leaving the rest of its architecture (velocity regulation, collision checking) untouched. At each 5 Hz control cycle, it predicts lateral and heading tracking error forward in time, propagates the robot's pose-error covariance through that prediction, and solves a constrained optimization (cost function + chance constraints + box constraints on lookahead) using the derivative-free COBYLA method to choose the optimal lookahead distance.</p>
+                <p>I designed an SNMPC-RPP controller that replaces only the lookahead-selection module of RPP, leaving the rest of its architecture (velocity regulation, collision checking) untouched. At each 5 Hz control cycle, it predicts lateral and heading tracking error forward in time (3 time steps in future), propagates the robot's pose-error covariance through that prediction, and solves a constrained optimization (cost function + chance constraints + box constraints on lookahead) using the derivative-free COBYLA method to choose the optimal lookahead distance.</p>
                 <p>Validated in ROS 2 / Gazebo across three operating speeds (0.5, 1.0, and 1.5 m/s) on a rectangular reference circuit, the controller showed its biggest advantage exactly where it matters most: at higher speed, where uncertainty accumulates fastest, SNMPC-RPP reduced cross-track MAE by over 40% and RMSE by over 50% relative to baseline RPP, while keeping the rest of the robot's motion just as smooth.</p>
               </div>
             </div>
@@ -775,14 +771,20 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
                 <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-700 dark:text-mono-300 px-3 py-1.5 rounded-full">Python</span>
                 <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-700 dark:text-mono-300 px-3 py-1.5 rounded-full">C++</span>
                 <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-700 dark:text-mono-300 px-3 py-1.5 rounded-full">Stochastic MPC</span>
-                <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-700 dark:text-mono-300 px-3 py-1.5 rounded-full">COBYLA optimization</span>
+                <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-700 dark:text-mono-300 px-3 py-1.5 rounded-full">COBYLA Optimization Solver</span>
               </div>
               <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-mono-100 mb-2">Advisor</h4>
-              <p class="text-sm text-zinc-500 dark:text-mono-400">Dr. Abhinav Sharma, UPES Dehradun</p>
+              <p class="text-sm text-zinc-500 dark:text-mono-400"><a href="https://www.upes.ac.in/faculty/school-of-advanced-engineering/electrical/dr-abhinav-sharma"
+              target="_blank" rel="noopener noreferrer" class="text-accent underline
+              underline-offset-2 hover:text-accent-light transition-colors">Dr. Abhinav Sharma</a></p>
+            </div>
+            <div>
+            <p class="text-sm text-zinc-500 dark:text-mono-400"><a href="https://drive.google.com/drive/folders/1iVRaagZgDO7ht9CRUEqYREbrxD5e7X1V?usp=sharing"
+              target="_blank" rel="noopener noreferrer" class="text-accent underline
+              underline-offset-2 hover:text-accent-light transition-colors">Find Project Files Here</a></p>
             </div>
           </div>
         </div>
-
       </article>
     </div>
 
@@ -792,38 +794,46 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
 
         <div class="p-8 md:p-12 pb-0">
           <div class="flex flex-wrap items-center gap-3 mb-5">
-            <span class="text-xs bg-orange-50 dark:bg-mono-800 text-accent border border-orange-200 dark:border-mono-700 px-2.5 py-1 rounded-full">3rd-Semester Major Project</span>
             <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400 px-2.5 py-1 rounded-full">Optimal Control</span>
             <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400 px-2.5 py-1 rounded-full">MATLAB / Simulink</span>
             <span class="text-xs text-zinc-400 ml-1">Aug – Nov 2025</span>
           </div>
           <h3 class="reveal font-display font-bold text-3xl md:text-4xl text-zinc-900 dark:text-mono-100 leading-tight mb-4">Optimal Control of a Two-Wheeled Self-Balancing Robot Using LQR and Multi-Objective Genetic Algorithm</h3>
           <p class="reveal d1 text-zinc-500 dark:text-mono-400 leading-relaxed max-w-3xl mb-6">
-            A linearized state-space model of an inverted-pendulum-style balancing robot, controlled with PID and LQR, and then automatically tuned with a multi-objective genetic algorithm to balance position tracking against tilt stability.
+            Derived a linearized state-space model for an inverted-pendulum-style two-wheeled self-balancing robot, first controlled with PID then LQR, and then optimally tuned the Q & R gains with a multi-objective genetic algorithm to perform position tracking simultaneously while maintaining tilt stability.
           </p>
         </div>
 
         <div class="reveal d2 px-8 md:px-12" x-data="{ tab: 'lqr' }">
           <div class="flex flex-wrap gap-2 mb-4">
-            <button @click="tab='lqr'" :class="tab==='lqr' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">GA-Optimized LQR (video)</button>
-            <button @click="tab='pid'" :class="tab==='pid' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">PID Controller (video)</button>
-            <button @click="tab='pareto'" :class="tab==='pareto' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">GA Pareto Front</button>
+            <button @click="tab='lqr_ga'" :class="tab==='lqr_ga' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">GA-Optimized LQR</button>
+            <button @click="tab='lqr_ga_results'" :class="tab==='lqr_ga_results' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">GA-Optimized LQR Results</button>
+            <button @click="tab='lqr'" :class="tab==='lqr' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">LQR (Manually Tuned)</button>
+            <button @click="tab='lqr_results'" :class="tab==='lqr_results' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">LQR Results</button>
+            <button @click="tab='pid'" :class="tab==='pid' ? 'bg-accent text-white' : 'bg-zinc-100 dark:bg-mono-800 text-zinc-600 dark:text-mono-400'" class="media-tab text-xs font-medium px-3.5 py-1.5 rounded-full">PID Controller</button>
           </div>
 
           <div class="photo-frame w-full h-72 md:h-[440px] rounded-2xl border border-zinc-100 dark:border-mono-800 flex items-center justify-center">
+            <video x-show="tab==='lqr_ga'" x-cloak class="proj-video" controls loop muted playsinline preload="metadata">
+              <source src="assets/video/segway_lqr_ga.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <img x-show="tab==='lqr_ga_results'" x-cloak src="assets/img/LQR_ga_tuned.png" alt="Position and chassis tilt angle response of the GA-optimized LQR controlled Segway robot" loading="lazy">
             <video x-show="tab==='lqr'" x-cloak class="proj-video" controls loop muted playsinline preload="metadata">
-              <source src="assets/video/segway_lqr_force.mp4" type="video/mp4">
+              <source src="assets/video/segway_lqr.mp4" type="video/mp4">
               Your browser does not support embedded video.
             </video>
+            <img x-show="tab==='lqr_results'" x-cloak src="assets/img/LQR_manual_results.png" alt="Position and chassis tilt angle response of the manually tuned LQR controlled Segway robot" loading="lazy">
             <video x-show="tab==='pid'" x-cloak class="proj-video" controls loop muted playsinline preload="metadata">
-              <source src="assets/video/segway_pid_torque.mp4" type="video/mp4">
+              <source src="assets/video/segway_pid.mp4" type="video/mp4">
               Your browser does not support embedded video.
             </video>
-            <img x-show="tab==='pareto'" x-cloak src="assets/img/segway_ga_pareto.png" alt="Pareto front of GA-optimized LQR weighting matrices" loading="lazy">
           </div>
-          <p class="img-caption" x-show="tab==='lqr'" x-cloak>Simscape Multibody simulation of the robot balancing under an LQR controller with GA-optimized Q/R weighting matrices.</p>
+          <p class="img-caption" x-show="tab==='lqr_ga'" x-cloak>Simscape Multibody simulation of the robot balancing under an LQR controller with GA-optimized Q/R weighting matrices.</p>
+          <p class="img-caption" x-show="tab==='lqr'" x-cloak>Simscape Multibody simulation of the robot balancing under an LQR controller  with manually tuned Q and R matrices.</p>
+          <p class="img-caption" x-show="tab==='lqr_ga_results'" x-cloak>Position and chassis tilt angle response of the GA-optimized LQR controller, showing faster convergence and improved tilt stability.</p>
+          <p class="img-caption" x-show="tab==='lqr_results'" x-cloak>Position and chassis tilt angle response of the manually tuned LQR controller, for comparison against the GA-optimized results.</p>
           <p class="img-caption" x-show="tab==='pid'" x-cloak>The same robot balancing under a manually tuned PID controller, for comparison against the LQR/GA approach.</p>
-          <p class="img-caption" x-show="tab==='pareto'" x-cloak>Pareto-optimal trade-off found by the multi-objective GA between position-tracking cost (Objective 1) and chassis-tilt stability cost (Objective 2).</p>
         </div>
 
         <div class="p-8 md:p-12 pt-10">
@@ -831,7 +841,7 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
             <div class="md:col-span-2">
               <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-mono-100 mb-3">About the project</h4>
               <div class="text-sm text-zinc-500 dark:text-mono-400 leading-relaxed space-y-4">
-                <p>This project tackles the classic inverted-pendulum balancing problem: keeping a two-wheeled robot upright while also controlling its position. I derived a linearized state-space model of the robot's position and chassis-tilt dynamics, then built and simulated it in MATLAB/Simulink with Simscape Multibody for realistic rigid-body physics.</p>
+                <p>This project implements the classic inverted-pendulum balancing problem: keeping a two-wheeled robot upright while also controlling its position. I derived a linearized state-space model of the robot's position and chassis-tilt dynamics, then built and simulated it in MATLAB/Simulink with Simscape Multibody for realistic rigid-body physics.</p>
                 <p>I implemented both a PID controller and a Linear-Quadratic Regulator (LQR) for the balancing task, then went a step further: rather than hand-tuning the LQR's Q and R weighting matrices, I implemented a Multi-Objective Genetic Algorithm (MOGA) that searches for Pareto-optimal weightings by simultaneously minimizing the Integral Time Absolute Error (ITAE) for position and for chassis-tilt angle — two objectives that typically trade off against each other.</p>
                 <p>Comparing the GA-optimized LQR against manually tuned LQR and PID controllers in simulation, the GA-optimized controller reached faster position convergence while maintaining better chassis-tilt stability than either manual baseline — demonstrating that automated multi-objective tuning can outperform hand-tuning even on a well-understood classical control problem.</p>
               </div>
@@ -848,11 +858,15 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
                 <span class="text-xs bg-zinc-100 dark:bg-mono-800 text-zinc-700 dark:text-mono-300 px-3 py-1.5 rounded-full">State-Space Modeling</span>
               </div>
               <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-mono-100 mb-2">Advisor</h4>
-              <p class="text-sm text-zinc-500 dark:text-mono-400">Dr. Rahul Singhal, UPES Dehradun</p>
+              <p class="text-sm text-zinc-500 dark:text-mono-400">Dr. Rahul Singhal</p>
+            </div>
+            <div>
+            <p class="text-sm text-zinc-500 dark:text-mono-400"><a href=https://github.com/Preetamk97/Balance-Control-of-Segway-Robot-Using-Classical-And-Mordern-Control-Techniques
+              target="_blank" rel="noopener noreferrer" class="text-accent underline
+              underline-offset-2 hover:text-accent-light transition-colors">Find Project Files Here</a></p>
             </div>
           </div>
         </div>
-
       </article>
     </div>
 
