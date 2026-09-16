@@ -33,7 +33,7 @@ Personal study notes on learning ROS 2 (Humble) with C++ and Python, built from 
 29. [Chapter 29 — ROS2 Actions (Python)](29_ROS2_Actions_Python.md)
 30. [Chapter 30 — ROS2 Bag Files](30_ROS2_Bag_Files.md)
 31. [Chapter 31 — ROS2 Actions (C++)](31_ROS2_Actions_Cpp.md)
-32. [Chapter 32 — Project 4 — TurtleBot3 Navigation with a Custom A\* Planner & Diagnostic System](32_Project_TurtleBot3_Navigation_with_Custom_A_Star_Planner_and_Diagnostic_System.md)
+32. [Chapter 32 — Project 4 — TurtleBot3 Navigation with a Custom A\* Planner](32_Project_TurtleBot3_Navigation_with_Custom_A_Star_Planner_and_Diagnostic_System.md)
 33. [Chapter 33 — Understanding ROS2 Diagnostics](33_Understanding_ROS2_Diagnostics.md)
 34. [Chapter 34 — Using ROS2 Diagnostics](34_Using_ROS2_Diagnostics.md)
 35. [Chapter 35 — ROS2 Diagnostics — A Complete Use Example](35_ROS2_Diagnostics_Use_Example.md)

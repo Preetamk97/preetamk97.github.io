@@ -137,18 +137,18 @@ Click **Next**.
 ## 7.2 Select Your City/Time Zone/Keyboard Layout
 
 ```
-City: New Delhi
+City: Washington D.C
 ```
 
 ```
-Time Zone: Asia/Kolkata  (By Default)
+Time Zone: Asia/Kolkata
 ```
 
 ```
-Keyboard Layout: in (By Default)
+Keyboard Layout: us
 ```
 
-> 💡 **Note**: By default, the keyboard layout will be set to "IN". Change it to English US or English UK to match your computer's or laptop's keyboard layout.
+> 💡 **Note**: When you choose the city as `"Washington D.C"`, the keyboard layout will automatically set to `"us"`. Then manually set the Time Zone to `"Asia/Kolkata"` to keep the RPi's time consistent with Indian Time Zone. 
 
 
 Click **Next**.
@@ -491,6 +491,11 @@ pi@raspberrypi:~ $
 Congratulations! You are now connected to your Raspberry Pi through SSH.
 
 > 💡 Note: In case, you want to break out and exit of the Raspberry Pi SSH connection just type `exit` and press enter in your terminal that is currently connected to the RPi. 
+
+> 💡 Note: Upon tyring to connect to your RPi for the first time, you may see a ugly message like this: <br><br>
+> ![alt text](ImageFiles\image4.png)
+><br><br>
+> **Fix:** Run this command - `ssh-keygen -R <the-ip-of-your-rpi>`
 
 ---
 
