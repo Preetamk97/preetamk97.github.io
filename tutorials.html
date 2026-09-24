@@ -370,9 +370,9 @@ video.proj-video{width:100%;height:100%;object-fit:contain;background:#000;displ
       </template>
     </div>
 
-    <div x-show="subject" x-cloak
+    <div x-show="subject" x-cloak id="subject-panel-anchor"
       x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0"
-      class="mt-10 md:mt-12">
+      class="mt-10 md:mt-12 scroll-mt-24">
 
       <div class="flex flex-wrap items-center gap-2 text-sm text-zinc-500 dark:text-mono-400 mb-6">
         <button type="button" @click="closeChapter()" class="crumb font-medium hover:text-accent transition-colors" x-text="currentSubject ? currentSubject.name : ''"></button>
@@ -492,7 +492,7 @@ function app() {
           { file: "11_MIT_Force_Control_Mode.md", title: "Chapter 11 — MIT (Force) Control Mode" },
           { file: "12_Choosing_the_Right_Control_Mode.md", title: "Chapter 12 — Choosing the Right Control Mode" },
           { file: "13_Controlling_the_AK80-9_from_a_Raspberry_Pi_5.md", title: "Chapter 13 — Controlling the AK80-9 from a Raspberry Pi 5" },
-          { file: "14_Different_Control_Modes_Using_Python___EpicallyPowerFullAPI.md", title: "Chapter 14 — Every Control Mode from Python" },
+          { file: "14_Different_Control_Modes_Using_Python_EpicallyPowerFullAPI.md", title: "Chapter 14 — Every Control Mode from Python" },
           { file: "15_Capstone_Project.md", title: "Chapter 15 — Capstone Project" }
         ]
       },
@@ -609,7 +609,11 @@ function app() {
       this.chapterHtml = '';
       this.error = '';
       this.updateHash();
-      this.$nextTick(() => this.refreshReveals());
+      this.$nextTick(() => {
+        this.refreshReveals();
+        const anchor = document.getElementById('subject-panel-anchor');
+        if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     },
 
     closeChapter() {
